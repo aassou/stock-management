@@ -20,7 +20,7 @@
     //This var contains result message of CRUD action
     $actionMessage = "";
     $typeMessage = "";
-
+    $redirectLink = "Location:../produits.php";
     //Component Class Manager
 
     $produitManager = new ProduitManager($pdo);
@@ -116,5 +116,9 @@
     //Action Delete Processing End
     $_SESSION['produit-action-message'] = $actionMessage;
     $_SESSION['produit-type-message'] = $typeMessage;
-    header('Location:../produits.php');
+    //redirectLink processing
+    if ( isset($_POST['source']) and $_POST['source'] == "stock" ) {
+        $redirectLink = "Location:../stock.php";
+    }
+    header($redirectLink);
 

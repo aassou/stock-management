@@ -114,7 +114,10 @@
     $_SESSION['categorie-type-message'] = $typeMessage;
     if ( isset($_POST['source']) and $_POST['source'] == "produits" ) {
         $redirectLink = "Location:../produits.php";
-    } 
+    }
+    if ( isset($_POST['source']) and $_POST['source'] == "stock" ) {
+        $redirectLink = "Location:../stock.php";
+    }  
     else {
         $redirectLink = "Location:../categories.php";
     }

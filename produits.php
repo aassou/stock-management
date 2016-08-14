@@ -348,7 +348,7 @@
                                                         <div class="controls">
                                                             <select name="idCategorie">
                                                                 <?php foreach($categories as $cat){ ?>
-                                                                <option value="<?= $produit->id() ?>"><?= $categorie->nomFR() ?></option>
+                                                                <option value="<?= $produit->idCategorie() ?>"><?= $categorie->nomFR() ?></option>
                                                                 <option disabled="disabled">--------------------------------------</option>
                                                                 <option value="<?= $cat->id() ?>"><?= $cat->nomFR() ?></option>
                                                                 <?php } ?>    

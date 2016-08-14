@@ -65,6 +65,8 @@
                     ) { 
                     $gestionStockClass="";
                     if($currentPage=="stock.php"
+                    or $currentPage=="stock-update-produit.php"
+                    or $currentPage=="stock-delete-produit.php"
                     ){
                         $gestionStockClass = "active ";
                     }
@@ -162,7 +164,7 @@
                     }
                 ?> 
                 <li class="<?= $gestionProduitsClass ?>" >
-                    <a href="projets.php">
+                    <a href="produits.php">
                     <i class="icon-barcode"></i> 
                     <span class="title">Gestion Produits</span>
                     </a>
