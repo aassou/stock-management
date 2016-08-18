@@ -236,7 +236,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <form class="form-horizontal" action="controller/CategorieActionController.php" method="post">
-                                                    <p>Êtes-vous sûr de vouloir modifier les infos de catégorie <strong><?= $categorie->nomFR() ?></strong> ?</p>
+                                                    <p>Êtes-vous sûr de vouloir modifier les infos de la catégorie <strong><?= $categorie->nomFR() ?></strong> ?</p>
                                                     <div class="control-group">
                                                         <label class="control-label">Nom</label>
                                                         <div class="controls">
@@ -306,7 +306,8 @@
                                             </div>
                                             <div class="modal-body">
                                                 <form class="form-horizontal loginFrm" action="controller/CategorieActionController.php" method="post">
-                                                    <p>Êtes-vous sûr de vouloir supprimer cette catégorie <?= $categorie->nomFR() ?> ?</p>
+                                                    <p>Êtes-vous sûr de vouloir supprimer la catégorie <strong><?= $categorie->nomFR() ?></strong> ?</p>
+                                                    <p style="color:red"><strong>Attention : Cette action va supprimer la catégorie ainsi que ces produits !<strong></p>
                                                     <div class="control-group">
                                                         <label class="right-label"></label>
                                                         <input type="hidden" name="idCategorie" value="<?= $categorie->id() ?>" />

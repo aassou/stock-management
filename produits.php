@@ -81,6 +81,11 @@
                                 <i class="icon-angle-right"></i>
                             </li>
                             <li>
+                                <i class="icon-wrench"></i>
+                                <a href="configuration.php">Paramètrages</a> 
+                                <i class="icon-angle-right"></i>
+                            </li>
+                            <li>
                                 <i class="icon-barcode"></i>
                                 <a>Gestion des produits</a>
                             </li>
@@ -217,7 +222,8 @@
                                     <div class="control-group">
                                         <label class="control-label">Dimension</label>
                                         <div class="controls">
-                                            <input type="text" name="dimension" />
+                                            <input required="required" id="dimension1" class="span4" type="text" name="dimension1" />
+                                            <input required="required" id="dimension2" class="span4" type="text" name="dimension2" />
                                         </div>
                                     </div>
                                     <div class="control-group">
@@ -300,17 +306,17 @@
                                 <table class="table table-striped table-bordered table-hover" id="sample_1">
                                     <thead>
                                         <tr>
-                                            <!--th style="width:8px;"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /></th-->
-                                            <th style="width:10%">Actions</th>
-                                            <th style="width:10%">Catégorie</th>
-                                            <th style="width:10%">Dimension</th>
-                                            <th style="width:10%">Diamétre</th>
-                                            <th style="width:10%">Forme</th>
+                                            <th style="width:8%">Catégorie</th>
+                                            <th style="width:10%">Produit</th>
+                                            <th style="width:10%">Dimensions</th>
+                                            <th style="width:8%">Diamétre</th>
+                                            <th style="width:8%">Forme</th>
                                             <th style="width:10%">PrixAchat</th>
                                             <th style="width:10%">PrixVente</th>
                                             <th style="width:10%">PrixVenteMin</th>
-                                            <th style="width:10%">Quantité</th>
-                                            <th style="width:10%">Poids</th>
+                                            <th style="width:8%">Quantité</th>
+                                            <th style="width:8%">Poids</th>
+                                            <th style="width:10%">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -319,13 +325,9 @@
                                             $categorie = $categorieManager->getCategorieById($produit->idCategorie());
                                         ?>
                                         <tr class="odd gradeX">
-                                            <!--td><input type="checkbox" class="checkboxes" value="1" /></td-->
-                                            <td>
-                                                <a href="#update<?= $produit->id() ?>" data-toggle="modal" data-id="<?= $produit->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
-                                                <a href="#delete<?= $produit->id() ?>" data-toggle="modal" data-id="<?= $produit->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
-                                            </td>    
                                             <td><?= $categorie->nomFR() ?></td>
-                                            <td><?= $produit->dimension() ?></td>
+                                            <td><?= $produit->code().($produit->dimension1()+0)."x".($produit->dimension1()+0) ?></td>
+                                            <td><?= ($produit->dimension1()+0)."x".($produit->dimension1()+0) ?></td>
                                             <td><?= $produit->diametre() ?></td>
                                             <td><?= $produit->forme() ?></td>
                                             <td><?= number_format($produit->prixAchat(), 2, ',', ' ') ?></td>
@@ -333,118 +335,13 @@
                                             <td><?= number_format($produit->prixVenteMin(), 2, ',', ' ') ?></td>
                                             <td><?= $produit->quantite() ?></td>
                                             <td><?= $produit->poids() ?></td>
-                                        </tr>
-                                        <!-- update box begin-->
-                                        <div id="update<?= $produit->id() ?>" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                <h3>Modifier Informations Produit </h3>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form class="form-horizontal" action="controller/ProduitActionController.php" method="post">
-                                                    <p>Êtes-vous sûr de vouloir modifier les infos du produit <strong><?= $categorie->nomFR().intval($produit->dimension())."x".intval($produit->diametre()) ?></strong> ?</p>
-                                                    <div class="control-group">
-                                                        <label class="control-label">Catégorie</label>
-                                                        <div class="controls">
-                                                            <select name="idCategorie">
-                                                                <?php foreach($categories as $cat){ ?>
-                                                                <option value="<?= $produit->idCategorie() ?>"><?= $categorie->nomFR() ?></option>
-                                                                <option disabled="disabled">--------------------------------------</option>
-                                                                <option value="<?= $cat->id() ?>"><?= $cat->nomFR() ?></option>
-                                                                <?php } ?>    
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label">Code</label>
-                                                        <div class="controls">
-                                                            <input type="text" name="code" value="<?= $produit->code() ?>" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label">Dimension</label>
-                                                        <div class="controls">
-                                                            <input type="text" name="dimension" value="<?= $produit->dimension() ?>" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label">Diametre</label>
-                                                        <div class="controls">
-                                                            <input type="text" name="diametre" value="<?= $produit->diametre() ?>" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label">Forme</label>
-                                                        <div class="controls">
-                                                            <input type="text" name="forme" value="<?= $produit->forme() ?>" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label">Prix Achat</label>
-                                                        <div class="controls">
-                                                            <input type="text" name="prixAchat" value="<?= $produit->prixAchat() ?>" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label">Prix Vente</label>
-                                                        <div class="controls">
-                                                            <input type="text" name="prixVente" value="<?= $produit->prixVente() ?>" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label">Prix Vente Min</label>
-                                                        <div class="controls">
-                                                            <input type="text" name="prixVenteMin" value="<?= $produit->prixVenteMin() ?>" />
-                                                        </div>  
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label">Quantité</label>
-                                                        <div class="controls">
-                                                            <input type="text" name="quantite" value="<?= $produit->quantite() ?>" />
-                                                        </div>  
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label">Poids</label>
-                                                        <div class="controls">
-                                                            <input type="text" name="poids" value="<?= $produit->poids() ?>" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <input type="hidden" name="idProduit" value="<?= $produit->id() ?>" />
-                                                        <input type="hidden" name="action" value="update" />
-                                                        <input type="hidden" name="source" value="produits" />
-                                                        <div class="controls">  
-                                                            <button class="btn" data-dismiss="modal"aria-hidden="true">Non</button>
-                                                            <button type="submit" class="btn red" aria-hidden="true">Oui</button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                        <!-- update box end -->
-                                        <!-- delete box begin-->
-                                        <div id="delete<?= $produit->id();?>" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                <h3>Supprimer Produit</h3>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form class="form-horizontal loginFrm" action="controller/ProduitActionController.php" method="post">
-                                                    <p>Êtes-vous sûr de vouloir supprimer ce produit <strong><?= $categorie->nomFR().intval($produit->dimension())."x".intval($produit->diametre()) ?></strong> ?</p>
-                                                    <div class="control-group">
-                                                        <label class="right-label"></label>
-                                                        <input type="hidden" name="idProduit" value="<?= $produit->id() ?>" />
-                                                        <input type="hidden" name="action" value="delete" />
-                                                        <input type="hidden" name="source" value="produits" />
-                                                        <button class="btn" data-dismiss="modal"aria-hidden="true">Non</button>
-                                                        <button type="submit" class="btn red" aria-hidden="true">Oui</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                        <!-- delete box end -->     
+                                            <td>
+                                                <a href="stock-update-produit.php?idProduit=<?= $produit->id() ?>&source=produits" class="btn mini green"><i class="icon-refresh"></i></a>
+                                                <a href="stock-delete-produit.php?idProduit=<?= $produit->id() ?>&source=produits" class="btn mini red"><i class="icon-remove"></i></a>
+                                            </td>    
+                                        </tr>   
                                         <?php
-                                        }
+                                        }//end for
                                         ?>
                                     </tbody>
                                 </table>
@@ -492,6 +389,10 @@
             // initiate layout and plugins
             App.setPage("table_managed");
             App.init();
+        });
+        $('#idCategorieChoice').change(function(){
+            var idCategorie = $(this).val();
+            $.post("product-choice.php", {"idCategorie" : idCategorie});
         });
     </script>
     <style>

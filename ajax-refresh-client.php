@@ -11,7 +11,7 @@ foreach ($list as $rs) {
 	$nom = str_replace($_POST['keyword'], '<b>'.$_POST['keyword'].'</b>', $rs['nom']);
 	// add new option
 	echo '<li onclick="setItemClient(\''.str_replace("'", "\'", $rs['nom']).'\', \''.$rs['cin'].
-	'\', \''.$rs['telephone1'].'\', \''.$rs['telephone2'].'\', \''.$rs['adresse'].'\'
-	, \''.$rs['email'].'\', \''.$rs['id'].'\', \''.$rs['nomArabe'].'\', \''.$rs['adresseArabe'].'\')">'.$nom.'</li>';
+	'\', \''.$rs['ville'].'\', \''.$rs['telephone'].'\', \''.$rs['code'].'\'
+	,\''.$rs['id'].'\')">'.$nom.'</li>';
 }
 ?>

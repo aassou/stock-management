@@ -18,19 +18,50 @@ function autocompletClient() {
 	}
 }
 // set_item client : this function will be executed when we select an item
-function setItemClient(item1, item2, item3, item4, item5, item6, item7, item8, item9){
+function setItemClient(item1, item2, item3, item4, item5, item6){
 	// change input value
 	$('#nomClient').val(item1);
 	$('#cin').val(item2);
-	$('#telephone1').val(item3);
-	$('#telephone2').val(item4);
-	$('#adresse').val(item5);
-	$('#email').val(item6);
-	$('#idClient').val(item7);
-	$('#nomClientArabe').val(item8);
-	$('#adresseArabe').val(item9);
+	$('#ville').val(item3);
+	$('#telephone').val(item4);
+	$('#code').val(item5);
+	$('#idClient').val(item6);
 	// hide proposition list
 	$('#clientList').hide();
+}
+///
+//produit section
+function autocompletProduit() {
+	var min_length = 1; // min caracters to display the autocomplete
+	var keyword = $('#codeProduit').val();
+	if (keyword.length >= min_length) {
+		$.ajax({
+			url: 'ajax-refresh-produit.php',
+			type: 'POST',
+			data: {keyword:keyword},
+			success:function(data){
+				$('#produitList').show();
+				$('#produitList').html(data);
+			}
+		});
+	} 
+	else {
+		$('#produitList').hide();
+	}
+}
+// set_item produit : this function will be executed when we select an item
+function setItemProduit(item1, item2, item3, item4, item5, item6, item7, item8){
+	// change input value
+	$('#codeProduit').val(item1);
+	$('#dimension1').val(item2);
+	$('#dimension2').val(item3);
+	$('#prixAchat').val(item4);
+	$('#prixVente').val(item5);
+	$('#prixVenteMin').text('PrixMin='+item6);
+	$('#quantite').text('Stock='+item7);
+	$('#idProduit').val(item8);
+	// hide proposition list
+	$('#produitList').hide();
 }
 ///
 //fournisseur section

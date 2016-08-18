@@ -33,6 +33,30 @@
 					</a>
 				</li>
 				<!---------------------------- Dashboard End    -------------------------------------------->
+				<!---------------------------- Gestion Factures Begin ----------------------------------->
+                <?php 
+                if ( 
+                    $_SESSION["userMerlaTrav"]->profil() == "admin" ||
+                    $_SESSION['userMerlaTrav']->profil() == "manager" ||
+                    $_SESSION['userMerlaTrav']->profil() == "consultant" 
+                    ) { 
+                    $gestionAchatClass="";
+                    if($currentPage=="factures.php"
+                    or $currentPage=="facture-details.php"
+                    ){
+                        $gestionAchatClass = "active ";
+                    }
+                ?> 
+                <li class="<?= $gestionAchatClass; ?>" >
+                    <a href="factures.php">
+                    <i class="icon-file"></i> 
+                    <span class="title">Factures</span>
+                    </a>
+                </li>
+                <?php
+                }
+                ?> 
+                <!---------------------------- Gestion Factures End -------------------------------------->
 				<!---------------------------- Gestion Achats Begin ----------------------------------->
 				<?php 
 				if ( 
@@ -49,7 +73,7 @@
 				<li class="<?= $gestionAchatClass; ?>" >
 					<a href="projets.php">
 					<i class="icon-shopping-cart"></i> 
-					<span class="title">Gestion Achats</span>
+					<span class="title">Achats</span>
 					</a>
 				</li>
 				<?php
@@ -74,7 +98,7 @@
                 <li class="<?= $gestionStockClass ?>" >
                     <a href="stock.php">
                     <i class="icon-bar-chart"></i> 
-                    <span class="title">Gestion Stock</span>
+                    <span class="title">Stock</span>
                     </a>
                 </li>
                 <?php
@@ -97,7 +121,7 @@
                 <li class="<?= $gestionClientsClass ?>" >
                     <a href="factures-clients-list.php">
                     <i class="icon-group"></i> 
-                    <span class="title">Gestion Clients</span>
+                    <span class="title">Clients</span>
                     </a>
                 </li>
                 <?php
@@ -120,7 +144,7 @@
                 <li class="<?= $gestionFournisseursClass ?>" >
                     <a href="projets.php">
                     <i class="icon-truck"></i> 
-                    <span class="title">Gestion Fournisseurs</span>
+                    <span class="title">Fournisseurs</span>
                     </a>
                 </li>
                 <?php
@@ -143,36 +167,13 @@
                 <li class="<?= $gestionChargesClass ?>" >
                     <a href="projets.php">
                     <i class="icon-money"></i> 
-                    <span class="title">Gestion Charges</span>
+                    <span class="title">Charges</span>
                     </a>
                 </li>
                 <?php
                 }
                 ?> 
                 <!---------------------------- Gestion Charges End    -------------------------------------------->
-                <!---------------------------- Gestion Produits Begin  -------------------------------------------->
-                <?php 
-                if ( 
-                    $_SESSION["userMerlaTrav"]->profil() == "admin" ||
-                    $_SESSION['userMerlaTrav']->profil() == "manager" ||
-                    $_SESSION['userMerlaTrav']->profil() == "consultant" 
-                    ) { 
-                    $gestionProduitsClass="";
-                    if($currentPage=="produits.php"
-                    ){
-                        $gestionProduitsClass = "active ";
-                    }
-                ?> 
-                <li class="<?= $gestionProduitsClass ?>" >
-                    <a href="produits.php">
-                    <i class="icon-barcode"></i> 
-                    <span class="title">Gestion Produits</span>
-                    </a>
-                </li>
-                <?php
-                }
-                ?> 
-                <!---------------------------- Gestion Produits End    -------------------------------------------->
                 <!---------------------------- Parametrage Begin  -------------------------------------------->
                 <?php 
                 if ( 
@@ -184,6 +185,9 @@
                     if($currentPage=="configuration.php"
                     or $currentPage=="clients-list.php"
                     or $currentPage=="categories.php"
+                    or $currentPage=="produits.php"
+                    or $currentPage=="produit-update.php"
+                    or $currentPage=="produit-delete.php"
                     ){
                         $gestionParametragesClass = "active ";
                     }

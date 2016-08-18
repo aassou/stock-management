@@ -12,10 +12,11 @@ class ProduitManager{
 	//BAISC CRUD OPERATIONS
 	public function add(Produit $produit){
     	$query = $this->_db->prepare(' INSERT INTO t_produit (
-		dimension, diametre, forme, prixAchat, prixVente, prixVenteMin, quantite, poids, code, idCategorie, created, createdBy)
-		VALUES (:dimension, :diametre, :forme, :prixAchat, :prixVente, :prixVenteMin, :quantite, :poids, :code, :idCategorie, :created, :createdBy)')
+		dimension1, dimension2, diametre, forme, prixAchat, prixVente, prixVenteMin, quantite, poids, code, idCategorie, created, createdBy)
+		VALUES (:dimension1, :dimension2, :diametre, :forme, :prixAchat, :prixVente, :prixVenteMin, :quantite, :poids, :code, :idCategorie, :created, :createdBy)')
 		or die (print_r($this->_db->errorInfo()));
-		$query->bindValue(':dimension', $produit->dimension());
+		$query->bindValue(':dimension1', $produit->dimension1());
+        $query->bindValue(':dimension2', $produit->dimension2());
 		$query->bindValue(':diametre', $produit->diametre());
 		$query->bindValue(':forme', $produit->forme());
 		$query->bindValue(':prixAchat', $produit->prixAchat());
@@ -33,11 +34,12 @@ class ProduitManager{
 
 	public function update(Produit $produit){
     	$query = $this->_db->prepare(' UPDATE t_produit SET 
-		dimension=:dimension, diametre=:diametre, forme=:forme, prixAchat=:prixAchat, prixVente=:prixVente, prixVenteMin=:prixVenteMin, quantite=:quantite, poids=:poids, code=:code, idCategorie=:idCategorie, updated=:updated, updatedBy=:updatedBy
+		dimension1=:dimension1, dimension2=:dimension2, diametre=:diametre, forme=:forme, prixAchat=:prixAchat, prixVente=:prixVente, prixVenteMin=:prixVenteMin, quantite=:quantite, poids=:poids, code=:code, idCategorie=:idCategorie, updated=:updated, updatedBy=:updatedBy
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $produit->id());
-		$query->bindValue(':dimension', $produit->dimension());
+		$query->bindValue(':dimension1', $produit->dimension1());
+        $query->bindValue(':dimension2', $produit->dimension2());
 		$query->bindValue(':diametre', $produit->diametre());
 		$query->bindValue(':forme', $produit->forme());
 		$query->bindValue(':prixAchat', $produit->prixAchat());
@@ -53,8 +55,23 @@ class ProduitManager{
 		$query->closeCursor();
 	}
 
+    public function updateQuantite($idProduit, $quantite){
+        $query = $this->_db->prepare(
+        'UPDATE t_produit SET 
+        quantite=:quantite, updated=:updated, updatedBy=:updatedBy
+        WHERE id=:id')
+        or die (print_r($this->_db->errorInfo()));
+        $query->bindValue(':id', $produit->id());
+        $query->bindValue(':quantite', $produit->quantite());
+        $query->bindValue(':updated', $produit->updated());
+        $query->bindValue(':updatedBy', $produit->updatedBy());
+        $query->execute();
+        $query->closeCursor();
+    }
+
 	public function delete($id){
-    	$query = $this->_db->prepare(' DELETE FROM t_produit
+    	$query = $this->_db->prepare(
+    	'DELETE FROM t_produit
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $id);
@@ -81,11 +98,25 @@ class ProduitManager{
 		$query->closeCursor();
 		return new Produit($data);
 	}
+    
+    public function getProduitNumberById($id){
+        $query = $this->_db->prepare(
+        'SELECT COUNT(*) AS nombreProduit FROM t_produit
+        WHERE id=:id')
+        or die (print_r($this->_db->errorInfo()));
+        $query->bindValue(':id', $id);
+        $query->execute();      
+        $data = $query->fetch(PDO::FETCH_ASSOC);
+        $query->closeCursor();
+        return $data['nombreProduit'];
+    }
+    
+    
 
 	public function getProduits(){
 		$produits = array();
 		$query = $this->_db->query('SELECT * FROM t_produit
-		ORDER BY id DESC');
+		ORDER BY code ASC, dimension2 ASC, dimension1 ASC');
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$produits[] = new Produit($data);
 		}
@@ -98,7 +129,7 @@ class ProduitManager{
         $query = $this->_db->prepare(
         'SELECT * FROM t_produit
         WHERE idCategorie=:idCategorie
-        ORDER BY id DESC');
+        ORDER BY code ASC, dimension2 ASC, dimension1 ASC');
         $query->bindValue(':idCategorie', $idCategorie);
         $query->execute();
         while($data = $query->fetch(PDO::FETCH_ASSOC)){

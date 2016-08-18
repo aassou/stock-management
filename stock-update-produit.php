@@ -16,6 +16,7 @@
     if( isset($_SESSION['userMerlaTrav']) ){
         //post processing
         $idProduit = htmlentities($_GET['idProduit']);
+        $source = htmlentities($_GET['source']);
         //Class Managers
         $clientsManager = new ClientManager($pdo);
         $categorieManager = new CategorieManager($pdo);
@@ -121,29 +122,30 @@
                               </div>
                               <div class="portlet-body form">
                                  <!-- BEGIN FORM-->
-                                 <form action="controller/ProduitActionController.php" method="POST" id="clientForm" class="horizontal-form">
+                                 <form id="new-product" action="controller/ProduitActionController.php" method="POST">
                                     <div class="row-fluid">
                                        <div class="span3">
-                                          <div class="control-group autocomplet_container">
+                                          <div class="control-group">
                                                 <label class="control-label">Code</label>
                                                 <div class="controls">
-                                                    <input type="text" name="code" value="<?= $produit->code() ?>" />
+                                                    <input required="required" id="code" type="text" name="code" value="<?= $produit->code() ?>" />
                                                 </div>
                                           </div>
                                        </div>
                                        <div class="span3">
                                           <div class="control-group">
-                                             <label class="control-label">Dimension</label>
+                                             <label class="control-label">Dimensions</label>
                                              <div class="controls">
-                                                 <input type="text" name="dimension" value="<?= $produit->dimension() ?>" />
+                                                 <input required="required" id="dimension1" class="span5" type="text" name="dimension1" value="<?= $produit->dimension1() ?>" />
+                                                 <input required="required" id="dimension2" class="span5" type="text" name="dimension2" value="<?= $produit->dimension2() ?>" />
                                              </div>
                                           </div>
                                        </div>
                                        <div class="span3">
-                                          <div class="control-group autocomplet_container">
+                                          <div class="control-group">
                                              <label class="control-label">Diametre</label>
                                                 <div class="controls">
-                                                    <input type="text" name="diametre" value="<?= $produit->diametre() ?>" />
+                                                    <input id="diametre" type="text" name="diametre" value="<?= $produit->diametre() ?>" />
                                                 </div>
                                           </div>
                                        </div>
@@ -161,7 +163,7 @@
                                           <div class="control-group">
                                              <label class="control-label">Prix Achat</label>
                                                 <div class="controls">
-                                                    <input type="text" name="prixAchat" value="<?= $produit->prixAchat() ?>" />
+                                                    <input required="required" id="prixAchat" type="text" name="prixAchat" value="<?= $produit->prixAchat() ?>" />
                                                 </div>
                                           </div>
                                        </div>
@@ -169,7 +171,7 @@
                                           <div class="control-group">
                                              <label class="control-label">Prix Vente</label>
                                                 <div class="controls">
-                                                    <input type="text" name="prixVente" value="<?= $produit->prixVente() ?>" />
+                                                    <input required="required" id="prixVente" type="text" name="prixVente" value="<?= $produit->prixVente() ?>" />
                                                 </div>
                                           </div>
                                        </div>
@@ -177,7 +179,7 @@
                                           <div class="control-group">
                                              <label class="control-label">Prix Vente Min</label>
                                                 <div class="controls">
-                                                    <input type="text" name="prixVenteMin" value="<?= $produit->prixVenteMin() ?>" />
+                                                    <input required="required" id="prixVenteMin" type="text" name="prixVenteMin" value="<?= $produit->prixVenteMin() ?>" />
                                                 </div>  
                                           </div>
                                        </div>
@@ -185,7 +187,7 @@
                                           <div class="control-group">
                                              <label class="control-label">Quantité</label>
                                                 <div class="controls">
-                                                    <input type="text" name="quantite" value="<?= $produit->quantite() ?>" />
+                                                    <input required="required" id="quantite" type="text" name="quantite" value="<?= $produit->quantite() ?>" />
                                                 </div>  
                                           </div>
                                        </div>
@@ -203,8 +205,9 @@
                                     <div class="form-actions">
                                         <input type="hidden" name="action" value="update">
                                         <input type="hidden" name="idProduit" value="<?= $produit->id() ?>">
-                                        <input type="hidden" name="source" value="stock-update-produit">
-                                        <a href="stock.php" class="btn red"><i class="m-icon-swapleft m-icon-white"></i>&nbsp;Annuler</a>
+                                        <input type="hidden" name="idCategorie" value="<?= $produit->idCategorie() ?>">
+                                        <input type="hidden" name="source" value="<?= $source ?>">
+                                        <a href="stock.php" class="btn red"><i class="m-icon-swapleft m-icon-white"></i>&nbsp;Retour</a>
                                         <button type="submit" class="btn blue">Enregistrer <i class="icon-save m-icon-white"></i></button>
                                     </div>
                                  </form>
@@ -253,6 +256,39 @@
             // initiate layout and plugins
             //App.setPage("table_editable");
             App.init();
+            $("#new-product").validate({
+                rules:{
+                   code: {
+                       required: true
+                   },
+                   dimension1: {
+                       number: true,
+                       required: true
+                   },
+                   dimension2: {
+                       number: true,
+                       required: true
+                   },
+                   prixAchat: {
+                       number: true,
+                       required: true
+                   },
+                   prixVenteMin: {
+                       number: true,
+                       required: true
+                   },
+                   prixVente: {
+                       number: true,
+                       required: true
+                   },
+                   quantite: {
+                       number: true,
+                       required: true
+                   }
+                 },
+                 errorClass: "error-class",
+                 validClass: "valid-class"
+            });
         });
     </script>
 </body>

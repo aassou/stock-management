@@ -3,7 +3,8 @@ class Produit{
 
 	//attributes
 	private $_id;
-	private $_dimension;
+	private $_dimension1;
+    private $_dimension2;
 	private $_diametre;
 	private $_forme;
 	private $_prixAchat;
@@ -38,9 +39,15 @@ class Produit{
 	public function setId($id){
     	$this->_id = $id;
     }
-	public function setDimension($dimension){
-		$this->_dimension = $dimension;
+	
+	public function setDimension1($dimension1){
+		$this->_dimension1 = $dimension1;
    	}
+    
+    public function setDimension2($dimension2){
+        $this->_dimension2 = $dimension2;
+    }
+    
 
 	public function setDiametre($diametre){
 		$this->_diametre = $diametre;
@@ -98,9 +105,14 @@ class Produit{
 	public function id(){
     	return $this->_id;
     }
-	public function dimension(){
-		return $this->_dimension;
+	
+	public function dimension1(){
+		return $this->_dimension1;
    	}
+    
+    public function dimension2(){
+        return $this->_dimension2;
+    }
 
 	public function diametre(){
 		return $this->_diametre;

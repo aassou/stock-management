@@ -26,8 +26,9 @@
     $produitManager = new ProduitManager($pdo);
 	//Action Add Processing Begin
     if($action == "add"){
-        if( !empty($_POST['dimension']) ){
-			$dimension = htmlentities($_POST['dimension']);
+        if( !empty($_POST['code']) ){
+			$dimension1 = htmlentities($_POST['dimension1']);
+            $dimension2 = htmlentities($_POST['dimension2']);
 			$diametre = htmlentities($_POST['diametre']);
 			$forme = htmlentities($_POST['forme']);
 			$prixAchat = htmlentities($_POST['prixAchat']);
@@ -41,7 +42,8 @@
             $created = date('Y-m-d h:i:s');
             //create object
             $produit = new Produit(array(
-				'dimension' => $dimension,
+				'dimension1' => $dimension1,
+				'dimension2' => $dimension2,
 				'diametre' => $diametre,
 				'forme' => $forme,
 				'prixAchat' => $prixAchat,
@@ -68,8 +70,9 @@
     //Action Update Processing Begin
     else if($action == "update"){
         $idProduit = htmlentities($_POST['idProduit']);
-        if(!empty($_POST['dimension'])){
-			$dimension = htmlentities($_POST['dimension']);
+        if(!empty($_POST['code'])){
+			$dimension1 = htmlentities($_POST['dimension1']);
+            $dimension2 = htmlentities($_POST['dimension2']);
 			$diametre = htmlentities($_POST['diametre']);
 			$forme = htmlentities($_POST['forme']);
 			$prixAchat = htmlentities($_POST['prixAchat']);
@@ -83,7 +86,8 @@
             $updated = date('Y-m-d h:i:s');
             $produit = new Produit(array(
 				'id' => $idProduit,
-				'dimension' => $dimension,
+				'dimension1' => $dimension1,
+				'dimension2' => $dimension2,
 				'diametre' => $diametre,
 				'forme' => $forme,
 				'prixAchat' => $prixAchat,
@@ -106,6 +110,22 @@
         }
     }
     //Action Update Processing End
+    //Action UpdateQuantite Processing Begin
+    else if($action == "updateQuantite"){
+        $idProduit = htmlentities($_POST['idProduit']);
+        $quantite = htmlentities($_POST['quantite']);
+        $updatedBy = $_SESSION['userMerlaTrav']->login();
+        $updated = date('Y-m-d h:i:s');
+        $produitManager->updateQuantite($idProduit, $quantite);
+            ///$actionMessage = "Opération Valide : Produit Modifié(e) avec succès.";
+            ///$typeMessage = "success";
+        ///}
+        ///else{
+           /// $actionMessage = "Erreur Modification Produit : Vous devez remplir le champ 'dimension'.";
+           /// $typeMessage = "error";
+        ///}
+    }
+    //Action UpdateQuantite Processing End
     //Action Delete Processing Begin
     else if($action == "delete"){
         $idProduit = htmlentities($_POST['idProduit']);
@@ -120,5 +140,8 @@
     if ( isset($_POST['source']) and $_POST['source'] == "stock" ) {
         $redirectLink = "Location:../stock.php";
     }
+    else if ( isset($_POST['source']) and $_POST['source'] == "produits" ) {
+        $redirectLink = "Location:../produits.php";
+    }    
     header($redirectLink);
 

@@ -32,6 +32,7 @@
 	<link href="assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
 	<link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
 	<link href="assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="assets/bootstrap-datepicker/css/datepicker.css" />
 	<link href="assets/css/style.css" rel="stylesheet" />
 	<link href="assets/css/style_responsive.css" rel="stylesheet" />
 	<link href="assets/css/style_default.css" rel="stylesheet" id="style_color" />
@@ -72,15 +73,15 @@
                     <div class="span12">
                         <h4 class="breadcrumb"><i class="icon-hand-right"></i> Raccourcis</h4>
                         <div class="tiles">
-                            <a href="livraisons-group.php">
-                            <div class="tile bg-cyan">
+                            <a href="factures.php">
+                            <div class="tile bg-dark-cyan">
                                 <div class="corner"></div>
                                 <div class="tile-body">
-                                    <i class="icon-shopping-cart"></i>
+                                    <i class="icon-file"></i>
                                 </div>
                                 <div class="tile-object">
                                     <div class="name">
-                                        Gestion Achats
+                                        Factures
                                     </div>
                                 </div>
                             </div>
@@ -89,11 +90,24 @@
                             <div class="tile bg-blue">
                                 <div class="corner"></div>
                                 <div class="tile-body">
+                                    <i class="icon-shopping-cart"></i>
+                                </div>
+                                <div class="tile-object">
+                                    <div class="name">
+                                        Achats
+                                    </div>
+                                </div>
+                            </div>
+                            </a>
+                            <a href="livraisons-group.php">
+                            <div class="tile bg-cyan">
+                                <div class="corner"></div>
+                                <div class="tile-body">
                                     <i class="icon-signal"></i>
                                 </div>
                                 <div class="tile-object">
                                     <div class="name">
-                                        Gestion Ventes
+                                        Ventes
                                     </div>
                                 </div>
                             </div>
@@ -106,7 +120,7 @@
                                 </div>
                                 <div class="tile-object">
                                     <div class="name">
-                                        Gestion Stock
+                                        Stock
                                     </div>
                                 </div>
                             </div>
@@ -118,7 +132,7 @@
                                 </div>
                                 <div class="tile-object">
                                     <div class="name">
-                                        Gestion Clients
+                                        Clients
                                     </div>
                                     <div class="number">
                                     </div>
@@ -132,7 +146,7 @@
 								</div>
 								<div class="tile-object">
 									<div class="name">
-										Gestion Fournisseurs
+										Fournisseurs
 									</div>
 									<div class="number">
 									</div>
@@ -147,24 +161,11 @@
                                 </div>
                                 <div class="tile-object">
                                     <div class="name">
-                                        Gestion Charges
+                                        Charges
                                     </div>
                                 </div>
                             </div>
                             </a>
-							<a href="produits.php">
-							<div class="tile bg-dark-red">
-								<div class="corner"></div>
-								<div class="tile-body">
-									<i class="icon-barcode"></i>
-								</div>
-								<div class="tile-object">
-									<div class="name">
-										Gestion Produits
-									</div>
-								</div>
-							</div>
-							</a>
 							<a href="configuration.php">
                             <div class="tile bg-red">
                                 <div class="corner"></div>
@@ -183,6 +184,46 @@
 				</div>
 				<!--      BEGIN TILES      -->
 				<!-- BEGIN DASHBOARD STATS -->
+				<h4 class="breadcrumb"><i class="icon-file"></i> Raccourcis Facture</h4>
+                <div class="row-fluid">
+                    <form target="_blank" id="new-facture" action="controller/FactureActionController.php" method="POST" class="form-horizontal">
+                        <div class="row-fluid">
+                            <div class="span3">
+                                <div class="control-group">
+                                    <label class="control-label">Date</label>
+                                    <div class="controls">
+                                        <div class="input-append date date-picker" data-date="" data-date-format="yyyy-mm-dd">
+                                            <input name="dateFacture" id="dateFacture" class="m-wrap m-ctrl-small date-picker" type="text" value="<?= date('Y-m-d') ?>" />
+                                            <span class="add-on"><i class="icon-calendar"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span3 stay-away">
+                                <div class="control-group autocomplet_container">
+                                    <label class="control-label">Client</label>
+                                    <div class="controls">
+                                        <input required="required" id="nomClient" type="text" name="nomClient" onkeyup="autocompletClient()" />
+                                        <ul id="clientList"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span3">
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <input type="submit" class="btn blue" value="Valider">
+                                        <input type="hidden" name="action" value="add">
+                                        <input type="hidden" name="source" value="dashboard">
+                                        <input type="hidden" name="idClient" id="idClient" >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     </form>    
+                </div>
+                <!-- END DASHBOARD STATS -->
+                <!-- BEGIN DASHBOARD FEEDS -->
+                <!-- ------------------------------------------------------ -->
 				<h4 class="breadcrumb"><i class="icon-table"></i> Bilans et Statistiques De La Semaine</h4>
 				<div class="row-fluid">
 				    <div class="span3 responsive" data-tablet="span3" data-desktop="span3">
@@ -430,31 +471,6 @@
 											</ul>
 										</div>
 									</div>
-									<!--div class="tab-pane" id="tab_1_4">
-										<div class="scroller" data-height="290px" data-always-visible="1" data-rail-visible1="1">
-											<?php
-											//foreach($mailsToday as $mail){
-											?>
-											<div class="row-fluid">
-												<div class="span6 user-info">
-													<img alt="" src="assets/img/avatar.png" />
-													<div class="details">
-														<div>
-															<a href="#"><?php //echo $mail->sender() ?></a> 
-														</div>
-														<div>
-															<strong>Message : </strong><?php //echo $mail->content() ?><br>
-															<strong>Envoyé Aujourd'hui à : </strong><?php //echo date('h:i', strtotime($mail->created())) ?>
-														</div>
-													</div>
-												</div>
-											</div>
-											<hr>
-											<?php
-											//}
-											?>
-										</div>
-									</div-->
 								</div>
 							</div>
 							<!--END TABS-->
@@ -496,12 +512,15 @@
 	<script src="assets/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
 	<script type="text/javascript" src="assets/gritter/js/jquery.gritter.js"></script>
 	<script type="text/javascript" src="assets/js/jquery.pulsate.min.js"></script>
+	<script type="text/javascript" src="assets/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="assets/bootstrap-daterangepicker/date.js"></script>
 	<!-- ie8 fixes -->
 	<!--[if lt IE 9]>
 	<script src="assets/js/excanvas.js"></script>
 	<script src="assets/js/respond.js"></script>
 	<![endif]-->
 	<script src="assets/js/app.js"></script>		
+	<script src="script.js"></script>       
 	<script>
 		jQuery(document).ready(function() {			
 			// initiate layout and plugins

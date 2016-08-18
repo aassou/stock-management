@@ -26,7 +26,7 @@
     $categorieManager = new CategorieManager($pdo);
 	//Action Add Processing Begin
     	if($action == "add"){
-        if( !empty($_POST['nomAR']) ){
+        if( !empty($_POST['nomFR']) ){
 			$nomAR = htmlentities($_POST['nomAR']);
 			$nomFR = htmlentities($_POST['nomFR']);
 			$longueur = htmlentities($_POST['longueur']);

@@ -16,6 +16,7 @@
     if( isset($_SESSION['userMerlaTrav']) ){
         //post processing
         $idProduit = htmlentities($_GET['idProduit']);
+        $source = htmlentities($_GET['source']);
         //Class Managers
         $clientsManager = new ClientManager($pdo);
         $categorieManager = new CategorieManager($pdo);
@@ -126,7 +127,7 @@
                                     <div class="form-actions">
                                         <input type="hidden" name="action" value="delete">
                                         <input type="hidden" name="idProduit" value="<?= $produit->id() ?>">
-                                        <input type="hidden" name="source" value="stock-delete-produit">
+                                        <input type="hidden" name="source" value="stock">
                                         <a href="stock.php" class="btn">Non</a>
                                         <button type="submit" class="btn red">Oui</button>
                                     </div>

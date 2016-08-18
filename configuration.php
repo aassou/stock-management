@@ -93,6 +93,19 @@
                                 </div>
                             </div>
                             </a>
+                            <a href="produits.php">
+                            <div class="tile bg-blue">
+                                <div class="corner"></div>
+                                <div class="tile-body">
+                                    <i class="icon-barcode"></i>
+                                </div>
+                                <div class="tile-object">
+                                    <div class="name">
+                                        Produits
+                                    </div>
+                                </div>
+                            </div>
+                            </a>
                             <a href="clients-list.php">
                             <div class="tile bg-dark-red">
                                 <div class="corner"></div>
@@ -107,7 +120,7 @@
                             </div>
                             </a>
                             <a href="fournisseurs.php">
-                            <div class="tile bg-blue">
+                            <div class="tile bg-cyan">
                                 <div class="corner"></div>
                                 <div class="tile-body">
                                     <i class="icon-truck"></i>

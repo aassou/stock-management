@@ -124,7 +124,7 @@
                         ?>
                         <!-- addCategorie box begin -->
                         <div id="addCategorie" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
-                            <form class="form-horizontal" action="controller/CategorieActionController.php" method="post">
+                            <form id="new-category-stock" class="form-horizontal" action="controller/CategorieActionController.php" method="post">
                                 <div class="modal-header">
                                     <h3>Ajouter une nouvelle catégorie</h3>
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -133,7 +133,7 @@
                                     <div class="control-group">
                                         <label class="control-label">Nom</label>
                                         <div class="controls">
-                                            <input type="text" name="nomFR" />
+                                            <input id="nomFR" required="required" type="text" name="nomFR" />
                                         </div>
                                     </div>
                                     <div class="control-group">
@@ -194,7 +194,7 @@
                         <!-- addCategorie box end -->  
                         <!-- addProduit box begin -->
                         <div id="addProduit" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
-                            <form class="form-horizontal" action="controller/ProduitActionController.php" method="post">
+                            <form id="new-product-stock" class="form-horizontal" action="controller/ProduitActionController.php" method="post">
                                 <div class="modal-header">
                                     <h3>Ajouter un nouveau produit</h3>
                                 </div>
@@ -212,16 +212,17 @@
                                     <div class="control-group">
                                         <label class="control-label">Code</label>
                                         <div class="controls">
-                                            <input type="text" name="code" />
+                                            <input required="required" id="code" type="text" name="code" />
                                         </div>
                                     </div>
                                     <div class="control-group">
-                                        <label class="control-label">Dimension</label>
+                                        <label class="control-label">Dimensions</label>
                                         <div class="controls">
-                                            <input type="text" name="dimension" />
+                                            <input required="required" id="dimension1" class="span4" type="text" name="dimension1" />
+                                            <input required="required" id="dimension2" class="span4" type="text" name="dimension2" />
                                         </div>
                                     </div>
-                                    <div class="control-group">
+                                    <!--div class="control-group">
                                         <label class="control-label">Diametre</label>
                                         <div class="controls">
                                             <input type="text" name="diametre" />
@@ -232,37 +233,37 @@
                                         <div class="controls">
                                             <input type="text" name="forme" />
                                         </div>
-                                    </div>
+                                    </div-->
                                     <div class="control-group">
                                         <label class="control-label">Prix Achat</label>
                                         <div class="controls">
-                                            <input type="text" name="prixAchat" />
+                                            <input required="required" id="prixAchat" type="text" name="prixAchat" />
                                         </div>
                                     </div>
                                     <div class="control-group">
                                         <label class="control-label">Prix Vente</label>
                                         <div class="controls">
-                                            <input type="text" name="prixVente" />
+                                            <input required="required" id="prixVente" type="text" name="prixVente" />
                                         </div>
                                     </div>
                                     <div class="control-group">
                                         <label class="control-label">Prix Vente Min</label>
                                         <div class="controls">
-                                            <input type="text" name="prixVenteMin" />
+                                            <input required="required" id="prixVenteMin" type="text" name="prixVenteMin" />
                                         </div>  
                                     </div>
                                     <div class="control-group">
                                         <label class="control-label">Quantité</label>
                                         <div class="controls">
-                                            <input type="text" name="quantite" />
+                                            <input required="required" id="quantite" type="text" name="quantite" />
                                         </div>  
                                     </div>
-                                    <div class="control-group">
+                                    <!--div class="control-group">
                                         <label class="control-label">Poids</label>
                                         <div class="controls">
                                             <input type="text" name="poids" />
                                         </div>
-                                    </div>
+                                    </div-->
                                 </div>
                                 <div class="modal-footer">
                                     <div class="control-group">
@@ -316,14 +317,16 @@
                                                 <table class="table table-striped table-bordered table-hover">
                                                     <thead>
                                                         <tr>
+                                                            <th style="width:8%">Qté</th>
+                                                            <th style="width:17%">Produit</th>
+                                                            <th style="width:10%">Dimensions</th>
+                                                            <th style="width:8%">Poids</th>
+                                                            <th style="width:10%">PrixAchat</th>
+                                                            <th style="width:10%">PrixMinVente</th>
+                                                            <th style="width:10%">PrixVente</th>
+                                                            <?php if ( $_SESSION['userMerlaTrav']->profil() == "admin" ){ ?><th style="width:10%">Marge</th><?php } ?>
+                                                            <th style="width:7%">Status</th>
                                                             <th style="width:10%">Actions</th>
-                                                            <th style="width:10%">Qté</th>
-                                                            <th style="width:20%">Produit</th>
-                                                            <th style="width:10%">Prix Achat</th>
-                                                            <th style="width:10%">Prix Min.Vente</th>
-                                                            <th style="width:10%">Prix Vente</th>
-                                                            <th style="width:10%">Marge</th>
-                                                            <th style="width:20%">Status</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -336,19 +339,21 @@
                                                                 $textQuantite = "Qté.Min";
                                                             }    
                                                         ?>
-                                                        <tr class="odd gradeX">
+                                                        <tr class="odd gradeX">    
+                                                            <td><a><strong><?= $produit->quantite() ?></strong></a></td>
+                                                            <td><?= $produit->code()." ".($produit->dimension1()+0)."x".($produit->dimension2()+0) ?></td>
+                                                            <td><?= ($produit->dimension1()+0)."x".($produit->dimension2()+0) ?></td>
+                                                            <td><?= $produit->poids() ?></td>
+                                                            <td><a><strong><?= number_format($produit->prixAchat(), 2, ',', ' ') ?>&nbsp;DH</strong></a></td>
+                                                            <td><a><strong><?= number_format($produit->prixVenteMin(), 2, ',', ' ') ?>&nbsp;DH</strong></a></td>
+                                                            <td><a><strong><?= number_format($produit->prixVente(), 2, ',', ' ') ?>&nbsp;DH</strong></a></td>
+                                                            <?php if ( $_SESSION['userMerlaTrav']->profil() == "admin" ){ ?><td><a><strong><?= number_format($produit->prixVente()-$produit->prixAchat(), 2, ',', ' ') ?>&nbsp;DH</strong></a></td><?php } ?>
+                                                            <td><a class="<?= $classQuantiteMin ?>"><?= $textQuantite ?></a></td>
                                                             <td>
                                                                 <!--a href="#update<?php //$produit->id() ?>" data-toggle="modal" data-id="<?php //$produit->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a-->
-                                                                <a href="stock-update-produit.php?idProduit=<?= $produit->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
-                                                                <a href="stock-delete-produit.php?idProduit=<?= $produit->id() ?>" data-toggle="modal" data-id="<?= $produit->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
-                                                            </td>    
-                                                            <td><?= $produit->quantite() ?></td>
-                                                            <td><?= $produit->code() ?></td>
-                                                            <td><?= number_format($produit->prixAchat(), 2, ',', ' ') ?></td>
-                                                            <td><?= number_format($produit->prixVenteMin(), 2, ',', ' ') ?></td>
-                                                            <td><?= number_format($produit->prixVente(), 2, ',', ' ') ?></td>
-                                                            <td><?= number_format($produit->prixVente()-$produit->prixAchat(), 2, ',', ' ') ?></td>
-                                                            <td><a class="<?= $classQuantiteMin ?>"><?= $textQuantite ?></a></td>
+                                                                <a href="stock-update-produit.php?idProduit=<?= $produit->id() ?>&source=stock" class="btn mini green"><i class="icon-refresh"></i></a>
+                                                                <a href="stock-delete-produit.php?idProduit=<?= $produit->id() ?>&source=stock" data-toggle="modal" data-id="<?= $produit->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
+                                                            </td>
                                                         </tr>    
                                                         <?php } ?>
                                                     </tbody>
@@ -393,12 +398,54 @@
     <script type="text/javascript" src="assets/uniform/jquery.uniform.min.js"></script>
     <script type="text/javascript" src="assets/data-tables/jquery.dataTables.js"></script>
     <script type="text/javascript" src="assets/data-tables/DT_bootstrap.js"></script>
+    <script type="text/javascript" src="assets/jquery-validation/jquery.validate.js"></script>
     <script src="assets/js/app.js"></script>        
     <script>
-        jQuery(document).ready(function() {         
-            // initiate layout and plugins
+        jQuery(document).ready(function() {    
             App.setPage("table_managed");
             App.init();
+            $("#new-product-stock").validate({
+                rules:{
+                   code: {
+                       required: true
+                   },
+                   dimension1: {
+                       number: true,
+                       required: true
+                   },
+                   dimension2: {
+                       number: true,
+                       required: true
+                   },
+                   prixAchat: {
+                       number: true,
+                       required: true
+                   },
+                   prixVenteMin: {
+                       number: true,
+                       required: true
+                   },
+                   prixVente: {
+                       number: true,
+                       required: true
+                   },
+                   quantite: {
+                       number: true,
+                       required: true
+                   }
+                 },
+                 errorClass: "error-class",
+                 validClass: "valid-class"
+            });
+            $("#new-category-stock").validate({
+                rules:{
+                   nomFR: {
+                       required: true
+                   }
+                 },
+                 errorClass: "error-class",
+                 validClass: "valid-class"
+            });
         });
     </script>
 </body>
