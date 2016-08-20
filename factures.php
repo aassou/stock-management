@@ -14,7 +14,13 @@
     //classes loading end
     session_start();
     if( isset($_SESSION['userMerlaTrav']) ){
-        //classManagers
+        //Class Managers
+        $factureManager = new FactureManager($pdo);
+        $factureDetailsManager = new FactureDetailsManager($pdo);
+        $produitManager = new ProduitManager($pdo);
+        $clientManager = new ClientManager($pdo);
+        //obj and vars
+        $factures = $factureManager->getFactures();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
@@ -75,23 +81,9 @@
                                 <i class="icon-angle-right"></i>
                             </li>
                             <li>
-                                <i class="icon-truck"></i>
-                                <a href="livraisons-group.php">Gestion des livraisons <strong>Société Annahda</strong></a>
-                                <i class="icon-angle-right"></i>
+                                <i class="icon-file"></i>
+                                <a href="factures.php">Gestion des factures</a>
                             </li>
-                            <li>
-                                <a href="livraisons-fournisseur-mois.php?idFournisseur=<?= $livraison->idFournisseur() ?>">
-                                    Livraisons de <strong><?= $fournisseurManager->getFournisseurById($livraison->idFournisseur())->nom() ?></strong>
-                                </a>
-                                <i class="icon-angle-right"></i>
-                            </li>
-                            <li>
-                                <a href="livraisons-fournisseur-mois-list.php?idFournisseur=<?= $livraison->idFournisseur() ?>&mois=<?= $_GET['mois'] ?>&annee=<?= $_GET['annee'] ?>">
-                                    <strong><?= $_GET['mois'] ?>/<?= $_GET['annee'] ?></strong>
-                                </a>
-                                <i class="icon-angle-right"></i>
-                            </li>
-                            <li><a>Détails de Livraison</a></li>
                         </ul>
                         <!-- END PAGE TITLE & BREADCRUMB-->
                     </div>
@@ -101,197 +93,31 @@
                     <div class="span12">
                         <!-- BEGIN ALERT MESSAGES -->
                          <?php 
-                         if( isset($_SESSION['livraison-detail-action-message']) 
-                         and isset($_SESSION['livraison-detail-type-message']) ){ 
-                             $message = $_SESSION['livraison-detail-action-message'];
-                             $typeMessage = $_SESSION['livraison-detail-type-message'];
+                         if( isset($_SESSION['facture-action-message']) 
+                         and isset($_SESSION['facture-type-message']) ){ 
+                             $message = $_SESSION['facture-action-message'];
+                             $typeMessage = $_SESSION['facture-type-message'];
                          ?>
                             <div class="alert alert-<?= $typeMessage ?>">
                                 <button class="close" data-dismiss="alert"></button>
                                 <?= $message ?>     
                             </div>
                          <?php } 
-                            unset($_SESSION['livraison-detail-action-message']);
-                            unset($_SESSION['livraison-detail-type-message']);
+                            unset($_SESSION['facture-action-message']);
+                            unset($_SESSION['facture-type-message']);
                          ?>
                          <!-- END  ALERT MESSAGES -->
-                        <?php
-                        $updateLink = "";
-                        if ( 
-                            $_SESSION['userMerlaTrav']->profil() == "admin" ||
-                            $_SESSION['userMerlaTrav']->profil() == "manager" 
-                            ) {
-                            $updateLink = "#updateLivraison";    
-                        }
-                        ?>
                         <div class="portlet">
                             <!-- BEGIN PORTLET BODY -->
                             <div class="portlet-body">
-                                <!-- BEGIN Livraison Form -->
-                                <div class="row-fluid">
-                                    <div class="span3">
-                                      <div class="control-group">
-                                         <div class="controls">
-                                           <a class="btn" href="<?= $updateLink ?>" data-toggle="modal" style="width: 200px">
-                                               <strong>N° BL : <?= $livraison->libelle() ?></strong>
-                                           </a>
-                                         </div>
-                                      </div>
-                                   </div>
-                                   <div class="span3">
-                                      <div class="control-group">
-                                         <div class="controls">
-                                            <a class="btn" href="<?= $updateLink ?>" data-toggle="modal" style="width: 200px">
-                                                <strong>Nombre Articles : <?= $nombreArticle ?></strong>
-                                            </a>   
-                                         </div>
-                                      </div>
-                                   </div>
-                                    <div class="span3">
-                                      <div class="control-group">
-                                         <div class="controls">
-                                            <a class="btn" href="<?= $updateLink ?>" data-toggle="modal" style="width: 200px">
-                                                <strong>Date Livraison : <?= date('d/m/Y', strtotime($livraison->dateLivraison())) ?></strong>
-                                            </a>
-                                         </div>
-                                      </div>
-                                   </div>
-                                    <div class="span3">
-                                      <div class="control-group">
-                                         <div class="controls">
-                                            <a class="btn" href="<?= $updateLink ?>" data-toggle="modal" style="width: 200px">
-                                                <strong>Projet : <?= $nomProjet ?></strong>
-                                            </a>   
-                                         </div>
-                                      </div>
-                                   </div>
-                                </div>
-                            <!-- END Livraison Form -->
-                            <!-- updateLivraison box begin-->
-                            <div id="updateLivraison" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                    <h3>Modifier les informations de la livraison </h3>
-                                </div>
-                                <div class="modal-body">
-                                    <form id="update-livraison-form" class="form-horizontal" action="controller/LivraisonActionController.php" method="post">
-                                        <div class="control-group">
-                                            <label class="control-label">Fournisseur</label>
-                                            <div class="controls">
-                                                <select name="idFournisseur">
-                                                    <option value="<?= $fournisseur->id() ?>"><?= $fournisseur->nom() ?></option>
-                                                    <option disabled="disabled">------------</option>
-                                                    <?php foreach($fournisseurs as $fourn){ ?>
-                                                    <option value="<?= $fourn->id() ?>"><?= $fourn->nom() ?></option>
-                                                    <?php } ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Projet</label>
-                                            <div class="controls">
-                                                <select name="idProjet">
-                                                    <option value="<?= $idProjet ?>"><?= $nomProjet ?></option>
-                                                    <option disabled="disabled">------------</option>
-                                                    <?php foreach($projets as $pro){ ?>
-                                                    <option value="<?= $pro->id() ?>"><?= $pro->nom() ?></option>
-                                                    <?php } ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Date Livraison</label>
-                                            <div class="controls date date-picker" data-date="" data-date-format="yyyy-mm-dd">
-                                                <input name="dateLivraison" id="dateLivraison" class="m-wrap m-ctrl-small date-picker" type="text" value="<?= $livraison->dateLivraison() ?>" />
-                                                <span class="add-on"><i class="icon-calendar"></i></span>
-                                             </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">N° BL</label>
-                                            <div class="controls">
-                                                <input required="required" id="libelle" type="text" name="libelle" value="<?= $livraison->libelle() ?>" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <div class="controls">  
-                                                <input type="hidden" name="action" value="update" />
-                                                <input type="hidden" name="source" value="details-livraison" />
-                                                <input type="hidden" name="mois" value="<?= $_GET['mois'] ?>" />
-                                                <input type="hidden" name="annee" value="<?= $_GET['annee'] ?>" />
-                                                <input type="hidden" name="codeLivraison" value="<?= $livraison->code() ?>" />
-                                                <input type="hidden" name="idLivraison" value="<?= $livraison->id() ?>" />    
-                                                <button class="btn" data-dismiss="modal"aria-hidden="true">Non</button>
-                                                <button type="submit" class="btn red" aria-hidden="true">Oui</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <!-- addLivraison box end -->
                             <!-- BEGIN Ajouter Article Link -->
-                            <a target="_blank" href="controller/LivraisonDetailPrintController.php?idLivraison=<?= $livraison->id() ?>&societe=1" class="get-down btn blue pull-right">
+                            <a target="_blank" href="controller/LivraisonDetailPrintController.php" class="get-down btn blue pull-right">
                                 <i class="icon-print"></i>&nbsp;Bon de livraison
                             </a>
-                            <?php
-                            if ( 
-                                $_SESSION['userMerlaTrav']->profil() == "admin" ||
-                                $_SESSION['userMerlaTrav']->profil() == "manager" 
-                                ) {
-                            ?>
                             <a class="btn green" href="#addArticle" data-toggle="modal" data-id="">
                                 Ajouter un article <i class="icon-plus "></i>
                             </a>
-                            <?php
-                            }
-                            ?>
                             <!-- END Ajouter Article Link -->
-                            <!-- BEGIN addArticle Box -->
-                            <div id="addArticle" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                    <h3>Ajouter un artcile </h3>
-                                </div>
-                                <div class="modal-body">
-                                    <form id="add-detail-livraison-form" class="form-horizontal" action="controller/LivraisonDetailsActionController.php" method="post">
-                                        <!--div class="control-group">
-                                            <label class="control-label">Libelle</label>
-                                            <div class="controls">
-                                                <input type="text" name="libelle" value="" />
-                                            </div>
-                                        </div-->
-                                        <div class="control-group">
-                                            <label class="control-label">Désignation</label>
-                                            <div class="controls">
-                                                <input type="text" name="designation" value="" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Prix Unitaire</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" id="prixUnitaire" name="prixUnitaire" value="" />
-                                            </div>  
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Quantité</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" id="quantite" name="quantite" value="" />
-                                            </div>  
-                                        </div>
-                                        <div class="control-group">
-                                            <div class="controls">  
-                                                <input type="hidden" name="action" value="add" />
-                                                <input type="hidden" name="mois" value="<?= $_GET['mois'] ?>" />
-                                                <input type="hidden" name="annee" value="<?= $_GET['annee'] ?>" />
-                                                <input type="hidden" name="idLivraison" value="<?= $livraison->id() ?>" />
-                                                <input type="hidden" name="codeLivraison" value="<?= $livraison->code() ?>" />
-                                                <button class="btn" data-dismiss="modal"aria-hidden="true">Non</button>
-                                                <button type="submit" class="btn red" aria-hidden="true">Oui</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <!-- END addArticle BOX -->
                             <br><br>
                             <!-- BEGIN LivraisonDetail TABLE -->
                             <?php
@@ -299,6 +125,11 @@
                             ?>
                             <table class="table table-striped table-bordered table-hover">
                             <tr>
+                                <th style="width: 20%">Client</th>
+                                <th style="width: 10%">Date</th>
+                                <th style="width: 20%">Total</th>
+                                <th style="width: 20%">Payé</th>
+                                <th style="width: 20%">Reste</th>
                                 <?php
                                 if ( 
                                     $_SESSION['userMerlaTrav']->profil() == "admin" ||
@@ -309,15 +140,28 @@
                                 <?php
                                 }
                                 ?>
-                                <th style="width: 20%">Désignation</th>
-                                <th style="width: 20%">Quantité</th>
-                                <th style="width: 20%">Prix.Uni</th>
-                                <th style="width: 30%">Total</th>
                             </tr>
                             <?php
-                            foreach($livraisonDetail as $detail){
+                            foreach($factures as $facture){
+                                $client = $clientManager->getClientById($facture->idClient());
+                                $total = $factureDetailsManager->getTotalFactureByIdFacture($facture->id());
                             ?>
                             <tr>
+                                <td>
+                                    <?= $client->nom() ?>
+                                </td>
+                                <td>
+                                    <?= date('d/m/Y', strtotime($facture->date())) ?>
+                                </td>
+                                <td>
+                                    <?= number_format($total, '2', ',', ' ') ?>&nbsp;DH
+                                </td>
+                                <td>
+                                    <?= number_format(0, '2', ',', ' ') ?>&nbsp;DH
+                                </td>
+                                <td>
+                                    <?= number_format(0, '2', ',', ' ') ?>&nbsp;DH
+                                </td>
                                 <?php
                                 if ( 
                                     $_SESSION['userMerlaTrav']->profil() == "admin" ||
@@ -325,31 +169,19 @@
                                     ) {
                                 ?>
                                 <td class="hidden-phone">
-                                    <a class="btn mini green" href="#updateLivraisonDetail<?= $detail->id();?>" data-toggle="modal" data-id="<? $detail->id(); ?>">
+                                    <a class="btn mini green" href="#updateLivraisonDetail<?= $facture->id()?>" data-toggle="modal" data-id="<?=$facture->id()?>">
                                         <i class="icon-refresh "></i>
                                     </a>
-                                    <a class="btn mini red" href="#deleteLivraisonDetail<?= $detail->id();?>" data-toggle="modal" data-id="<? $detail->id(); ?>">
+                                    <a class="btn mini red" href="#deleteLivraisonDetail<?= $facture->id()?>" data-toggle="modal" data-id="<?=$facture->id()?>">
                                         <i class="icon-remove "></i>
                                     </a>
                                 </td>
                                 <?php
                                 }
                                 ?>
-                                <td>
-                                    <?= $detail->designation() ?>
-                                </td>
-                                <td>
-                                    <?= $detail->quantite() ?>
-                                </td>
-                                <td>
-                                    <?= number_format($detail->prixUnitaire(), '2', ',', ' ') ?>&nbsp;DH
-                                </td>
-                                <td>
-                                    <?= number_format($detail->prixUnitaire() * $detail->quantite(), '2', ',', ' ') ?>&nbsp;DH
-                                </td>
                             </tr>
                             <!-- BEGIN  updateLivraisonDetail BOX -->
-                            <div id="updateLivraisonDetail<?= $detail->id() ?>" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
+                            <div id="updateLivraisonDetail<?= $facture->id() ?>" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                                     <h3>Modifier les détails de livraison </h3>
@@ -360,27 +192,24 @@
                                         <div class="control-group">
                                             <label class="control-label" for="designation">Désignation</label>
                                             <div class="controls">
-                                                <input name="designation" class="m-wrap" type="text" value="<?= $detail->designation() ?>" />
+                                                <input name="designation" class="m-wrap" type="text" value="" />
                                             </div>
                                         </div>
                                         <div class="control-group">
                                             <label class="control-label" for="quantite">Quantité</label>
                                             <div class="controls">
-                                                <input required="required" id="quantite" name="quantite" class="m-wrap" type="text" value="<?= $detail->quantite() ?>" />
+                                                <input required="required" id="quantite" name="quantite" class="m-wrap" type="text" value="" />
                                             </div>
                                         </div>
                                         <div class="control-group">
                                             <label class="control-label" for="prixUnitaire">Prix Unitaire</label>
                                             <div class="controls">
-                                                <input required="required" id="prixUnitaire" name="prixUnitaire" class="m-wrap" type="text" value="<?= $detail->prixUnitaire() ?>" />
+                                                <input required="required" id="prixUnitaire" name="prixUnitaire" class="m-wrap" type="text" value="" />
                                             </div>
                                         </div>
                                         <div class="control-group">
                                             <input type="hidden" name="action" value="update" />
-                                            <input type="hidden" name="mois" value="<?= $_GET['mois'] ?>" />
-                                            <input type="hidden" name="annee" value="<?= $_GET['annee'] ?>" />
-                                            <input type="hidden" name="idLivraisonDetail" value="<?= $detail->id() ?>" />
-                                            <input type="hidden" name="codeLivraison" value="<?= $livraison->code() ?>" />
+                                            <input type="hidden" name="idLivraisonDetail" value="<?= $facture->id() ?>" />
                                             <div class="controls">  
                                                 <button class="btn" data-dismiss="modal"aria-hidden="true">Non</button>
                                                 <button type="submit" class="btn red" aria-hidden="true">Oui</button>
@@ -391,7 +220,7 @@
                             </div>
                             <!-- END  update LivraisonDetail   BOX -->
                             <!-- BEGIN  delete LivraisonDetail BOX -->
-                            <div id="deleteLivraisonDetail<?= $detail->id();?>" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
+                            <div id="deleteLivraisonDetail<?= $facture->id()?>" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                                     <h3>Supprimer Article</h3>
@@ -401,10 +230,7 @@
                                         <p>Êtes-vous sûr de vouloir supprimer cet article ?</p>
                                         <div class="control-group">
                                             <input type="hidden" name="action" value="delete" />
-                                            <input type="hidden" name="mois" value="<?= $_GET['mois'] ?>" />
-                                            <input type="hidden" name="annee" value="<?= $_GET['annee'] ?>" />
-                                            <input type="hidden" name="idLivraisonDetail" value="<?= $detail->id() ?>" />
-                                            <input type="hidden" name="codeLivraison" value="<?= $livraison->code() ?>" />
+                                            <input type="hidden" name="idLivraisonDetail" value="<?= $facture->id() ?>" />
                                             <button class="btn" data-dismiss="modal"aria-hidden="true">Non</button>
                                             <button type="submit" class="btn red" aria-hidden="true">Oui</button>
                                         </div>
@@ -416,26 +242,13 @@
                             }//end foreach
                             ?>
                             </table>
-                            <table class="table table-striped table-bordered table-advance table-hover">
+                            <!--table class="table table-striped table-bordered table-advance table-hover">
                                 <tbody>
                                     <tr>
                                         <th style="width: 70%"><strong>Grand Total</strong></th>
-                                        <th style="width: 30%"><strong><a><?= number_format($totalLivraisonDetail, 2, ',', ' ') ?>&nbsp;DH</a></strong></th>
+                                        <th style="width: 30%"><strong><a><?php //number_format(0, 2, ',', ' ') ?>&nbsp;DH</a></strong></th>
                                     </tr>
                                 </tbody>
-                            </table>
-                            <!--table class="table table-striped table-bordered table-advance table-hover">
-                                <thead>
-                                    <tr>
-                                        <th><strong>Nombre d'article de la livraison</strong></th>
-                                        <td><strong><a><?= $nombreArticle ?></a></strong></td>
-                                    </tr>
-                                <thead>
-                                    <tr>
-                                        <th><strong>Total de la livraison</strong></th>
-                                        <td><strong><a><?= number_format($totalLivraisonDetail, 2, ',', ' ') ?></a>&nbsp;DH</strong></td>
-                                    </tr>   
-                                </thead>
                             </table-->
                             <?php
                             }//end if

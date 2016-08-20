@@ -11,14 +11,16 @@ class FactureDetailsManager{
 
 	//BAISC CRUD OPERATIONS
 	public function add(FactureDetails $factureDetails){
-    	$query = $this->_db->prepare(' INSERT INTO t_facturedetails (
-		designation, quantite, prixUnitaire, idFacture, created, createdBy)
-		VALUES (:designation, :quantite, :prixUnitaire, :idFacture, :created, :createdBy)')
+    	$query = $this->_db->prepare(
+    	'INSERT INTO t_facturedetails (
+		designation, quantite, prixUnitaire, idFacture, idProduit, created, createdBy)
+		VALUES (:designation, :quantite, :prixUnitaire, :idFacture, :idProduit, :created, :createdBy)')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':designation', $factureDetails->designation());
 		$query->bindValue(':quantite', $factureDetails->quantite());
 		$query->bindValue(':prixUnitaire', $factureDetails->prixUnitaire());
 		$query->bindValue(':idFacture', $factureDetails->idFacture());
+        $query->bindValue(':idProduit', $factureDetails->idProduit());
 		$query->bindValue(':created', $factureDetails->created());
 		$query->bindValue(':createdBy', $factureDetails->createdBy());
 		$query->execute();

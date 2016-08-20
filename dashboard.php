@@ -211,7 +211,7 @@
                             <div class="span3">
                                 <div class="control-group">
                                     <div class="controls">
-                                        <input type="submit" class="btn blue" value="Valider">
+                                        <input type="submit" class="btn blue" value="Créer Nouvelle Facture">
                                         <input type="hidden" name="action" value="add">
                                         <input type="hidden" name="source" value="dashboard">
                                         <input type="hidden" name="idClient" id="idClient" >

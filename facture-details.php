@@ -144,7 +144,7 @@
                                    <div class="span4">
                                       <div class="control-group">
                                          <div class="controls">
-                                            <a style="width: 300px" target="_blank" href="controller/LivraisonDetailPrintController.php?idLivraison=<?= $facture->id() ?>" class="get-down btn blue pull-right">
+                                            <a style="width: 300px" target="_blank" href="controller/FacturePrintController.php?idFacture=<?= $facture->id() ?>" class="get-down btn blue pull-right">
                                                 <i class="icon-print"></i>&nbsp;Imprimer Facture
                                             </a>  
                                          </div>
@@ -218,13 +218,14 @@
                             </tr>
                             <?php
                             foreach($factureDetails as $detail){
+                                $produit = $produitManager->getProduitById($detail->idProduit());
                             ?>
                             <tr>
                                 <td>
                                     <?= $detail->designation() ?>
                                 </td>
                                 <td>
-                                    <?= $detail->quantite() ?>
+                                    <?= ($detail->quantite()+0) ?>
                                 </td>
                                 <td>
                                     <?= number_format($detail->prixUnitaire(), '2', ',', ' ') ?>&nbsp;DH
@@ -263,12 +264,14 @@
                                             <label class="control-label" for="quantite">Quantité</label>
                                             <div class="controls">
                                                 <input required="required" id="quantite" name="quantite" class="m-wrap" type="text" value="<?= $detail->quantite() ?>" />
+                                                <p style="color:red">Stock = <?= $produit->quantite() ?></p>
                                             </div>
                                         </div>
                                         <div class="control-group">
                                             <label class="control-label" for="prixUnitaire">Prix Unitaire</label>
                                             <div class="controls">
                                                 <input required="required" id="prixUnitaire" name="prixUnitaire" class="m-wrap" type="text" value="<?= $detail->prixUnitaire() ?>" />
+                                                <p style="color:red">PrixVenteMin = <?= $produit->prixVenteMin() ?></p>
                                             </div>
                                         </div>
                                         <div class="control-group">
@@ -292,7 +295,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <form class="form-horizontal loginFrm" action="controller/FactureDetailsActionController.php" method="post">
-                                        <p>Êtes-vous sûr de vouloir supprimer ce produit ?</p>
+                                        <p>Êtes-vous sûr de vouloir supprimer ce produit <strong><?= $detail->designation() ?></strong>?</p>
                                         <div class="control-group">
                                             <input type="hidden" name="action" value="delete" />
                                             <input type="hidden" name="idFactureDetail" value="<?= $detail->id() ?>" />

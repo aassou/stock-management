@@ -26,7 +26,11 @@
     $factureDetailsManager = new FactureDetailsManager($pdo);
 	//Action Add Processing Begin
     if($action == "add"){
-        if( !empty($_POST['codeProduit']) and !empty($_POST['prixUnitaire']) and !empty($_POST['quantite']) ){
+        if( !empty($_POST['codeProduit']) 
+        and !empty($_POST['prixUnitaire']) 
+        and !empty($_POST['quantite'])
+        and $_POST['quantite'] > 0
+        and $_POST['prixUnitaire'] > 0 ){
 			$designation = htmlentities($_POST['codeProduit']);
 			$quantite = htmlentities($_POST['quantite']);
 			$prixUnitaire = htmlentities($_POST['prixUnitaire']);
@@ -61,6 +65,7 @@
 				'quantite' => $quantite,
 				'prixUnitaire' => $prixUnitaire,
 				'idFacture' => $idFacture,
+				'idProduit' => $idProduit,
 				'created' => $created,
             	'createdBy' => $createdBy
 			));
@@ -77,25 +82,28 @@
     //Action Add Processing End
     //Action Update Processing Begin
     else if($action == "update"){
+        $codeFacture = htmlentities($_POST['codeFacture']);
         $idFactureDetails = htmlentities($_POST['idFactureDetail']);
-        if( !empty($_POST['prixUnitaire']) and !empty($_POST['quantite']) ){
-			$designation = htmlentities($_POST['codeProduit']);
+        $factureDetails = $factureDetailsManager->getFactureDetailsById($idFactureDetails);
+        if( !empty($_POST['prixUnitaire']) 
+        and !empty($_POST['quantite'])
+        and $_POST['quantite'] > 0
+        and $_POST['prixUnitaire'] > 0 ){
 			$quantite = htmlentities($_POST['quantite']);
 			$prixUnitaire = htmlentities($_POST['prixUnitaire']);
 			$updatedBy = $_SESSION['userMerlaTrav']->login();
             $updated = date('Y-m-d h:i:s');
-            $idProduit = htmlentities($_POST['idProduit']);
-            $produit = $produitManager->getProduitById($idProduit);
+            $produit = $produitManager->getProduitById($factureDetails->idProduit());
             if ( ($quantite > $produit->quantite()) or $prixUnitaire < $produit->prixVenteMin() ) {
                 if ( ($quantite > $produit->quantite()) and $prixUnitaire < $produit->prixVenteMin() ) {
-                    $actionMessage = "<strong>Erreur Ajout Produit</strong> : Manque de quantité en stock.<br>";
-                    $actionMessage .= "<strong>Erreur Ajout Produit</strong> : Prix inférieur au PrixVenteMin.";    
+                    $actionMessage = "<strong>Erreur Modification Produit</strong> : Manque de quantité en stock.<br>";
+                    $actionMessage .= "<strong>Erreur Modification Produit</strong> : Prix inférieur au PrixVenteMin.";    
                 }
                 else if ( $prixUnitaire < $produit->prixVenteMin() ) {
-                    $actionMessage = "<strong>Erreur Ajout Produit</strong> : Prix inférieur au PrixVenteMin.";
+                    $actionMessage = "<strong>Erreur Modification Produit</strong> : Prix inférieur au PrixVenteMin.";
                 }
                 else if ( $quantite > $produit->quantite() ) {
-                    $actionMessage = "<strong>Erreur Ajout Produit</strong> : Manque de quantité en stock.";
+                    $actionMessage = "<strong>Erreur Modification Produit</strong> : Manque de quantité en stock.";
                 } 
                 $typeMessage = "error";
                 $redirectLink = "Location:../facture-details.php?codeFacture=".$codeFacture;
@@ -129,8 +137,8 @@
         $typeMessage = "success";
     }
     //Action Delete Processing End
-    $_SESSION['factureDetails-action-message'] = $actionMessage;
-    $_SESSION['factureDetails-type-message'] = $typeMessage;
+    $_SESSION['facture-details-action-message'] = $actionMessage;
+    $_SESSION['facture-details-type-message'] = $typeMessage;
     if ( isset($_POST['source']) and $_POST['source'] == "dashboard" ) {
         $redirectLink = "Location:../dashboard.php";
     }

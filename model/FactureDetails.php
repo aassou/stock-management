@@ -7,6 +7,7 @@ class FactureDetails{
 	private $_quantite;
 	private $_prixUnitaire;
 	private $_idFacture;
+    private $_idProduit;
 	private $_created;
 	private $_createdBy;
 	private $_updated;
@@ -32,6 +33,7 @@ class FactureDetails{
 	public function setId($id){
     	$this->_id = $id;
     }
+	
 	public function setDesignation($designation){
 		$this->_designation = $designation;
    	}
@@ -47,6 +49,10 @@ class FactureDetails{
 	public function setIdFacture($idFacture){
 		$this->_idFacture = $idFacture;
    	}
+
+    public function setIdProduit($idProduit){
+        $this->_idProduit = $idProduit;
+    }
 
 	public function setCreated($created){
         $this->_created = $created;
@@ -83,6 +89,10 @@ class FactureDetails{
 	public function idFacture(){
 		return $this->_idFacture;
    	}
+    
+    public function idProduit(){
+        return $this->_idProduit;
+    }
 
 	public function created(){
         return $this->_created;
