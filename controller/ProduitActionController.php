@@ -27,30 +27,20 @@
 	//Action Add Processing Begin
     if($action == "add"){
         if( !empty($_POST['code']) ){
-			$dimension1 = htmlentities($_POST['dimension1']);
-            $dimension2 = htmlentities($_POST['dimension2']);
-			$diametre = htmlentities($_POST['diametre']);
-			$forme = htmlentities($_POST['forme']);
 			$prixAchat = htmlentities($_POST['prixAchat']);
 			$prixVente = htmlentities($_POST['prixVente']);
 			$prixVenteMin = htmlentities($_POST['prixVenteMin']);
 			$quantite = htmlentities($_POST['quantite']);
-			$poids = htmlentities($_POST['poids']);
 			$code = htmlentities($_POST['code']);
 			$idCategorie = htmlentities($_POST['idCategorie']);
 			$createdBy = $_SESSION['userMerlaTrav']->login();
             $created = date('Y-m-d h:i:s');
             //create object
             $produit = new Produit(array(
-				'dimension1' => $dimension1,
-				'dimension2' => $dimension2,
-				'diametre' => $diametre,
-				'forme' => $forme,
 				'prixAchat' => $prixAchat,
 				'prixVente' => $prixVente,
 				'prixVenteMin' => $prixVenteMin,
 				'quantite' => $quantite,
-				'poids' => $poids,
 				'code' => $code,
 				'idCategorie' => $idCategorie,
 				'created' => $created,
@@ -71,30 +61,20 @@
     else if($action == "update"){
         $idProduit = htmlentities($_POST['idProduit']);
         if(!empty($_POST['code'])){
-			$dimension1 = htmlentities($_POST['dimension1']);
-            $dimension2 = htmlentities($_POST['dimension2']);
-			$diametre = htmlentities($_POST['diametre']);
-			$forme = htmlentities($_POST['forme']);
 			$prixAchat = htmlentities($_POST['prixAchat']);
 			$prixVente = htmlentities($_POST['prixVente']);
 			$prixVenteMin = htmlentities($_POST['prixVenteMin']);
 			$quantite = htmlentities($_POST['quantite']);
-			$poids = htmlentities($_POST['poids']);
 			$code = htmlentities($_POST['code']);
 			$idCategorie = htmlentities($_POST['idCategorie']);
 			$updatedBy = $_SESSION['userMerlaTrav']->login();
             $updated = date('Y-m-d h:i:s');
             $produit = new Produit(array(
 				'id' => $idProduit,
-				'dimension1' => $dimension1,
-				'dimension2' => $dimension2,
-				'diametre' => $diametre,
-				'forme' => $forme,
 				'prixAchat' => $prixAchat,
 				'prixVente' => $prixVente,
 				'prixVenteMin' => $prixVenteMin,
 				'quantite' => $quantite,
-				'poids' => $poids,
 				'code' => $code,
 				'idCategorie' => $idCategorie,
 				'updated' => $updated,

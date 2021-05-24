@@ -11,19 +11,14 @@ class ProduitManager{
 
 	//BAISC CRUD OPERATIONS
 	public function add(Produit $produit){
-    	$query = $this->_db->prepare(' INSERT INTO t_produit (
-		dimension1, dimension2, diametre, forme, prixAchat, prixVente, prixVenteMin, quantite, poids, code, idCategorie, created, createdBy)
-		VALUES (:dimension1, :dimension2, :diametre, :forme, :prixAchat, :prixVente, :prixVenteMin, :quantite, :poids, :code, :idCategorie, :created, :createdBy)')
+    	$query = $this->_db->prepare('INSERT INTO t_produit (
+		prixAchat, prixVente, prixVenteMin, quantite, code, idCategorie, created, createdBy)
+		VALUES (:prixAchat, :prixVente, :prixVenteMin, :quantite, :code, :idCategorie, :created, :createdBy)')
 		or die (print_r($this->_db->errorInfo()));
-		$query->bindValue(':dimension1', $produit->dimension1());
-        $query->bindValue(':dimension2', $produit->dimension2());
-		$query->bindValue(':diametre', $produit->diametre());
-		$query->bindValue(':forme', $produit->forme());
 		$query->bindValue(':prixAchat', $produit->prixAchat());
 		$query->bindValue(':prixVente', $produit->prixVente());
 		$query->bindValue(':prixVenteMin', $produit->prixVenteMin());
 		$query->bindValue(':quantite', $produit->quantite());
-		$query->bindValue(':poids', $produit->poids());
 		$query->bindValue(':code', $produit->code());
 		$query->bindValue(':idCategorie', $produit->idCategorie());
 		$query->bindValue(':created', $produit->created());
@@ -34,19 +29,14 @@ class ProduitManager{
 
 	public function update(Produit $produit){
     	$query = $this->_db->prepare(' UPDATE t_produit SET 
-		dimension1=:dimension1, dimension2=:dimension2, diametre=:diametre, forme=:forme, prixAchat=:prixAchat, prixVente=:prixVente, prixVenteMin=:prixVenteMin, quantite=:quantite, poids=:poids, code=:code, idCategorie=:idCategorie, updated=:updated, updatedBy=:updatedBy
+		prixAchat=:prixAchat, prixVente=:prixVente, prixVenteMin=:prixVenteMin, quantite=:quantite, code=:code, idCategorie=:idCategorie, updated=:updated, updatedBy=:updatedBy
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $produit->id());
-		$query->bindValue(':dimension1', $produit->dimension1());
-        $query->bindValue(':dimension2', $produit->dimension2());
-		$query->bindValue(':diametre', $produit->diametre());
-		$query->bindValue(':forme', $produit->forme());
 		$query->bindValue(':prixAchat', $produit->prixAchat());
 		$query->bindValue(':prixVente', $produit->prixVente());
 		$query->bindValue(':prixVenteMin', $produit->prixVenteMin());
 		$query->bindValue(':quantite', $produit->quantite());
-		$query->bindValue(':poids', $produit->poids());
 		$query->bindValue(':code', $produit->code());
 		$query->bindValue(':idCategorie', $produit->idCategorie());
 		$query->bindValue(':updated', $produit->updated());
@@ -129,13 +119,14 @@ class ProduitManager{
         $query = $this->_db->prepare(
         'SELECT * FROM t_produit
         WHERE idCategorie=:idCategorie
-        ORDER BY code ASC, dimension2 ASC, dimension1 ASC');
+        ORDER BY code');
         $query->bindValue(':idCategorie', $idCategorie);
         $query->execute();
         while($data = $query->fetch(PDO::FETCH_ASSOC)){
             $produits[] = new Produit($data);
         }
         $query->closeCursor();
+		
         return $produits;
     }
 

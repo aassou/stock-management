@@ -12,15 +12,10 @@ class CategorieManager{
 	//BAISC CRUD OPERATIONS
 	public function add(Categorie $categorie){
     	$query = $this->_db->prepare(' INSERT INTO t_categorie (
-		nomAR, nomFR, longueur, largeur, hauteur, diametre, forme, couleur, created, createdBy)
-		VALUES (:nomAR, :nomFR, :longueur, :largeur, :hauteur, :diametre, :forme, :couleur, :created, :createdBy)')
+		nomFR, forme, couleur, created, createdBy)
+		VALUES (:nomFR, :forme, :couleur, :created, :createdBy)')
 		or die (print_r($this->_db->errorInfo()));
-		$query->bindValue(':nomAR', $categorie->nomAR());
 		$query->bindValue(':nomFR', $categorie->nomFR());
-		$query->bindValue(':longueur', $categorie->longueur());
-		$query->bindValue(':largeur', $categorie->largeur());
-		$query->bindValue(':hauteur', $categorie->hauteur());
-		$query->bindValue(':diametre', $categorie->diametre());
 		$query->bindValue(':forme', $categorie->forme());
 		$query->bindValue(':couleur', $categorie->couleur());
 		$query->bindValue(':created', $categorie->created());
@@ -31,16 +26,11 @@ class CategorieManager{
 
 	public function update(Categorie $categorie){
     	$query = $this->_db->prepare(' UPDATE t_categorie SET 
-		nomAR=:nomAR, nomFR=:nomFR, longueur=:longueur, largeur=:largeur, hauteur=:hauteur, diametre=:diametre, forme=:forme, couleur=:couleur, updated=:updated, updatedBy=:updatedBy
+		nomFR=:nomFR, forme=:forme, couleur=:couleur, updated=:updated, updatedBy=:updatedBy
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $categorie->id());
-		$query->bindValue(':nomAR', $categorie->nomAR());
 		$query->bindValue(':nomFR', $categorie->nomFR());
-		$query->bindValue(':longueur', $categorie->longueur());
-		$query->bindValue(':largeur', $categorie->largeur());
-		$query->bindValue(':hauteur', $categorie->hauteur());
-		$query->bindValue(':diametre', $categorie->diametre());
 		$query->bindValue(':forme', $categorie->forme());
 		$query->bindValue(':couleur', $categorie->couleur());
 		$query->bindValue(':updated', $categorie->updated());

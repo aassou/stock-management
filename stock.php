@@ -1,5 +1,8 @@
 <?php
 //classes loading begin
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
     function classLoad ($myClass) {
         if(file_exists('model/'.$myClass.'.php')){
             include('model/'.$myClass.'.php');
@@ -137,30 +140,6 @@
                                         </div>
                                     </div>
                                     <div class="control-group">
-                                        <label class="control-label">Longueur</label>
-                                        <div class="controls">
-                                            <input type="text" name="longueur" />
-                                        </div>
-                                    </div>
-                                    <div class="control-group">
-                                        <label class="control-label">Largeur</label>
-                                        <div class="controls">
-                                            <input type="text" name="largeur" />
-                                        </div>
-                                    </div>
-                                    <div class="control-group">
-                                        <label class="control-label">Hauteur</label>
-                                        <div class="controls">
-                                            <input type="text" name="hauteur" />
-                                        </div>
-                                    </div>
-                                    <div class="control-group">
-                                        <label class="control-label">Diamétre</label>
-                                        <div class="controls">
-                                            <input type="text" name="diametre" />
-                                        </div>
-                                    </div>
-                                    <div class="control-group">
                                         <label class="control-label">Forme</label>
                                         <div class="controls">
                                             <input type="text" name="forme" />
@@ -171,12 +150,6 @@
                                         <div class="controls">
                                             <input type="text" name="couleur" />
                                         </div>  
-                                    </div>
-                                    <div class="control-group">
-                                        <label class="control-label">الاسم</label>
-                                        <div class="controls">
-                                            <input type="text" name="nomAR" />
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -216,25 +189,6 @@
                                         </div>
                                     </div>
                                     <div class="control-group">
-                                        <label class="control-label">Dimensions</label>
-                                        <div class="controls">
-                                            <input required="required" id="dimension1" class="span4" type="text" name="dimension1" />
-                                            <input required="required" id="dimension2" class="span4" type="text" name="dimension2" />
-                                        </div>
-                                    </div>
-                                    <!--div class="control-group">
-                                        <label class="control-label">Diametre</label>
-                                        <div class="controls">
-                                            <input type="text" name="diametre" />
-                                        </div>
-                                    </div>
-                                    <div class="control-group">
-                                        <label class="control-label">Forme</label>
-                                        <div class="controls">
-                                            <input type="text" name="forme" />
-                                        </div>
-                                    </div-->
-                                    <div class="control-group">
                                         <label class="control-label">Prix Achat</label>
                                         <div class="controls">
                                             <input required="required" id="prixAchat" type="text" name="prixAchat" />
@@ -258,12 +212,6 @@
                                             <input required="required" id="quantite" type="text" name="quantite" />
                                         </div>  
                                     </div>
-                                    <!--div class="control-group">
-                                        <label class="control-label">Poids</label>
-                                        <div class="controls">
-                                            <input type="text" name="poids" />
-                                        </div>
-                                    </div-->
                                 </div>
                                 <div class="modal-footer">
                                     <div class="control-group">
@@ -303,28 +251,25 @@
                                 </div>
                                 <div class="accordion" id="accordion1">
                                     <?php 
-                                    for($i=0; $i<$categoriesNumber; $i++){
-                                        $produits = $produitManager->getProduitsByIdCategorie($categories[$i]->id()); 
+                                    foreach($categories as $categorie){
+                                        $produits = $produitManager->getProduitsByIdCategorie($categorie->id());
                                     ?>
                                     <div class="accordion-group">
                                         <div class="accordion-heading">
-                                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse_<?= $i+1 ?>">
-                                            <strong><?= $categories[$i]->nomFR() ?></strong>
+                                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse_<?= $categorie->id() ?>">
+                                            <strong><?= $categorie->nomFR() ?></strong>
                                             </a>
                                         </div>
-                                        <div id="collapse_<?= $i+1 ?>" class="accordion-body collapse">
+                                        <div id="collapse_<?= $categorie->id() ?>" class="accordion-body collapse">
                                             <div class="accordion-inner">
                                                 <table class="table table-striped table-bordered table-hover">
                                                     <thead>
                                                         <tr>
                                                             <th style="width:8%">Qté</th>
                                                             <th style="width:17%">Produit</th>
-                                                            <th style="width:10%">Dimensions</th>
-                                                            <th style="width:8%">Poids</th>
                                                             <th style="width:10%">PrixAchat</th>
                                                             <th style="width:10%">PrixMinVente</th>
                                                             <th style="width:10%">PrixVente</th>
-                                                            <?php if ( $_SESSION['userMerlaTrav']->profil() == "admin" ){ ?><th style="width:10%">Marge</th><?php } ?>
                                                             <th style="width:7%">Status</th>
                                                             <th style="width:10%">Actions</th>
                                                         </tr>
@@ -341,13 +286,10 @@
                                                         ?>
                                                         <tr class="odd gradeX">    
                                                             <td><a><strong><?= $produit->quantite() ?></strong></a></td>
-                                                            <td><?= $produit->code()." ".($produit->dimension1()+0)."x".($produit->dimension2()+0) ?></td>
-                                                            <td><?= ($produit->dimension1()+0)."x".($produit->dimension2()+0) ?></td>
-                                                            <td><?= $produit->poids() ?></td>
+                                                            <td><?= $produit->code() ?></td>
                                                             <td><a><strong><?= number_format($produit->prixAchat(), 2, ',', ' ') ?>&nbsp;DH</strong></a></td>
                                                             <td><a><strong><?= number_format($produit->prixVenteMin(), 2, ',', ' ') ?>&nbsp;DH</strong></a></td>
                                                             <td><a><strong><?= number_format($produit->prixVente(), 2, ',', ' ') ?>&nbsp;DH</strong></a></td>
-                                                            <?php if ( $_SESSION['userMerlaTrav']->profil() == "admin" ){ ?><td><a><strong><?= number_format($produit->prixVente()-$produit->prixAchat(), 2, ',', ' ') ?>&nbsp;DH</strong></a></td><?php } ?>
                                                             <td><a class="<?= $classQuantiteMin ?>"><?= $textQuantite ?></a></td>
                                                             <td>
                                                                 <!--a href="#update<?php //$produit->id() ?>" data-toggle="modal" data-id="<?php //$produit->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a-->
