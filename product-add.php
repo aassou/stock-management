@@ -75,7 +75,6 @@ if( isset($_SESSION['userMerlaTrav']) ){
                 <!-- BEGIN PAGE HEADER-->
                 <div class="row-fluid">
                     <div class="span12">
-                        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                         <ul class="breadcrumb">
                             <li>
                                 <i class="icon-dashboard"></i>
@@ -88,7 +87,7 @@ if( isset($_SESSION['userMerlaTrav']) ){
                                 <i class="icon-angle-right"></i>
                             </li>
                             <li>
-                                <strong>Modification : <?= strtoupper($produit->code()) ?></strong>
+                                <a>Ajouter Produit</a>
                             </li>
                         </ul>
                         <!-- END PAGE TITLE & BREADCRUMB-->
@@ -114,25 +113,37 @@ if( isset($_SESSION['userMerlaTrav']) ){
                             ?>
                             <div class="portlet box blue">
                                 <div class="portlet-title">
-                                    <h4>Modifier Produit <?= $produit->code() ?></h4>
+                                    <h4>Ajouter Produit <?= $produit->code() ?></h4>
                                 </div>
                                 <div class="portlet-body form">
                                     <!-- BEGIN FORM-->
                                     <form id="new-product" action="controller/ProduitActionController.php" method="POST">
                                         <div class="row-fluid">
-                                            <div class="span6">
+                                            <div class="span4">
                                                 <div class="control-group">
-                                                    <label class="control-label">Code</label>
+                                                    <label class="control-label">Categorie</label>
                                                     <div class="controls">
-                                                        <input class="m-wrap span12" required="required" id="code" type="text" name="code" value="<?= $produit->code() ?>" />
+                                                        <select name="idCategorie">
+                                                            <?php foreach($categories as $categorie){ ?>
+                                                                <option value="<?= $categorie->id() ?>"><?= $categorie->nomFR() ?></option>
+                                                            <?php } ?>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="span6">
+                                            <div class="span4">
+                                                <div class="control-group">
+                                                    <label class="control-label">Code</label>
+                                                    <div class="controls">
+                                                        <input class="m-wrap span12" required="required" id="code" type="text" name="code" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="span4">
                                                 <div class="control-group">
                                                     <label class="control-label">Quantité</label>
                                                     <div class="controls">
-                                                        <input class="m-wrap span12" required="required" id="quantite" type="text" name="quantite" value="<?= $produit->quantite() ?>" />
+                                                        <input class="m-wrap span12" required="required" id="quantite" type="text" name="quantite" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -142,7 +153,7 @@ if( isset($_SESSION['userMerlaTrav']) ){
                                                 <div class="control-group">
                                                     <label class="control-label">Prix Achat</label>
                                                     <div class="controls">
-                                                        <input class="m-wrap span12" required="required" id="prixAchat" type="text" name="prixAchat" value="<?= $produit->prixAchat() ?>" />
+                                                        <input class="m-wrap span12" required="required" id="prixAchat" type="text" name="prixAchat" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -150,7 +161,7 @@ if( isset($_SESSION['userMerlaTrav']) ){
                                                 <div class="control-group">
                                                     <label class="control-label">Prix Vente</label>
                                                     <div class="controls">
-                                                        <input class="m-wrap span12" required="required" id="prixVente" type="text" name="prixVente" value="<?= $produit->prixVente() ?>" />
+                                                        <input class="m-wrap span12" required="required" id="prixVente" type="text" name="prixVente" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -158,15 +169,13 @@ if( isset($_SESSION['userMerlaTrav']) ){
                                                 <div class="control-group">
                                                     <label class="control-label">Prix Vente Min</label>
                                                     <div class="controls">
-                                                        <input class="m-wrap span12" required="required" id="prixVenteMin" type="text" name="prixVenteMin" value="<?= $produit->prixVenteMin() ?>" />
+                                                        <input class="m-wrap span12" required="required" id="prixVenteMin" type="text" name="prixVenteMin" />
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-actions">
-                                            <input type="hidden" name="action" value="update">
-                                            <input type="hidden" name="idProduit" value="<?= $produit->id() ?>">
-                                            <input type="hidden" name="idCategorie" value="<?= $produit->idCategorie() ?>">
+                                            <input type="hidden" name="action" value="add">
                                             <input type="hidden" name="source" value="<?= $source ?>">
                                             <a href="produits.php" class="btn red"><i class="m-icon-swapleft m-icon-white"></i>&nbsp;Retour</a>
                                             <button type="submit" class="btn blue">Enregistrer <i class="icon-save m-icon-white"></i></button>

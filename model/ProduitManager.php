@@ -100,17 +100,20 @@ class ProduitManager{
         $query->closeCursor();
         return $data['nombreProduit'];
     }
-    
-    
 
+    /**
+     * @return array
+     */
 	public function getProduits(){
-		$produits = array();
-		$query = $this->_db->query('SELECT * FROM t_produit
-		ORDER BY code ASC, dimension2 ASC, dimension1 ASC');
-		while($data = $query->fetch(PDO::FETCH_ASSOC)){
+		$produits = [];
+		$query = $this->_db->query('SELECT * FROM t_produit');
+
+		while ($data = $query->fetch(PDO::FETCH_ASSOC)) {
 			$produits[] = new Produit($data);
 		}
+
 		$query->closeCursor();
+
 		return $produits;
 	}
     

@@ -34,7 +34,7 @@ error_reporting(E_ALL);
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8" />
-    <title>Rachid Bekkali - Management Application</title>
+    <title>Stock Management - Management Application</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="" name="description" />
     <meta content="" name="author" />
@@ -279,7 +279,7 @@ error_reporting(E_ALL);
                                                         foreach($produits as $produit){
                                                             $classQuantiteMin = "btn mini"; 
                                                             $textQuantite = "Normal";
-                                                            if ( $produit->quantite() <= 50 ){
+                                                            if ( $produit->quantite() <= 10 ){
                                                                 $classQuantiteMin = "btn mini red";
                                                                 $textQuantite = "Qté.Min";
                                                             }    
@@ -319,7 +319,7 @@ error_reporting(E_ALL);
     <!-- END CONTAINER -->
     <!-- BEGIN FOOTER -->
     <div class="footer">
-        <?= date('Y') ?> &copy; Rachid Bekkali.
+        <?= date('Y') ?> &copy; Stock Management Application.
         <div class="span pull-right">
             <span class="go-top"><i class="icon-angle-up"></i></span>
         </div>

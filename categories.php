@@ -25,7 +25,7 @@
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8" />
-    <title>Rachid Bekkali - Management Application</title>
+    <title>Stock Management - Management Application</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="" name="description" />
     <meta content="" name="author" />
@@ -84,7 +84,7 @@
                             </li>
                             <li>
                                 <i class="icon-sitemap"></i>
-                                <a>Gestion des catégories</a>
+                                <a>Catégories</a>
                             </li>
                         </ul>
                         <!-- END PAGE TITLE & BREADCRUMB-->
@@ -123,53 +123,12 @@
                                             <input type="text" name="nomFR" />
                                         </div>
                                     </div>
-                                    <div class="control-group">
-                                        <label class="control-label">Longueur</label>
-                                        <div class="controls">
-                                            <input type="text" name="longueur" />
-                                        </div>
-                                    </div>
-                                    <div class="control-group">
-                                        <label class="control-label">Largeur</label>
-                                        <div class="controls">
-                                            <input type="text" name="largeur" />
-                                        </div>
-                                    </div>
-                                    <div class="control-group">
-                                        <label class="control-label">Hauteur</label>
-                                        <div class="controls">
-                                            <input type="text" name="hauteur" />
-                                        </div>
-                                    </div>
-                                    <div class="control-group">
-                                        <label class="control-label">Diamétre</label>
-                                        <div class="controls">
-                                            <input type="text" name="diametre" />
-                                        </div>
-                                    </div>
-                                    <div class="control-group">
-                                        <label class="control-label">Forme</label>
-                                        <div class="controls">
-                                            <input type="text" name="forme" />
-                                        </div>  
-                                    </div>
-                                    <div class="control-group">
-                                        <label class="control-label">Couleur</label>
-                                        <div class="controls">
-                                            <input type="text" name="couleur" />
-                                        </div>  
-                                    </div>
-                                    <div class="control-group">
-                                        <label class="control-label">الاسم</label>
-                                        <div class="controls">
-                                            <input type="text" name="nomAR" />
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <div class="control-group">
                                         <div class="controls">  
-                                            <input type="hidden" name="action" value="add">    
+                                            <input type="hidden" name="action" value="add">
+                                            <input type="hidden" name="source" value="categories">
                                             <button class="btn" data-dismiss="modal"aria-hidden="true">Non</button>
                                             <button type="submit" class="btn red" aria-hidden="true">Oui</button>
                                         </div>
@@ -197,16 +156,8 @@
                                 <table class="table table-striped table-bordered table-hover" id="sample_1">
                                     <thead>
                                         <tr>
-                                            <!--th style="width:8px;"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /></th-->
-                                            <th style="width:10%">Actions</th>
-                                            <th style="width:15%">Nom</th>
-                                            <th style="width:15%">الاسم</th>
-                                            <th style="width:10%">Longueur</th>
-                                            <th style="width:10%">Largeur</th>
-                                            <th style="width:10%">hauteur</th>
-                                            <th style="width:10%">Diamètre</th>
-                                            <th style="width:10%">Forme</th>
-                                            <th style="width:10%">Couleur</th>
+                                            <th style="width:85%">Nom</th>
+                                            <th style="width:15%">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -214,19 +165,11 @@
                                         foreach($categories as $categorie){
                                         ?>
                                         <tr class="odd gradeX">
-                                            <!--td><input type="checkbox" class="checkboxes" value="1" /></td-->
+                                            <td><?= $categorie->nomFR() ?></td>
                                             <td>
                                                 <a href="#update<?= $categorie->id() ?>" data-toggle="modal" data-id="<?= $categorie->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
                                                 <a href="#delete<?= $categorie->id() ?>" data-toggle="modal" data-id="<?= $categorie->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
-                                            </td>    
-                                            <td><?= $categorie->nomFR() ?></td>
-                                            <td><?= $categorie->nomAR() ?></td>
-                                            <td><?= $categorie->longueur() ?></td>
-                                            <td><?= $categorie->largeur() ?></td>
-                                            <td><?= $categorie->hauteur() ?></td>
-                                            <td><?= $categorie->diametre() ?></td>
-                                            <td><?= $categorie->forme() ?></td>
-                                            <td><?= $categorie->couleur() ?></td>
+                                            </td>
                                         </tr>
                                         <!-- update box begin-->
                                         <div id="update<?= $categorie->id() ?>" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
@@ -241,48 +184,6 @@
                                                         <label class="control-label">Nom</label>
                                                         <div class="controls">
                                                             <input type="text" name="nomFR" value="<?= $categorie->nomFR() ?>" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label">Longueur</label>
-                                                        <div class="controls">
-                                                            <input type="text" name="longueur" value="<?= $categorie->longueur() ?>" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label">Largeur</label>
-                                                        <div class="controls">
-                                                            <input type="text" name="largeur" value="<?= $categorie->largeur() ?>" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label">Hauteur</label>
-                                                        <div class="controls">
-                                                            <input type="text" name="hauteur" value="<?= $categorie->hauteur() ?>" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label">Diamétre</label>
-                                                        <div class="controls">
-                                                            <input type="text" name="diametre" value="<?= $categorie->diametre() ?>" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label">Forme</label>
-                                                        <div class="controls">
-                                                            <input type="text" name="forme" value="<?= $categorie->forme() ?>" />
-                                                        </div>  
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label">Couleur</label>
-                                                        <div class="controls">
-                                                            <input type="text" name="couleur" value="<?= $categorie->couleur() ?>" />
-                                                        </div>  
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label">الاسم</label>
-                                                        <div class="controls">
-                                                            <input type="text" name="nomAR" value="<?= $categorie->nomAR() ?>" />
                                                         </div>
                                                     </div>
                                                     <div class="control-group">
@@ -339,7 +240,7 @@
     <!-- END CONTAINER -->
     <!-- BEGIN FOOTER -->
     <div class="footer">
-        <?= date('Y') ?> &copy; Rachid Bekkali.
+        <?= date('Y') ?> &copy; Stock Management Application.
         <div class="span pull-right">
             <span class="go-top"><i class="icon-angle-up"></i></span>
         </div>
