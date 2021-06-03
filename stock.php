@@ -304,7 +304,7 @@
                                 <div class="accordion" id="accordion1">
                                     <?php 
                                     for($i=0; $i<$categoriesNumber; $i++){
-                                        $produits = $produitManager->getProduitsByIdCategorie($categories[$i]->id()); 
+                                        $produits = $produitManager->getProduitsByIdCategorie($categories[$i]->id());
                                     ?>
                                     <div class="accordion-group">
                                         <div class="accordion-heading">

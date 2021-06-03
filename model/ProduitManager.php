@@ -129,13 +129,16 @@ class ProduitManager{
         $query = $this->_db->prepare(
         'SELECT * FROM t_produit
         WHERE idCategorie=:idCategorie
-        ORDER BY code ASC, dimension2 ASC, dimension1 ASC');
+        ORDER BY code ASC, dimension ASC');
         $query->bindValue(':idCategorie', $idCategorie);
         $query->execute();
-        while($data = $query->fetch(PDO::FETCH_ASSOC)){
+
+        while ($data = $query->fetch(PDO::FETCH_ASSOC)) {
             $produits[] = new Produit($data);
         }
+
         $query->closeCursor();
+
         return $produits;
     }
 

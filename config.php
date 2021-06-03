@@ -1,2 +1,2 @@
 <?php
-$pdo = new PDO('mysql:host=localhost;dbname=rachid_metal', 'root', '');
+$pdo = new PDO('mysql:host=localhost;dbname=stock', 'root', 'Check1234');

@@ -1,5 +1,7 @@
 <?php
-
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
 //classes loading begin
 function classLoad ($myClass) {
     if(file_exists('../model/'.$myClass.'.php')){
@@ -11,7 +13,7 @@ function classLoad ($myClass) {
 }
 spl_autoload_register("classLoad");
 include("../config.php");
-//classes loading end
+
 session_start();
 
 $redirectLink='../index.php';
