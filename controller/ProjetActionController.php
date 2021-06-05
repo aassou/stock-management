@@ -101,5 +101,5 @@
     
     $_SESSION['projet-action-message'] = $actionMessage;
     $_SESSION['projet-type-message'] = $typeMessage;
-    header('Location:../projets.php');
+    header('Location:../view/projets.php');
     

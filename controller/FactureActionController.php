@@ -45,14 +45,14 @@
             $factureManager->add($facture);
             $actionMessage = "Opération Valide : Facture Ajouté(e) avec succès.";  
             $typeMessage = "success";
-            $redirectLink = "Location:../facture-details.php?codeFacture=".$code;
+            $redirectLink = "Location:../view/facture-details.php?codeFacture=".$code;
         }
         else{
             $actionMessage = "Erreur Ajout facture : Vous devez remplir les champs 'Date' et 'Client'.";
             $typeMessage = "error";
-            $redirectLink = "Location:../factures.php";
+            $redirectLink = "Location:../view/factures.php";
             if ( isset($_POST['source']) and $_POST['source'] == "dashboard" ){
-                $redirectLink = "Location:../dashboard.php#factures";
+                $redirectLink = "Location:../view/dashboard.php#factures";
             } 
         }
     }

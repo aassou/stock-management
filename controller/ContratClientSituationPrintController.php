@@ -378,6 +378,6 @@ ob_start();
     }
 }
 else{
-    header("Location:../index.php");
+    header("Location:../view/index.php");
 }
 ?>

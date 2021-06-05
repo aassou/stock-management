@@ -121,7 +121,7 @@
         $historyManager->add($history);
         $codeContrat = htmlentities($_POST['codeContrat']);
         $idProjet = htmlentities($_POST['idProjet']);
-        $redirectLink = "Location:../contrat.php?codeContrat=".$codeContrat.'&idProjet='.$idProjet.'#reglementsPrevus';
+        $redirectLink = "Location:../view/contrat.php?codeContrat=".$codeContrat.'&idProjet='.$idProjet.'#reglementsPrevus';
     }
     //Action UpdateStatus Processing End
     //Action Delete Processing Begin

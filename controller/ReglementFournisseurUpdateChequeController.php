@@ -21,5 +21,5 @@
         $reglementFournisseurManager = new ReglementFournisseurManager($pdo);
         $reglementFournisseurManager->updateNumeroCheque($numeroCheque, $idReglement);
     }
-    header('Location:../fournisseurs-reglements.php?idFournisseur='.$idFournisseur.'#listFournisseurs');
+    header('Location:../view/fournisseurs-reglements.php?idFournisseur='.$idFournisseur.'#listFournisseurs');
     

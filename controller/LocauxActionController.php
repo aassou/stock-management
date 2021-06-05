@@ -169,5 +169,5 @@
     //Action Delete Processing End
     $_SESSION['locaux-action-message'] = $actionMessage;
     $_SESSION['locaux-type-message'] = $typeMessage;
-    header('Location:../locaux.php?idProjet='.$idProjet);
+    header('Location:../view/locaux.php?idProjet='.$idProjet);
     
