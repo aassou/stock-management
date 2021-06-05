@@ -25,4 +25,4 @@
     else{
         $_SESSION['mail-add-error'] = "Vous devez tapez un message !";
     }
-    header('Location:../messages.php');
+    header('Location:../view/messages.php');

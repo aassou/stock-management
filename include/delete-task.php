@@ -5,5 +5,5 @@
     $task_id = $_GET['idTask'];
     //mysql_query("DELETE FROM tasks WHERE id='$task_id'");
     $todoManager->delete($task_id);
-    header('Location:../todo.php');
+    header('Location:../view/todo.php');
 ?>

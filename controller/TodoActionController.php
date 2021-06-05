@@ -97,5 +97,5 @@
     //Action Delete Processing End
     $_SESSION['todo-action-message'] = $actionMessage;
     $_SESSION['todo-type-message'] = $typeMessage;
-    header('Location:../todo.php');
+    header('Location:../view/todo.php');
 

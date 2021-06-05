@@ -267,9 +267,9 @@
     //Action DeleteReleveActuel Processing End
     $_SESSION['releveBancaire-action-message'] = $actionMessage;
     $_SESSION['releveBancaire-type-message'] = $typeMessage;
-    $redirectLink = "Location:../releve-bancaire.php";
+    $redirectLink = "Location:../view/releve-bancaire.php";
     if ( isset($_POST['source']) and $_POST['source'] == "releve-bancaire-archive" ) {
-        $redirectLink = "Location:../releve-bancaire-archive.php";
+        $redirectLink = "Location:../view/releve-bancaire-archive.php";
     }
     header($redirectLink);
 

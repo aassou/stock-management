@@ -53,7 +53,7 @@
                     $actionMessage = "<strong>Erreur Ajout Produit</strong> : Manque de quantité en stock.";
                 } 
                 $typeMessage = "error";
-                $redirectLink = "Location:../facture-details.php?codeFacture=".$codeFacture;
+                $redirectLink = "Location:../view/facture-details.php?codeFacture=".$codeFacture;
                 $_SESSION['facture-details-action-message'] = $actionMessage;
                 $_SESSION['facture-details-type-message'] = $typeMessage;
                 header($redirectLink);
@@ -106,7 +106,7 @@
                     $actionMessage = "<strong>Erreur Modification Produit</strong> : Manque de quantité en stock.";
                 } 
                 $typeMessage = "error";
-                $redirectLink = "Location:../facture-details.php?codeFacture=".$codeFacture;
+                $redirectLink = "Location:../view/facture-details.php?codeFacture=".$codeFacture;
                 $_SESSION['facture-details-action-message'] = $actionMessage;
                 $_SESSION['facture-details-type-message'] = $typeMessage;
                 header($redirectLink);
@@ -140,10 +140,10 @@
     $_SESSION['facture-details-action-message'] = $actionMessage;
     $_SESSION['facture-details-type-message'] = $typeMessage;
     if ( isset($_POST['source']) and $_POST['source'] == "dashboard" ) {
-        $redirectLink = "Location:../dashboard.php";
+        $redirectLink = "Location:../view/dashboard.php";
     }
     else {
         $codeFacture = htmlentities($_POST['codeFacture']);
-        $redirectLink = "Location:../facture-details.php?codeFacture=".$codeFacture;
+        $redirectLink = "Location:../view/facture-details.php?codeFacture=".$codeFacture;
     }
     header($redirectLink);

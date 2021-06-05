@@ -135,10 +135,10 @@
     $_SESSION['employe-action-message'] = $actionMessage;
     $_SESSION['employe-type-message'] = $typeMessage;
     //Redirect according to the source
-    $redirectLink = 'Location:../employes-contrats.php';
+    $redirectLink = 'Location:../view/employes-contrats.php';
     if( isset($_POST['source']) and $_POST['source'] == "projet-contrat-employe" ) {
         $idProjet = htmlentities($_POST['idProjet']);
-        $redirectLink = 'Location:../projet-contrat-employe.php?idProjet='.$idProjet;    
+        $redirectLink = 'Location:../view/projet-contrat-employe.php?idProjet='.$idProjet;    
     }
     header($redirectLink);
 

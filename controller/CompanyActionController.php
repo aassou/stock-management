@@ -96,5 +96,5 @@
     //Action Delete Processing End
     $_SESSION['company-action-message'] = $actionMessage;
     $_SESSION['company-type-message'] = $typeMessage;
-    header('Location:../companies.php');
+    header('Location:../view/companies.php');
 
