@@ -35,7 +35,7 @@
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8" />
-    <title>Rachid Bekkali - Management Application</title>
+    <title>Stock Management - Management Application</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="" name="description" />
     <meta content="" name="author" />
@@ -124,83 +124,48 @@
                                  <!-- BEGIN FORM-->
                                  <form id="new-product" action="controller/ProduitActionController.php" method="POST">
                                     <div class="row-fluid">
-                                       <div class="span3">
+                                       <div class="span6">
                                           <div class="control-group">
                                                 <label class="control-label">Code</label>
                                                 <div class="controls">
-                                                    <input required="required" id="code" type="text" name="code" value="<?= $produit->code() ?>" />
+                                                    <input class="m-wrap span12" required="required" id="code" type="text" name="code" value="<?= $produit->code() ?>" />
                                                 </div>
                                           </div>
                                        </div>
-                                       <div class="span3">
-                                          <div class="control-group">
-                                             <label class="control-label">Dimensions</label>
-                                             <div class="controls">
-                                                 <input required="required" id="dimension1" class="span5" type="text" name="dimension1" value="<?= $produit->dimension1() ?>" />
-                                                 <input required="required" id="dimension2" class="span5" type="text" name="dimension2" value="<?= $produit->dimension2() ?>" />
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="span3">
-                                          <div class="control-group">
-                                             <label class="control-label">Diametre</label>
-                                                <div class="controls">
-                                                    <input id="diametre" type="text" name="diametre" value="<?= $produit->diametre() ?>" />
-                                                </div>
-                                          </div>
-                                       </div>
-                                       <div class="span3">
-                                          <div class="control-group">
-                                             <label class="control-label">Forme</label>
-                                                <div class="controls">
-                                                    <input type="text" name="forme" value="<?= $produit->forme() ?>" />
-                                                </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="row-fluid">
-                                        <div class="span3">
-                                          <div class="control-group">
-                                             <label class="control-label">Prix Achat</label>
-                                                <div class="controls">
-                                                    <input required="required" id="prixAchat" type="text" name="prixAchat" value="<?= $produit->prixAchat() ?>" />
-                                                </div>
-                                          </div>
-                                       </div>
-                                        <div class="span3">
-                                          <div class="control-group">
-                                             <label class="control-label">Prix Vente</label>
-                                                <div class="controls">
-                                                    <input required="required" id="prixVente" type="text" name="prixVente" value="<?= $produit->prixVente() ?>" />
-                                                </div>
-                                          </div>
-                                       </div>
-                                        <div class="span3">
-                                          <div class="control-group">
-                                             <label class="control-label">Prix Vente Min</label>
-                                                <div class="controls">
-                                                    <input required="required" id="prixVenteMin" type="text" name="prixVenteMin" value="<?= $produit->prixVenteMin() ?>" />
-                                                </div>  
-                                          </div>
-                                       </div>
-                                       <div class="span3">
+                                       <div class="span6">
                                           <div class="control-group">
                                              <label class="control-label">Quantité</label>
                                                 <div class="controls">
-                                                    <input required="required" id="quantite" type="text" name="quantite" value="<?= $produit->quantite() ?>" />
+                                                    <input class="m-wrap span12" required="required" id="quantite" type="text" name="quantite" value="<?= $produit->quantite() ?>" />
                                                 </div>  
                                           </div>
                                        </div>
                                     </div>
                                     <div class="row-fluid">
-                                        <div class="span3">
-                                              <div class="control-group">
-                                                <label class="control-label">Poids</label>
+                                        <div class="span4">
+                                          <div class="control-group">
+                                             <label class="control-label">Prix Achat</label>
                                                 <div class="controls">
-                                                    <input type="text" name="poids" value="<?= $produit->poids() ?>" />
+                                                    <input class="m-wrap span12" required="required" id="prixAchat" type="text" name="prixAchat" value="<?= $produit->prixAchat() ?>" />
                                                 </div>
-                                            </div>
-                                        </div>
+                                          </div>
+                                       </div>
+                                        <div class="span4">
+                                          <div class="control-group">
+                                             <label class="control-label">Prix Vente</label>
+                                                <div class="controls">
+                                                    <input class="m-wrap span12" required="required" id="prixVente" type="text" name="prixVente" value="<?= $produit->prixVente() ?>" />
+                                                </div>
+                                          </div>
+                                       </div>
+                                        <div class="span4">
+                                          <div class="control-group">
+                                             <label class="control-label">Prix Vente Min</label>
+                                                <div class="controls">
+                                                    <input class="m-wrap span12" required="required" id="prixVenteMin" type="text" name="prixVenteMin" value="<?= $produit->prixVenteMin() ?>" />
+                                                </div>  
+                                          </div>
+                                       </div>
                                     </div>
                                     <div class="form-actions">
                                         <input type="hidden" name="action" value="update">
@@ -226,7 +191,7 @@
     <!-- END CONTAINER -->
     <!-- BEGIN FOOTER -->
     <div class="footer">
-        <?= date('Y') ?> &copy; Rachid Bekkali.
+        <?= date('Y') ?> &copy; Stock Management Application.
         <div class="span pull-right">
             <span class="go-top"><i class="icon-angle-up"></i></span>
         </div>

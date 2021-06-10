@@ -12,7 +12,7 @@
 <!-- BEGIN HEAD -->
 <head>
   <meta charset="utf-8" />
-  <title>Rachid Bekkali - Management Application</title>
+  <title>Stock Management - Management Application</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <meta content="" name="description" />
   <meta content="" name="author" />
@@ -38,7 +38,7 @@
   <div class="content">
     <!-- BEGIN LOGIN FORM -->
     <form class="form-vertical login-form" action="controller/UserSignInController.php" method="POST">
-      <h3 class="form-title">Accéder à votre compte</h3>
+      <h3 class="form-title">Accéder</h3>
       <div class="alert alert-error hide">
         <button class="close" data-dismiss="alert"></button>
         <span><strong>Login</strong> et <strong>Mot de passe</strong> non saisies.</span>
@@ -82,7 +82,7 @@
   <!-- END LOGIN -->
   <!-- BEGIN COPYRIGHT -->
   <div class="copyright">
-    <?= date('Y') ?> &copy; Rachid Bekkali.
+    <?= date('Y') ?> &copy; Stock Management Application.
   </div>
   <!-- END COPYRIGHT -->
   <!-- BEGIN JAVASCRIPTS -->

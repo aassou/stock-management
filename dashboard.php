@@ -1,29 +1,26 @@
 <?php
-	//classes loading begin
-    function classLoad ($myClass) {
-        if(file_exists('model/'.$myClass.'.php')){
-            include('model/'.$myClass.'.php');
-        }
-        elseif(file_exists('controller/'.$myClass.'.php')){
-            include('controller/'.$myClass.'.php');
-        }
+function classLoad ($myClass) {
+    if(file_exists('model/'.$myClass.'.php')){
+        include('model/'.$myClass.'.php');
     }
-    spl_autoload_register("classLoad"); 
-    include('config.php');  
-    //classes loading end
-    session_start();
-    if ( isset($_SESSION['userMerlaTrav']) ) {
-    	//classes managers
-		$usersManager = new UserManager($pdo);
+    elseif(file_exists('controller/'.$myClass.'.php')){
+        include('controller/'.$myClass.'.php');
+    }
+}
+spl_autoload_register("classLoad");
+include('config.php');
+
+session_start();
+if ( isset($_SESSION['userMerlaTrav']) ) {
+    $usersManager = new UserManager($pdo);
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
-<!-- BEGIN HEAD -->
 <head>
 	<meta charset="UTF-8" />
-	<title>Rachid Bekkali - Management Application</title>
+	<title>Stock Management - Management Application</title>
 	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
 	<meta content="" name="description" />
 	<meta content="" name="author" />
@@ -41,37 +38,17 @@
 	<link rel="stylesheet" type="text/css" href="assets/gritter/css/jquery.gritter.css" />
 	<link rel="shortcut icon" href="favicon.ico" />
 </head>
-<!-- END HEAD -->
-<!-- BEGIN BODY -->
 <body class="fixed-top">
-	<!-- BEGIN HEADER -->
 	<div class="header navbar navbar-inverse navbar-fixed-top">
-		<!-- BEGIN TOP NAVIGATION BAR -->
-		<?php include("include/top-menu.php"); ?>	
-		<!-- END TOP NAVIGATION BAR -->
+		<?php include("include/top-menu.php"); ?>
 	</div>
-	<!-- END HEADER -->
-	<!-- BEGIN CONTAINER -->	
 	<div class="page-container row-fluid sidebar-closed">
-		<!-- BEGIN SIDEBAR -->
 		<?php include("include/sidebar.php"); ?>
-		<!-- END SIDEBAR -->
-		<!-- BEGIN PAGE -->
 		<div class="page-content">
-			<!-- BEGIN PAGE CONTAINER-->
 			<div class="container-fluid">
-				<!-- BEGIN PAGE HEADER-->
-				<div class="row-fluid">
-					<div class="span12">
-						<h3 class="page-title">
-							Accueil
-						</h3>
-					</div>
-				</div>
-				<!--      BEGIN TILES      -->
                 <div class="row-fluid">
                     <div class="span12">
-                        <h4 class="breadcrumb"><i class="icon-hand-right"></i> Raccourcis</h4>
+                        <h4 class="breadcrumb"><i class="icon-dashboard"></i> Accueil</h4>
                         <div class="tiles">
                             <a href="factures.php">
                             <div class="tile bg-dark-cyan">
@@ -111,6 +88,19 @@
                                     </div>
                                 </div>
                             </div>
+                            </a>
+                            <a href="produits.php">
+                                <div class="tile bg-dark-blue">
+                                    <div class="corner"></div>
+                                    <div class="tile-body">
+                                        <i class="icon-barcode"></i>
+                                    </div>
+                                    <div class="tile-object">
+                                        <div class="name">
+                                            Produits
+                                        </div>
+                                    </div>
+                                </div>
                             </a>
                             <a href="stock.php">
                             <div class="tile bg-brown">
@@ -490,7 +480,7 @@
 	<!-- END CONTAINER -->
 	<!-- BEGIN FOOTER -->
 	<div class="footer">
-		<?= date('Y') ?> &copy; Rachid Bekkali.
+		<?= date('Y') ?> &copy; Stock Management Application.
 		<div class="span pull-right">
 			<span class="go-top"><i class="icon-angle-up"></i></span>
 		</div>

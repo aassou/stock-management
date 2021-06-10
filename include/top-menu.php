@@ -3,7 +3,7 @@
 		<!-- BEGIN LOGO -->
 		<a class="brand">
 		<!--img src="assets/img/big-logo-new.png" alt="logo" /-->
-		<span style="color:white">Rachid</span> <span style="color:#ed4e2a">Bekkali</span>
+		<span style="color:white">Stock</span> <span style="color:#ed4e2a">Manager</span>
 		</a>
 		<!-- END LOGO -->
 		<!-- BEGIN RESPONSIVE MENU TOGGLER -->

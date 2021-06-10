@@ -12,7 +12,7 @@
     spl_autoload_register("classLoad"); 
     include('../config.php');  
     include('../lib/image-processing.php');
-    //classes loading end
+
     session_start();
     
     //post input processing
@@ -24,27 +24,17 @@
     //Component Class Manager
 
     $categorieManager = new CategorieManager($pdo);
-	//Action Add Processing Begin
-    	if($action == "add"){
-        if( !empty($_POST['nomFR']) ){
-			$nomAR = htmlentities($_POST['nomAR']);
+
+    if ($action == "add") {
+        if (!empty($_POST['nomFR'])) {
 			$nomFR = htmlentities($_POST['nomFR']);
-			$longueur = htmlentities($_POST['longueur']);
-			$largeur = htmlentities($_POST['largeur']);
-			$hauteur = htmlentities($_POST['hauteur']);
-			$diametre = htmlentities($_POST['diametre']);
 			$forme = htmlentities($_POST['forme']);
 			$couleur = htmlentities($_POST['couleur']);
 			$createdBy = $_SESSION['userMerlaTrav']->login();
             $created = date('Y-m-d h:i:s');
             //create object
             $categorie = new Categorie(array(
-				'nomAR' => $nomAR,
 				'nomFR' => $nomFR,
-				'longueur' => $longueur,
-				'largeur' => $largeur,
-				'hauteur' => $hauteur,
-				'diametre' => $diametre,
 				'forme' => $forme,
 				'couleur' => $couleur,
 				'created' => $created,
@@ -54,35 +44,22 @@
             $categorieManager->add($categorie);
             $actionMessage = "Opération Valide : Categorie Ajouté(e) avec succès.";  
             $typeMessage = "success";
-        }
-        else{
+        } else {
             $actionMessage = "Erreur Ajout categorie : Vous devez remplir le champ 'nomAR'.";
             $typeMessage = "error";
         }
-    }
-    //Action Add Processing End
-    //Action Update Processing Begin
-    else if($action == "update"){
+    } elseif ($action == "update") {
         $idCategorie = htmlentities($_POST['idCategorie']);
-        if(!empty($_POST['nomAR'])){
-			$nomAR = htmlentities($_POST['nomAR']);
+
+        if (!empty($_POST['nomFR'])) {
 			$nomFR = htmlentities($_POST['nomFR']);
-			$longueur = htmlentities($_POST['longueur']);
-			$largeur = htmlentities($_POST['largeur']);
-			$hauteur = htmlentities($_POST['hauteur']);
-			$diametre = htmlentities($_POST['diametre']);
 			$forme = htmlentities($_POST['forme']);
 			$couleur = htmlentities($_POST['couleur']);
 			$updatedBy = $_SESSION['userMerlaTrav']->login();
             $updated = date('Y-m-d h:i:s');
             $categorie = new Categorie(array(
 				'id' => $idCategorie,
-				'nomAR' => $nomAR,
 				'nomFR' => $nomFR,
-				'longueur' => $longueur,
-				'largeur' => $largeur,
-				'hauteur' => $hauteur,
-				'diametre' => $diametre,
 				'forme' => $forme,
 				'couleur' => $couleur,
 				'updated' => $updated,
@@ -91,15 +68,11 @@
             $categorieManager->update($categorie);
             $actionMessage = "Opération Valide : Categorie Modifié(e) avec succès.";
             $typeMessage = "success";
-        }
-        else{
+        } else {
             $actionMessage = "Erreur Modification Categorie : Vous devez remplir le champ 'nomAR'.";
             $typeMessage = "error";
         }
-    }
-    //Action Update Processing End
-    //Action Delete Processing Begin
-    else if($action == "delete"){
+    } elseif ($action == "delete") {
         $idCategorie = htmlentities($_POST['idCategorie']);
         //delete attached products before categorie
         $produitManager = new ProduitManager($pdo);
