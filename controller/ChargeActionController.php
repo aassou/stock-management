@@ -40,7 +40,7 @@
 			$montant = htmlentities($_POST['montant']);
 			$societe = htmlentities($_POST['societe']);
 			$designation = htmlentities($_POST['designation']);
-			$createdBy = $_SESSION['userMerlaTrav']->login();
+			$createdBy = $_SESSION['userstock']->login();
             $created = date('Y-m-d h:i:s');
             //create object
             $charge = new Charge(array(
@@ -84,7 +84,7 @@
 			$montant = htmlentities($_POST['montant']);
 			$societe = htmlentities($_POST['societe']);
 			$designation = htmlentities($_POST['designation']);
-            $updatedBy = $_SESSION['userMerlaTrav']->login();
+            $updatedBy = $_SESSION['userstock']->login();
             $updated = date('Y-m-d h:i:s');
 			$charge = new Charge(array(
 				'id' => $idCharge,
@@ -98,7 +98,7 @@
 			));
             $chargeManager->update($charge);
             //add history data to db
-            $createdBy = $_SESSION['userMerlaTrav']->login();
+            $createdBy = $_SESSION['userstock']->login();
             $created = date('Y-m-d h:i:s');
             $history = new History(array(
                 'action' => "Modification",
@@ -125,7 +125,7 @@
         $typeCharge = $typeChargeManager->getTypeChargeById($charge->type())->nom();
         $chargeManager->delete($idCharge);
         //add history data to db
-        $createdBy = $_SESSION['userMerlaTrav']->login();
+        $createdBy = $_SESSION['userstock']->login();
         $created = date('Y-m-d h:i:s');
         $history = new History(array(
             'action' => "Suppression",
@@ -142,10 +142,10 @@
     //Action Delete Processing End
     $_SESSION['charge-action-message'] = $actionMessage;
     $_SESSION['charge-type-message'] = $typeMessage;
-    $redirectLink = "Location:../projet-charges-grouped.php?idProjet=".$idProjet;
+    $redirectLink = "Location:../view/projet-charges-grouped.php?idProjet=".$idProjet;
     if( isset($_POST['typeCharge']) and isset($_POST['source']) and $_POST['source']=="projet-charges-type" ) {
         $typeCharge = htmlentities($_POST['typeCharge']);
-        $redirectLink = "Location:../projet-charges-type.php?idProjet=".$idProjet."&type=".$typeCharge;
+        $redirectLink = "Location:../view/projet-charges-type.php?idProjet=".$idProjet."&type=".$typeCharge;
     }
     header($redirectLink);
 

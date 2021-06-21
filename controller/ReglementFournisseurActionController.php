@@ -36,7 +36,7 @@
             $montant = htmlentities($_POST['montant']);
             $modePaiement = htmlentities($_POST['modePaiement']);
             $numeroOperation = htmlentities($_POST['numeroCheque']);
-            $createdBy = $_SESSION['userMerlaTrav']->login();
+            $createdBy = $_SESSION['userstock']->login();
             $created = date('Y-m-d h:i:s');
             $reglement = 
             new ReglementFournisseur(array('idFournisseur' => $idFournisseur, 'idProjet' => $idProjet, 
@@ -66,21 +66,21 @@
         $redirectLink = "";
         if( isset($_POST['source']) ) {
             if( $_POST['source'] == 'livraisons-group' ) {
-                $redirectLink = "Location:../livraisons-group.php";   
+                $redirectLink = "Location:../view/livraisons-group.php";   
             }
             else if( $_POST['source'] == 'livraisons-fournisseur-mois' ) {
                 $idFournisseur = htmlentities($_POST['idFournisseur']);
-                $redirectLink = "Location:../livraisons-fournisseur-mois.php?idFournisseur=".$idFournisseur;   
+                $redirectLink = "Location:../view/livraisons-fournisseur-mois.php?idFournisseur=".$idFournisseur;   
             }
             else if ( $_POST['source'] == "livraisons-fournisseur-mois-list" ) {
                 $idFournisseur = htmlentities($_POST['idFournisseur']);
                 $mois = htmlentities($_POST['mois']);
                 $annee = htmlentities($_POST['annee']);
-                $redirectLink = "Location:../livraisons-fournisseur-mois.php?idFournisseur=".$idFournisseur."&mois=".$mois."&annee=".$annee;
+                $redirectLink = "Location:../view/livraisons-fournisseur-mois.php?idFournisseur=".$idFournisseur."&mois=".$mois."&annee=".$annee;
             }
             else if( $_POST['source'] == 'reglements-fournisseur' ) {
                 $idFournisseur = htmlentities($_POST['idFournisseur']);
-                $redirectLink = "Location:../reglements-fournisseur.php?idFournisseur=".$idFournisseur;   
+                $redirectLink = "Location:../view/reglements-fournisseur.php?idFournisseur=".$idFournisseur;   
             }   
         }
     }
@@ -93,7 +93,7 @@
             $montant = htmlentities($_POST['montant']);
             $modePaiement = htmlentities($_POST['modePaiement']);
             $numeroOperation = htmlentities($_POST['numeroCheque']);
-            $updatedBy = $_SESSION['userMerlaTrav']->login();
+            $updatedBy = $_SESSION['userstock']->login();
             $updated = date('Y-m-d h:i:s');
             $reglement = 
             new ReglementFournisseur(array('id' => $idReglement, 'idFournisseur' => $idFournisseur, 
@@ -103,7 +103,7 @@
             $reglementManager->update($reglement);
             //add History data
             $nomFournisseur = $fournisseurManager->getFournisseurById($idFournisseur)->nom();
-            $createdBy = $_SESSION['userMerlaTrav']->login();
+            $createdBy = $_SESSION['userstock']->login();
             $created = date('Y-m-d h:i:s');
             $history = new History(array(
                 'action' => "Modification",
@@ -121,7 +121,7 @@
             $actionMessage = "<strong>Erreur Modification Réglement</strong> : Vous devez remplir les champs <strong>Montant</strong>.";
             $typeMessage = "error";
         }
-        $redirectLink = "Location:../reglements-fournisseur.php?idFournisseur=".$idFournisseur;
+        $redirectLink = "Location:../view/reglements-fournisseur.php?idFournisseur=".$idFournisseur;
     }
     else if($action=="delete"){
         $idReglement = $_POST['idReglement'];
@@ -130,7 +130,7 @@
         $nomFournisseur = $fournisseurManager->getFournisseurById($reglement->idFournisseur())->nom();
         $reglementManager->delete($idReglement);
         //add History data
-        $createdBy = $_SESSION['userMerlaTrav']->login();
+        $createdBy = $_SESSION['userstock']->login();
         $created = date('Y-m-d h:i:s');
         $history = new History(array(
             'action' => "Suppression",
@@ -143,7 +143,7 @@
         $historyManager->add($history);
         $actionMessage = "<strong>Opération Valide</strong> : Réglement Supprimé avec succès.";
         $typeMessage = "success";
-        $redirectLink = "Location:../reglements-fournisseur.php?idFournisseur=".$idFournisseur;
+        $redirectLink = "Location:../view/reglements-fournisseur.php?idFournisseur=".$idFournisseur;
     }
     
     $_SESSION['reglement-action-message'] = $actionMessage;

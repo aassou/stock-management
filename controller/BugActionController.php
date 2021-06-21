@@ -30,7 +30,7 @@
 			$bug = htmlentities($_POST['bug']);
 			$lien = htmlentities($_POST['lien']);
 			$status = 0;
-			$createdBy = $_SESSION['userMerlaTrav']->login();
+			$createdBy = $_SESSION['userstock']->login();
             $created = date('Y-m-d h:i:s');
             //create object
             $bug = new Bug(array(
@@ -57,7 +57,7 @@
         if(!empty($_POST['bug'])){
 			$bug = htmlentities($_POST['bug']);
 			$lien = htmlentities($_POST['lien']);
-			$updatedBy = $_SESSION['userMerlaTrav']->login();
+			$updatedBy = $_SESSION['userstock']->login();
             $updated = date('Y-m-d h:i:s');
             $bug = new Bug(array(
 				'id' => $idBug,
@@ -86,5 +86,5 @@
     //Action Delete Processing End
     $_SESSION['bug-action-message'] = $actionMessage;
     $_SESSION['bug-type-message'] = $typeMessage;
-    header('Location:../bugs.php');
+    header('Location:../view/bugs.php');
 

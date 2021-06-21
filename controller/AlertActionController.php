@@ -29,7 +29,7 @@
         if( !empty($_POST['alert']) ){
 			$alert = htmlentities($_POST['alert']);
 			$status = 0;
-			$createdBy = $_SESSION['userMerlaTrav']->login();
+			$createdBy = $_SESSION['userstock']->login();
             $created = date('Y-m-d h:i:s');
             //create object
             $alert = new Alert(array(
@@ -55,7 +55,7 @@
         if(!empty($_POST['alert'])){
 			$alert = htmlentities($_POST['alert']);
 			$status = htmlentities($_POST['status']);
-			$updatedBy = $_SESSION['userMerlaTrav']->login();
+			$updatedBy = $_SESSION['userstock']->login();
             $updated = date('Y-m-d h:i:s');
             $alert = new Alert(array(
 				'id' => $idAlert,
@@ -93,5 +93,5 @@
     //Action Delete Processing End
     $_SESSION['alert-action-message'] = $actionMessage;
     $_SESSION['alert-type-message'] = $typeMessage;
-    header('Location:../alert.php');
+    header('Location:../view/alert.php');
 

@@ -43,7 +43,7 @@
                 $fax = htmlentities($_POST['fax']);
                 $email = htmlentities($_POST['email']);
                 $codeFournisseur = uniqid().date('YmdHis');
-                $createdBy = $_SESSION['userMerlaTrav']->login();
+                $createdBy = $_SESSION['userstock']->login();
                 $created = date('Y-m-d h:i:s');
                 $fournisseur = 
                 new Fournisseur(array('code' => $codeFournisseur, 'nom' => $nom, 'adresse' => $adresse, 
@@ -69,12 +69,12 @@
             $typeMessage = "error";
         }
         //in this line we specify the response url basing on the source of our request
-        $redirectLink = "Location:../fournisseurs.php";
+        $redirectLink = "Location:../view/fournisseurs.php";
         if( isset($_POST['source']) and $_POST['source']=='livraisons-group' ) {
-            $redirectLink = "Location:../livraisons-group.php";   
+            $redirectLink = "Location:../view/livraisons-group.php";   
         }
         else if( isset($_POST['source']) and $_POST['source']=='livraisons-group-iaaza' ) {
-            $redirectLink = "Location:../livraisons-group-iaaza.php";   
+            $redirectLink = "Location:../view/livraisons-group-iaaza.php";   
         }
     }
     //Action Add Processing End
@@ -88,7 +88,7 @@
             $telephone2 = htmlentities($_POST['telephone2']);
             $fax = htmlentities($_POST['fax']);
             $email = htmlentities($_POST['email']);
-            $updatedBy = $_SESSION['userMerlaTrav']->login();
+            $updatedBy = $_SESSION['userstock']->login();
             $updated = date('Y-m-d h:i:s');
             $fournisseur = 
             new Fournisseur(array('id' => $idFournisseur, 'nom' => $nom, 'adresse' => $adresse, 
@@ -96,7 +96,7 @@
             'updatedBy' => $updatedBy, 'updated' => $updated));
             $fournisseurManager->update($fournisseur);
             //add history data to db
-            $createdBy = $_SESSION['userMerlaTrav']->login();
+            $createdBy = $_SESSION['userstock']->login();
             $created = date('Y-m-d h:i:s');
             $history = new History(array(
                 'action' => "Modification",
@@ -114,7 +114,7 @@
             $actionMessage = "<strong>Erreur Modification Fournisseur</strong> : Vous devez remplir le champ <strong>Nom</strong>.";
             $typeMessage = "error";
         }
-        $redirectLink = "Location:../fournisseurs.php";
+        $redirectLink = "Location:../view/fournisseurs.php";
     }
     //Action Update Processing End
     //Action Delete Processing Begin
@@ -123,7 +123,7 @@
         $nomFournisseur = $fournisseurManager->getFournisseurById($idFournisseur)->nom();
         $fournisseurManager->delete($idFournisseur);
         //add history data to db
-        $createdBy = $_SESSION['userMerlaTrav']->login();
+        $createdBy = $_SESSION['userstock']->login();
         $created = date('Y-m-d h:i:s');
         $history = new History(array(
             'action' => "Suppression",
@@ -136,7 +136,7 @@
         $historyManager->add($history);
         $actionMessage = "<strong>Opération Valide</strong> : fournisseur Supprimée avec succès.";
         $typeMessage = "success";
-        $redirectLink = "Location:../fournisseurs.php";
+        $redirectLink = "Location:../view/fournisseurs.php";
     }
     //Action Delete Processing End
     $_SESSION['fournisseur-action-message'] = $actionMessage;

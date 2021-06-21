@@ -33,7 +33,7 @@
 			$designation = htmlentities($_POST['designation']);
 			$status = 0;
 			$codeLivraison = uniqid().date('YmdHis');;
-			$createdBy = $_SESSION['userMerlaTrav']->login();
+			$createdBy = $_SESSION['userstock']->login();
             $created = date('Y-m-d h:i:s');
              //these next data are used to know the month and the year of a supply demand
             $mois = date('m', strtotime($dateCommande));
@@ -54,11 +54,11 @@
             $commandeManager->add($commande);
             $actionMessage = "Opération Valide : Commande Ajouté(e) avec succès.";  
             $typeMessage = "success";
-            $redirectLink = "Location:../commande-details-iaaza.php?codeCommande=".$codeLivraison."&mois=".$mois."&annee=".$annee;
+            $redirectLink = "Location:../view/commande-details-iaaza.php?codeCommande=".$codeLivraison."&mois=".$mois."&annee=".$annee;
         }
         else{
             if ( isset($_POST['source']) and $_POST['source'] == "commande-group-iaaza" ) {
-                $redirectLink = "Location:../commande-group-iaaza.php";
+                $redirectLink = "Location:../view/commande-group-iaaza.php";
             } 
             $actionMessage = "Erreur Ajout commande : Vous devez remplir le champ 'Numéro Commande'.";
             $typeMessage = "error";
@@ -77,7 +77,7 @@
 			$dateCommande = htmlentities($_POST['dateCommande']);
 			$numeroCommande = htmlentities($_POST['numeroCommande']);
 			$designation = htmlentities($_POST['designation']);
-			$updatedBy = $_SESSION['userMerlaTrav']->login();
+			$updatedBy = $_SESSION['userstock']->login();
             $updated = date('Y-m-d h:i:s');
             $commande = new Commande(array(
 				'id' => $idCommande,
@@ -98,10 +98,10 @@
             $typeMessage = "error";
         }
         if ( isset($_POST['source']) and $_POST['source'] == "commande-mois-annee-iaaza" ) {
-            $redirectLink = "Location:../commande-mois-annee-iaaza.php?mois=".$mois."&annee=".$annee;    
+            $redirectLink = "Location:../view/commande-mois-annee-iaaza.php?mois=".$mois."&annee=".$annee;    
         }
         else if ( isset($_POST['source']) and $_POST['source'] == "commande-details-iaaza" ) {
-            $redirectLink = "Location:../commande-details-iaaza.php?codeCommande=".$codeCommande."&mois=".$mois."&annee=".$annee;
+            $redirectLink = "Location:../view/commande-details-iaaza.php?codeCommande=".$codeCommande."&mois=".$mois."&annee=".$annee;
         }
     }
     //Action Update Processing End
@@ -118,7 +118,7 @@
         $actionMessage = "Opération Valide : Commande supprimé(e) avec succès.";
         $typeMessage = "success";
         if ( isset($_POST['source']) and $_POST['source'] == "commande-mois-annee-iaaza" ) {
-            $redirectLink = "Location:../commande-mois-annee-iaaza.php?mois=".$mois."&annee=".$annee;    
+            $redirectLink = "Location:../view/commande-mois-annee-iaaza.php?mois=".$mois."&annee=".$annee;    
         }
     }
     //Action Delete Processing End

@@ -12,7 +12,7 @@
     include('../config.php');  
     //classes loading end
     session_start();
-    if( isset($_SESSION['userMerlaTrav']) ){
+    if( isset($_SESSION['userstock']) ){
         $fournisseurManager = new FournisseurManager($pdo);
 		$projetManager = new ProjetManager($pdo);
 		$livraisonManager = new LivraisonManager($pdo);

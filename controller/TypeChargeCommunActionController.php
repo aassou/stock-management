@@ -29,7 +29,7 @@
         if( !empty($_POST['nom']) ){
             $nom = htmlentities($_POST['nom']);
             if ( !$typeChargeManager->exists($nom) ){
-                $createdBy = $_SESSION['userMerlaTrav']->login();
+                $createdBy = $_SESSION['userstock']->login();
                 $created = date('Y-m-d h:i:s');
                 //create object
                 $typeCharge = new TypeChargeCommun(array(
@@ -58,7 +58,7 @@
         $idTypeCharge = htmlentities($_POST['idTypeCharge']);
         if(!empty($_POST['nom'])){
 			$nom = htmlentities($_POST['nom']);
-			$updatedBy = $_SESSION['userMerlaTrav']->login();
+			$updatedBy = $_SESSION['userstock']->login();
             $updated = date('Y-m-d h:i:s');
             $typeCharge = new TypeChargeCommun(array(
 				'id' => $idTypeCharge,
@@ -86,13 +86,13 @@
     //Action Delete Processing End
     $_SESSION['typeCharge-action-message'] = $actionMessage;
     $_SESSION['typeCharge-type-message'] = $typeMessage;
-    $redirectLink = "Location:../charges-communs-grouped.php";
+    $redirectLink = "Location:../view/charges-communs-grouped.php";
     if( isset($_POST['typeCharge']) and isset($_POST['source']) and $_POST['source']=="charges-communs-type" ) {
         $typeCharge = htmlentities($_POST['typeCharge']);
-        $redirectLink = "Location:../charges-communs-type.php?type=".$typeCharge;
+        $redirectLink = "Location:../view/charges-communs-type.php?type=".$typeCharge;
     }
     else if( isset($_POST['source']) and $_POST['source'] == "type-charges-communs" ) {
-        $redirectLink = "Location:../type-charges-communs.php";
+        $redirectLink = "Location:../view/type-charges-communs.php";
     }
     header($redirectLink);
     

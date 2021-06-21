@@ -25,4 +25,4 @@ function classLoad ($myClass) {
     $typeMessage = "success";
     $_SESSION['mail-action-message'] = $actionMessage;
     $_SESSION['mail-type-message'] = $typeMessage;
-    header('Location:../contrat-status.php');
+    header('Location:../view/contrat-status.php');

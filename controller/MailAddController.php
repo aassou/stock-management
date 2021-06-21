@@ -16,7 +16,7 @@
     //post input processing
     if(!empty($_POST['mail'])){
         $content = htmlentities($_POST['mail']);
-        $sender = $_SESSION['userMerlaTrav']->login();
+        $sender = $_SESSION['userstock']->login();
         $created = date("Y-m-d H:i:s");
         $mail = new Mail(array('content' => $content, 'sender' => $sender,'created' => $created));
         $mailManager = new MailManager($pdo);
@@ -25,4 +25,4 @@
     else{
         $_SESSION['mail-add-error'] = "Vous devez tapez un message !";
     }
-    header('Location:../messages.php');
+    header('Location:../view/messages.php');

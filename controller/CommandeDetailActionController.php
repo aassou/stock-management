@@ -24,7 +24,7 @@
     $mois = $_POST['mois'];
     $annee = $_POST['annee'];
     $codeCommande = $_POST['codeCommande'];
-    $redirectLink = "Location:../commande-details-iaaza.php?codeCommande=".$codeCommande."&mois=".$mois."&annee=".$annee;
+    $redirectLink = "Location:../view/commande-details-iaaza.php?codeCommande=".$codeCommande."&mois=".$mois."&annee=".$annee;
     //Component Class Manager
 
     $commandeDetailManager = new CommandeDetailManager($pdo);
@@ -35,7 +35,7 @@
 			$libelle = htmlentities($_POST['libelle']);
 			$quantite = htmlentities($_POST['quantite']);
 			$idCommande = htmlentities($_POST['idCommande']);
-			$createdBy = $_SESSION['userMerlaTrav']->login();
+			$createdBy = $_SESSION['userstock']->login();
             $created = date('Y-m-d h:i:s');
             //create object
             $commandeDetail = new CommandeDetail(array(
@@ -64,7 +64,7 @@
 			$reference = htmlentities($_POST['reference']);
 			$libelle = htmlentities($_POST['libelle']);
 			$quantite = htmlentities($_POST['quantite']);
-			$updatedBy = $_SESSION['userMerlaTrav']->login();
+			$updatedBy = $_SESSION['userstock']->login();
             $updated = date('Y-m-d h:i:s');
             $commandeDetail = new CommandeDetail(array(
 				'id' => $idCommandeDetail,

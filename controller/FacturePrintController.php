@@ -12,7 +12,7 @@
     include('../config.php');  
     //classes loading end
     session_start();
-    if( isset($_SESSION['userMerlaTrav']) ){
+    if( isset($_SESSION['userstock']) ){
             $idFacture = htmlentities($_GET['idFacture']);
             //Class Managers
             $factureManager = new FactureManager($pdo);

@@ -42,7 +42,7 @@
             $quantite = htmlentities($_POST['quantite']);
             $prixUnitaire = htmlentities($_POST['prixUnitaire']);
             $idLivraison = htmlentities($_POST['idLivraison']);
-            $createdBy = $_SESSION['userMerlaTrav']->login();
+            $createdBy = $_SESSION['userstock']->login();
             $created = date('Y-m-d h:i:s');
             //create object
             $livraisonDetail = 
@@ -62,12 +62,12 @@
             //$historyManager->add($history);
             $actionMessage = "<strong>Opération Valide</strong> : Article Ajouté avec succès.";  
             $typeMessage = "success";
-            $redirectLink = "Location:../livraisons-details.php?codeLivraison=".$codeLivraison."&mois=".$mois."&annee=".$annee;
+            $redirectLink = "Location:../view/livraisons-details.php?codeLivraison=".$codeLivraison."&mois=".$mois."&annee=".$annee;
         }
         else{
             $actionMessage = "<strong>Erreur Ajout Article</strong> : Vous devez vérifier les champs <strong>Prix unitaire</strong> et <strong>Quantité</strong>.";
             $typeMessage = "error";
-            $redirectLink = "Location:../livraisons-details.php?codeLivraison=".$codeLivraison."&mois=".$mois."&annee=".$annee;
+            $redirectLink = "Location:../view/livraisons-details.php?codeLivraison=".$codeLivraison."&mois=".$mois."&annee=".$annee;
         }
     }
     //Action Add Processing End
@@ -82,14 +82,14 @@
             $designation = htmlentities($_POST['designation']);
             $quantite = htmlentities($_POST['quantite']);
             $prixUnitaire = htmlentities($_POST['prixUnitaire']);
-            $updatedBy = $_SESSION['userMerlaTrav']->login();
+            $updatedBy = $_SESSION['userstock']->login();
             $updated = date('Y-m-d h:i:s');
             $livraisonDetail = 
             new LivraisonDetail(array('id' => $idLivraisonDetail, 'designation' => $designation,
             'prixUnitaire' => $prixUnitaire, 'quantite' => $quantite, 'updatedBy' => $updatedBy,
             'updated' => $updated));
             $livraisonDetailManager->update($livraisonDetail);
-            /*$createdBy = $_SESSION['userMerlaTrav']->login();
+            /*$createdBy = $_SESSION['userstock']->login();
             //$created = date('Y-m-d h:i:s');
             $history = new History(array(
                 'action' => "Modification",
@@ -107,14 +107,14 @@
             $actionMessage = "<strong>Erreur Modification Article</strong> : Vous devez vérifier les champs <strong>Prix unitaire</strong> et <strong>Quantité</strong>.";
             $typeMessage = "error";
         }
-        $redirectLink = "Location:../livraisons-details.php?codeLivraison=".$codeLivraison."&mois=".$mois."&annee=".$annee;
+        $redirectLink = "Location:../view/livraisons-details.php?codeLivraison=".$codeLivraison."&mois=".$mois."&annee=".$annee;
     }
     //Action Update Processing End
     //Action Delete Processing Begin
     else if($action=="delete"){
         $idLivraisonDetail = htmlentities($_POST['idLivraisonDetail']);
         $livraisonDetailManager->delete($idLivraisonDetail);
-        /*$createdBy = $_SESSION['userMerlaTrav']->login();
+        /*$createdBy = $_SESSION['userstock']->login();
         $created = date('Y-m-d h:i:s');
         $history = new History(array(
             'action' => "Suppression",
@@ -127,7 +127,7 @@
         $historyManager->add($history);*/
         $actionMessage = "<strong>Opération Valide</strong> : Article Supprimé avec succès.";
         $typeMessage = "success";
-        $redirectLink = "Location:../livraisons-details.php?codeLivraison=".$codeLivraison."&mois=".$mois."&annee=".$annee;
+        $redirectLink = "Location:../view/livraisons-details.php?codeLivraison=".$codeLivraison."&mois=".$mois."&annee=".$annee;
     }
     //Action Delete Processing End
     $_SESSION['livraison-detail-action-message'] = $actionMessage;

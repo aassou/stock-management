@@ -37,7 +37,7 @@
 			$montant = htmlentities($_POST['montant']);
 			$societe = htmlentities($_POST['societe']);
 			$designation = htmlentities($_POST['designation']);
-			$createdBy = $_SESSION['userMerlaTrav']->login();
+			$createdBy = $_SESSION['userstock']->login();
             $created = date('Y-m-d h:i:s');
             //create object
             $charge = new ChargeCommun(array(
@@ -80,7 +80,7 @@
 			$montant = htmlentities($_POST['montant']);
 			$societe = htmlentities($_POST['societe']);
 			$designation = htmlentities($_POST['designation']);
-            $updatedBy = $_SESSION['userMerlaTrav']->login();
+            $updatedBy = $_SESSION['userstock']->login();
             $updated = date('Y-m-d h:i:s');
 			$charge = new ChargeCommun(array(
 				'id' => $idCharge,
@@ -94,7 +94,7 @@
 			));
             $chargeManager->update($charge);
             //add history data to db
-            $createdBy = $_SESSION['userMerlaTrav']->login();
+            $createdBy = $_SESSION['userstock']->login();
             $created = date('Y-m-d h:i:s');
             $history = new History(array(
                 'action' => "Modification",
@@ -122,7 +122,7 @@
         $charge = $chargeManager->getChargeById($idCharge);
         $chargeManager->delete($idCharge);
         //add history data to db
-        $createdBy = $_SESSION['userMerlaTrav']->login();
+        $createdBy = $_SESSION['userstock']->login();
         $created = date('Y-m-d h:i:s');
         $history = new History(array(
             'action' => "Suppression",
@@ -139,10 +139,10 @@
     //Action Delete Processing End
     $_SESSION['charge-action-message'] = $actionMessage;
     $_SESSION['charge-type-message'] = $typeMessage;
-    $redirectLink = "Location:../charges-communs-grouped.php";
+    $redirectLink = "Location:../view/charges-communs-grouped.php";
     if( isset($_POST['typeCharge']) and isset($_POST['source']) and $_POST['source']=="charges-communs-type" ) {
         $typeCharge = htmlentities($_POST['typeCharge']);
-        $redirectLink = "Location:../charges-communs-type.php?type=".$typeCharge;
+        $redirectLink = "Location:../view/charges-communs-type.php?type=".$typeCharge;
     }
     header($redirectLink);
 

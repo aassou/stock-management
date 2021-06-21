@@ -30,7 +30,7 @@
 			$todo = htmlentities($_POST['todo']);
             $priority = htmlentities($_POST['priority']);
 			$status = 0;
-			$createdBy = $_SESSION['userMerlaTrav']->login();
+			$createdBy = $_SESSION['userstock']->login();
             $created = date('Y-m-d h:i:s');
             //create object
             $todo = new Todo(array(
@@ -58,7 +58,7 @@
 			$todo = htmlentities($_POST['todo']);
             $priority = htmlentities($_POST['priority']);
 			$status = htmlentities($_POST['status']);
-			$updatedBy = $_SESSION['userMerlaTrav']->login();
+			$updatedBy = $_SESSION['userstock']->login();
             $updated = date('Y-m-d h:i:s');
             $todo = new Todo(array(
 				'id' => $idTodo,
@@ -97,5 +97,5 @@
     //Action Delete Processing End
     $_SESSION['todo-action-message'] = $actionMessage;
     $_SESSION['todo-type-message'] = $typeMessage;
-    header('Location:../todo.php');
+    header('Location:../view/todo.php');
 

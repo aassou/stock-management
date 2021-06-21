@@ -30,7 +30,7 @@
 			$action = htmlentities($_POST['action']);
 			$target = htmlentities($_POST['target']);
 			$description = htmlentities($_POST['description']);
-			$createdBy = $_SESSION['userMerlaTrav']->login();
+			$createdBy = $_SESSION['userstock']->login();
             $created = date('Y-m-d h:i:s');
             //create object
             $history = new History(array(
@@ -58,7 +58,7 @@
 			$action = htmlentities($_POST['action']);
 			$target = htmlentities($_POST['target']);
 			$description = htmlentities($_POST['description']);
-			$updatedBy = $_SESSION['userMerlaTrav']->login();
+			$updatedBy = $_SESSION['userstock']->login();
             $updated = date('Y-m-d h:i:s');
             			$history = new History(array(
 				'id' => $idHistory,
@@ -88,5 +88,5 @@
     //Action Delete Processing End
     $_SESSION['history-action-message'] = $actionMessage;
     $_SESSION['history-type-message'] = $typeMessage;
-    header('Location:../file-name-please.php');
+    header('Location:../view/file-name-please.php');
 

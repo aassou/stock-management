@@ -33,7 +33,7 @@
 			$montant = htmlentities($_POST['montant']);
 			$designation = htmlentities($_POST['designation']);
 			$destination = htmlentities($_POST['destination']);
-			$createdBy = $_SESSION['userMerlaTrav']->login();
+			$createdBy = $_SESSION['userstock']->login();
             $created = date('Y-m-d h:i:s');
             //create object
             $caisse = new Caisse(array(
@@ -75,7 +75,7 @@
 			$montant = htmlentities($_POST['montant']);
 			$designation = htmlentities($_POST['designation']);
 			$destination = htmlentities($_POST['destination']);
-			$updatedBy = $_SESSION['userMerlaTrav']->login();
+			$updatedBy = $_SESSION['userstock']->login();
             $updated = date('Y-m-d h:i:s');
             $caisse = new Caisse(array(
 				'id' => $idCaisse,
@@ -89,7 +89,7 @@
 			));
             $caisseManager->update($caisse);
             //add history data to db
-            $createdBy = $_SESSION['userMerlaTrav']->login();
+            $createdBy = $_SESSION['userstock']->login();
             $created = date('Y-m-d h:i:s');
             $history = new History(array(
                 'action' => "Modification",
@@ -115,7 +115,7 @@
         $caisse = $caisseManager->getCaisseById($idCaisse);
         $caisseManager->delete($idCaisse);
         //add history data to db
-        $createdBy = $_SESSION['userMerlaTrav']->login();
+        $createdBy = $_SESSION['userstock']->login();
         $created = date('Y-m-d h:i:s');
         $history = new History(array(
             'action' => "Suppression",
@@ -132,14 +132,14 @@
     //Action Delete Processing End
     $_SESSION['caisse-action-message'] = $actionMessage;
     $_SESSION['caisse-type-message'] = $typeMessage;
-    $redirecktLink = 'Location:../caisse.php';
+    $redirecktLink = 'Location:../view/caisse.php';
     if ( isset ($_POST['source']) and $_POST['source'] == "caisse-group" ) {
-        $redirecktLink = "Location:../caisse-group.php";
+        $redirecktLink = "Location:../view/caisse-group.php";
     }
     else if ( isset($_POST['source']) and $_POST['source'] == "caisse-mois-annee" ) {
         $mois = $_POST['mois'];
         $annee = $_POST['annee'];
-        $redirecktLink = "Location:../caisse-mois-annee.php?mois=".$mois."&annee=".$annee;
+        $redirecktLink = "Location:../view/caisse-mois-annee.php?mois=".$mois."&annee=".$annee;
     } 
     header($redirecktLink);
 

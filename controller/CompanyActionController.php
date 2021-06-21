@@ -32,7 +32,7 @@
 			$nomArabe = htmlentities($_POST['nomArabe']);
 			$adresseArabe = htmlentities($_POST['adresseArabe']);
 			$directeur = htmlentities($_POST['directeur']);
-			$createdBy = $_SESSION['userMerlaTrav']->login();
+			$createdBy = $_SESSION['userstock']->login();
             $created = date('Y-m-d h:i:s');
             //create object
             $company = new Company(array(
@@ -64,7 +64,7 @@
 			$nomArabe = htmlentities($_POST['nomArabe']);
 			$adresseArabe = htmlentities($_POST['adresseArabe']);
 			$directeur = htmlentities($_POST['directeur']);
-			$updatedBy = $_SESSION['userMerlaTrav']->login();
+			$updatedBy = $_SESSION['userstock']->login();
             $updated = date('Y-m-d h:i:s');
             			$company = new Company(array(
 				'id' => $idCompany,
@@ -96,5 +96,5 @@
     //Action Delete Processing End
     $_SESSION['company-action-message'] = $actionMessage;
     $_SESSION['company-type-message'] = $typeMessage;
-    header('Location:../companies.php');
+    header('Location:../view/companies.php');
 

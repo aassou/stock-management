@@ -30,7 +30,7 @@
         if( !empty($_POST['nom']) ){
             $nom = htmlentities($_POST['nom']);
             if ( !$typeChargeManager->exists($nom) ){
-                $createdBy = $_SESSION['userMerlaTrav']->login();
+                $createdBy = $_SESSION['userstock']->login();
                 $created = date('Y-m-d h:i:s');
                 //create object
                 $typeCharge = new TypeCharge(array(
@@ -59,7 +59,7 @@
         $idTypeCharge = htmlentities($_POST['idTypeCharge']);
         if(!empty($_POST['nom'])){
 			$nom = htmlentities($_POST['nom']);
-			$updatedBy = $_SESSION['userMerlaTrav']->login();
+			$updatedBy = $_SESSION['userstock']->login();
             $updated = date('Y-m-d h:i:s');
             $typeCharge = new TypeCharge(array(
 				'id' => $idTypeCharge,
@@ -87,13 +87,13 @@
     //Action Delete Processing End
     $_SESSION['typeCharge-action-message'] = $actionMessage;
     $_SESSION['typeCharge-type-message'] = $typeMessage;
-    $redirectLink = "Location:../projet-charges-grouped.php?idProjet=".$idProjet;
+    $redirectLink = "Location:../view/projet-charges-grouped.php?idProjet=".$idProjet;
     if( isset($_POST['typeCharge']) and isset($_POST['source']) and $_POST['source']=="projet-charges-type" ) {
         $typeCharge = htmlentities($_POST['typeCharge']);
-        $redirectLink = "Location:../projet-charges-type.php?idProjet=".$idProjet."&type=".$typeCharge;
+        $redirectLink = "Location:../view/projet-charges-type.php?idProjet=".$idProjet."&type=".$typeCharge;
     }
     else if( isset($_POST['source']) and $_POST['source'] == "type-charges" ) {
-        $redirectLink = "Location:../type-charges.php";
+        $redirectLink = "Location:../view/type-charges.php";
     }
     header($redirectLink);
     
