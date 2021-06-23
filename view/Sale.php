@@ -2,7 +2,7 @@
 require('../app/classLoad.php');
 session_start();
 
-if ( isset($_SESSION['userstock']) ) {
+if (isset($_SESSION['userstock'])) {
     //create Controller
     $SaleActionController = new SaleActionController('Sale');
     //get objects

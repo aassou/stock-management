@@ -102,7 +102,6 @@ if (isset($_SESSION['userstock'])) {
                                                 <textarea type="text" name="description"></textarea>
                                             </div>
                                         </div>
-                                             
                                     </div>
                                     <div class="modal-footer">
                                         <div class="control-group">

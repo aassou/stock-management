@@ -422,6 +422,84 @@ class ValidationController {
                     return self::NOT_VALID;
                 }
             }
+        } elseif ( $this->_source == "purchase" ) {
+            $this->_target = "purchase.php";
+
+            if ($action == "add") {
+                if (!empty($formInputs['number'])) {
+                    $this->_message = "<strong>Opération Valide : </strong>Achat ajouté(e) avec succès.";
+                    $this->_target = "purchaseDetail.php?codePurchase=" . $formInputs['code'];
+
+                    return self::VALID;
+                } else {
+                    $this->_message = "<strong>Erreur Création Achat : </strong>Vous devez remplir tous les champs obligatoires : <sup>*</sup> correctement.";
+                    $this->_target = "purchase.php";
+
+                    return self::NOT_VALID;
+                }
+            } elseif ($action == "update") {
+                if (!empty($formInputs['number'])) {
+                    $this->_message = "<strong>Opération Valide : </strong>Achat modifié(e) avec succès.";
+
+                    return self::VALID;
+                } else {
+                    $this->_message = "<strong>Erreur Création Achat : </strong>Vous devez remplir tous les champs obligatoires : <sup>*</sup> correctement.";
+
+                    return self::NOT_VALID;
+                }
+            } elseif ($action == "delete") {
+                if (!empty($formInputs['id'])) {
+                    $this->_message = "<strong>Opération Valide : </strong>Vente supprimé(e) avec succès.";
+
+                    return self::VALID;
+                } else {
+                    $this->_message = "<strong>Erreur suppression Vente : </strong>Le champs id est inexistant.";
+
+                    return self::NOT_VALID;
+                }
+            }
+        } elseif ( $this->_source == "purchaseDetail" ) {
+            $codePurchase = $formInputs['codePurchase'];
+            $this->_target = "purchaseDetail.php?codePurchase=$codePurchase";
+
+            if ($action == "add") {
+                if (!empty($formInputs['codePurchase']) and
+                    !empty($formInputs['price']) and
+                    !empty($formInputs['quantity'])
+                ) {
+                    $this->_message = "<strong>Opération Valide : </strong>Opération Achat ajouté(e) avec succès.";
+
+                    return self::VALID;
+                } else {
+                    $this->_message = "<strong>Erreur Création Opération Achat : </strong>Vous devez remplir tous les champs obligatoires : <sup>*</sup> correctement.";
+
+                    return self::NOT_VALID;
+                }
+            } elseif ($action == "update") {
+                if (!empty($formInputs['id']) and
+                    !empty($formInputs['codePurchase']) and
+                    !empty($formInputs['price']) and
+                    !empty($formInputs['quantity'])
+                ) {
+                    $this->_message = "<strong>Opération Valide : </strong>Opération Achat modifié(e) avec succès.";
+
+                    return self::VALID;
+                } else {
+                    $this->_message = "<strong>Erreur Création Opération Achat : </strong>Vous devez remplir tous les champs obligatoires : <sup>*</sup> correctement.";
+
+                    return self::NOT_VALID;
+                }
+            } elseif ($action == "delete") {
+                if (!empty($formInputs['id'])) {
+                    $this->_message = "<strong>Opération Valide : </strong>Opération Achat supprimé(e) avec succès.";
+
+                    return self::VALID;
+                } else {
+                    $this->_message = "<strong>Erreur suppression Opération Achat : </strong>Le champs id est inexistant.";
+
+                    return self::NOT_VALID;
+                }
+            }
         } else {
             $this->_target = $this->_source.".php";
 

@@ -2,34 +2,43 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userstock']) ) {
+    $codePurchase = htmlentities($_GET['codePurchase']);
     //create Controller
-    $purchaseActionController = new PurchaseActionController('purchase');
+    $purchaseDetailActionController = new PurchaseActionController('purchaseDetail');
+    // Legacy Calls
+    $productManager = new ProduitManager(PDOFactory::getMysqlConnection());
     //get objects
-    $purchases = $purchaseActionController->getAll();
+    $purchaseDetails = $purchaseDetailActionController->getAll();
+    $products = $productManager->getProduits();
     //breadcurmb
     $breadcrumb = new Breadcrumb(
         [
             [
                 'class' => 'icon-shopping-cart',
-                'link' => 'purchase.php',
-                'title' => '<strong>Achats</strong>'
+                'link' => 'purchaseDetail.php',
+                'title' => 'Achats'
+            ],
+            [
+                'class' => '',
+                'link' => '',
+                'title' => '<strong>Détails Achat</strong>'
             ]
         ]
     );
-    /*$purchasesNumber = $purchaseActionController->getAllNumber(); 
+    /*$purchaseDetailsNumber = $purchaseDetailActionController->getAllNumber(); 
     $p = 1;
-    if ( $purchasesNumber != 0 ) {
-        $purchasePerPage = 20;
-        $pageNumber = ceil($purchasesNumber/$purchasePerPage);
+    if ( $purchaseDetailsNumber != 0 ) {
+        $purchaseDetailPerPage = 20;
+        $pageNumber = ceil($purchaseDetailsNumber/$purchaseDetailPerPage);
         if(isset($_GET['p']) and ($_GET['p']>0 and $_GET['p']<=$pageNumber)){
             $p = $_GET['p'];
         }
         else{
             $p = 1;
         }
-        $begin = ($p - 1) * $purchasePerPage;
-        $pagination = paginate('purchase.php', '?p=', $pageNumber, $p);
-        $purchases = $purchaseActionController->getAllByLimits($begin, $purchasePerPage);
+        $begin = ($p - 1) * $purchaseDetailPerPage;
+        $pagination = paginate('purchaseDetail.php', '?p=', $pageNumber, $p);
+        $purchaseDetails = $purchaseDetailActionController->getAllByLimits($begin, $purchaseDetailPerPage);
     }*/ 
 ?>
 <!DOCTYPE html>
@@ -55,39 +64,40 @@ if ( isset($_SESSION['userstock']) ) {
                             <?php if(isset($_SESSION['actionMessage']) and isset($_SESSION['typeMessage'])){ $message = $_SESSION['actionMessage']; $typeMessage = $_SESSION['typeMessage']; ?>
                             <div class="alert alert-<?= $typeMessage ?>"><button class="close" data-dismiss="alert"></button><?= $message ?></div>
                             <?php } unset($_SESSION['actionMessage']); unset($_SESSION['typeMessage']); ?>
-                            <!-- addPurchase box begin -->
-                            <div id="addPurchase" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false" >
+                            <!-- addPurchaseDetail box begin -->
+                            <div id="addPurchaseDetail" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false" >
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                    <h3>Ajouter Purchase</h3>
+                                    <h3>Ajouter Opération Achat</h3>
                                 </div>
                                 <form class="form-horizontal" action="../app/Dispatcher.php" method="post">
                                     <div class="modal-body">
                                         <div class="control-group">
-                                            <label class="control-label">Date Opération</label>
+                                            <label class="control-label">Produit</label>
                                             <div class="controls">
-                                                <div class="input-append date date-picker" data-date="" data-date-format="yyyy-mm-dd">
-                                                    <input name="operationDate" id="operationDate" class="m-wrap date-picker span12" type="text" value="<?= date('Y-m-d') ?>" />
-                                                    <span class="add-on"><i class="icon-calendar"></i></span>
-                                                </div>
+                                                <select name="productId">
+                                                    <?php foreach ($products as $product) { ?>
+                                                        <option value="<?= $product->id() ?>"><?= $product->code() ?></option>
+                                                    <?php } ?>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">Numéro Opération</label>
+                                            <label class="control-label">Quantité</label>
                                             <div class="controls">
-                                                <input required="required" type="text" name="number" class="m-wrap span12" />
+                                                <input required="required" type="text" name="quantity" />
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">Client</label>
+                                            <label class="control-label">Prix</label>
                                             <div class="controls">
-                                                <input required="required" type="text" name="clientId" class="m-wrap span12" />
+                                                <input required="required" type="text" name="price" />
                                             </div>
                                         </div>
                                         <div class="control-group">
                                             <label class="control-label">Description</label>
                                             <div class="controls">
-                                                <input required="required" type="text" name="description" class="m-wrap span12" />
+                                                <textarea type="text" name="description"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -95,7 +105,8 @@ if ( isset($_SESSION['userstock']) ) {
                                         <div class="control-group">
                                             <div class="controls">
                                                 <input type="hidden" name="action" value="add" />
-                                                <input type="hidden" name="source" value="purchase" />    
+                                                <input type="hidden" name="source" value="purchaseDetail" />
+                                                <input type="hidden" name="codePurchase" value="<?= $codePurchase ?>" />
                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
                                                 <button type="submit" class="btn red" aria-hidden="true">Oui</button>
                                             </div>
@@ -103,104 +114,96 @@ if ( isset($_SESSION['userstock']) ) {
                                     </div>
                                 </form>
                             </div>    
-                            <!-- addPurchase box end -->
+                            <!-- addPurchaseDetail box end -->
                             <div class="portlet box light-grey">
                                 <div class="portlet-title">
-                                    <h4>Liste des Achats</h4>
+                                    <h4>Liste des Opération Achat</h4>
+                                    <div class="tools">
+                                        <a href="javascript:;" class="reload"></a>
+                                    </div>
                                 </div>
                                 <div class="portlet-body">
                                     <div class="clearfix">
                                         <div class="btn-group">
-                                            <a class="btn blue pull-right" href="#addPurchase" data-toggle="modal">
-                                                <i class="icon-plus-sign"></i>&nbsp;Achat
+                                            <a class="btn blue pull-right" href="#addPurchaseDetail" data-toggle="modal">
+                                                <i class="icon-plus-sign"></i>&nbsp;Opération Achat
                                             </a>
                                         </div>
                                     </div>
                                     <table class="table table-striped table-bordered table-hover" id="sample_2">
                                         <thead>
                                             <tr>
-                                                <th class="t10">Date</th>
-                                                <th class="t10">Numéro Opération</th>
-                                                <th class="t10">Label</th>
+                                                <th class="t10">Produit</th>
+                                                <th class="t10">Quantité</th>
+                                                <th class="t10">Prix</th>
+                                                <th class="t10">Total</th>
                                                 <th class="t10">Description</th>
-                                                <th class="t10">Client</th>
                                                 <th class="t10 hidden-phone">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                            //if ( $purchasesNumber != 0 ) { 
-                                            foreach ( $purchases as $purchase ) {
+                                            //if ( $purchaseDetailsNumber != 0 ) { 
+                                            foreach ($purchaseDetails as $purchaseDetail) {
+                                                $product = $productManager->getProduitById($purchaseDetail->getProductId());
                                             ?>
                                             <tr>
-                                                <td><?= date('d/m/Y', strtotime($purchase->getOperationDate())) ?></td>
-                                                <td><?= $purchase->getNumber() ?></td>
-                                                <td><?= $purchase->getLabel() ?></td>
-                                                <td><?= $purchase->getDescription() ?></td>
-                                                <td><?= $purchase->getClientId() ?></td>
+                                                <td><?= $product->code() ?></td>
+                                                <td><?= $purchaseDetail->getQuantity() ?></td>
+                                                <td><?= Utils::numberFormatMoney($purchaseDetail->getPrice()) ?></td>
+                                                <td><?= Utils::numberFormatMoney($purchaseDetail->getPrice() * $purchaseDetail->getQuantity()) ?></td>
+                                                <td><?= $purchaseDetail->getDescription() ?></td>
                                                 <td class="hidden-phone">
-                                                    <a href="purchaseDetail.php?codePurchase=<?= $purchase->getCode() ?>" class="btn mini blue" title="Voir Détail Vente">
-                                                        <i class="icon-eye-open"></i>
-                                                    </a>
-                                                    <a href="#updatePurchase<?= $purchase->getId() ?>" data-toggle="modal" data-id="<?= $purchase->getId() ?>" class="btn mini green" title="Modifier Achat">
-                                                        <i class="icon-refresh"></i>
-                                                    </a>
-                                                    <a href="#deletePurchase<?= $purchase->getId() ?>" data-toggle="modal" data-id="<?= $purchase->getId() ?>" class="btn mini red" title="Supprimer Achat">
-                                                        <i class="icon-remove"></i>
-                                                    </a>
+                                                    <a href="#updatePurchaseDetail<?= $purchaseDetail->getId() ?>" data-toggle="modal" data-id="<?= $purchaseDetail->getId() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
+                                                    <a href="#deletePurchaseDetail<?= $purchaseDetail->getId() ?>" data-toggle="modal" data-id="<?= $purchaseDetail->getId() ?>" class="btn mini red"><i class="icon-remove"></i></a>
                                                 </td>
                                             </tr> 
-                                            <!-- updatePurchase box begin -->
-                                            <div id="updatePurchase<?= $purchase->getId() ?>" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
+                                            <!-- updatePurchaseDetail box begin -->
+                                            <div id="updatePurchaseDetail<?= $purchaseDetail->getId() ?>" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                    <h3>Modifier Info Achat</h3>
+                                                    <h3>Modifier Info Opération Achat</h3>
                                                 </div>
                                                 <form class="form-inline" action="../app/Dispatcher.php" method="post">
                                                     <div class="modal-body">
                                                         <div class="control-group">
-                                                            <label class="control-label">OperationDate</label>
+                                                            <label class="control-label">Produit</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="operationDate"  value="<?= $purchase->getOperationDate() ?>" />
+                                                                <select name="productId">
+                                                                    <option value="<?= $product->id() ?>"><?= $product->code() ?></option>
+                                                                    <option disabled="disabled">-----------------------</option>
+                                                                    <?php foreach ($products as $product) { ?>
+                                                                        <option value="<?= $product->id() ?>"><?= $product->code() ?></option>
+                                                                    <?php } ?>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">Number</label>
+                                                            <label class="control-label">Quantité</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="number"  value="<?= $purchase->getNumber() ?>" />
+                                                                <input required="required" type="text" name="quantity"  value="<?= $purchaseDetail->getQuantity() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">Label</label>
+                                                            <label class="control-label">Prix</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="label"  value="<?= $purchase->getLabel() ?>" />
+                                                                <input required="required" type="text" name="price"  value="<?= $purchaseDetail->getPrice() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
                                                             <label class="control-label">Description</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="description"  value="<?= $purchase->getDescription() ?>" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="control-group">
-                                                            <label class="control-label">ClientId</label>
-                                                            <div class="controls">
-                                                                <input required="required" type="text" name="clientId"  value="<?= $purchase->getClientId() ?>" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="control-group">
-                                                            <label class="control-label">Code</label>
-                                                            <div class="controls">
-                                                                <input required="required" type="text" name="code"  value="<?= $purchase->getCode() ?>" />
+                                                                <input type="text" name="description"  value="<?= $purchaseDetail->getDescription() ?>" />
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="id" value="<?= $purchase->getId() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $purchaseDetail->getId() ?>" />
                                                                 <input type="hidden" name="action" value="update" />
-                                                                <input type="hidden" name="source" value="purchase" />    
+                                                                <input type="hidden" name="source" value="purchaseDetail" />
+                                                                <input type="hidden" name="codePurchase" value="<?= $codePurchase ?>" />
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
                                                                 <button type="submit" class="btn red" aria-hidden="true">Oui</button>
                                                             </div>
@@ -208,23 +211,24 @@ if ( isset($_SESSION['userstock']) ) {
                                                     </div>
                                                 </form>
                                             </div>
-                                            <!-- updatePurchase box end --> 
-                                            <!-- deletePurchase box begin -->
-                                            <div id="deletePurchase<?= $purchase->getId() ?>" class="modal modal-big hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
+                                            <!-- updatePurchaseDetail box end --> 
+                                            <!-- deletePurchaseDetail box begin -->
+                                            <div id="deletePurchaseDetail<?= $purchaseDetail->getId() ?>" class="modal modal-big hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                    <h3>Supprimer Achat</h3>
+                                                    <h3>Supprimer Opération Achat</h3>
                                                 </div>
                                                 <form class="form-horizontal" action="../app/Dispatcher.php" method="post">
                                                     <div class="modal-body">
-                                                        <h4 class="dangerous-action">Êtes-vous sûr de vouloir supprimer cet Achat : <?= $purchase->getOperationDate() ?> ? Cette action est irréversible!</h4>
+                                                        <h4 class="dangerous-action">Êtes-vous sûr de vouloir supprimer Opération Achat : <?= $purchaseDetail->getProductId() ?> ? Cette action est irréversible!</h4>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="id" value="<?= $purchase->getId() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $purchaseDetail->getId() ?>" />
                                                                 <input type="hidden" name="action" value="delete" />
-                                                                <input type="hidden" name="source" value="purchase" />    
+                                                                <input type="hidden" name="source" value="purchaseDetail" />
+                                                                <input type="hidden" name="codePurchase" value="<?= $codePurchase ?>" />
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
                                                                 <button type="submit" class="btn red" aria-hidden="true">Oui</button>
                                                             </div>
@@ -232,14 +236,14 @@ if ( isset($_SESSION['userstock']) ) {
                                                     </div>
                                                 </form>
                                             </div>
-                                            <!-- deletePurchase box end --> 
+                                            <!-- deletePurchaseDetail box end --> 
                                             <?php 
                                             }//end foreach 
                                             //}//end if
                                             ?>
                                         </tbody>
                                     </table>
-                                    <?php /*if($purchasesNumber != 0){ echo $pagination; }*/ ?><br>
+                                    <?php /*if($purchaseDetailsNumber != 0){ echo $pagination; }*/ ?><br>
                                 </div>
                             </div>
                         </div>

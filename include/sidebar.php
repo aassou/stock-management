@@ -61,7 +61,7 @@
             ) {
             $gestionAchatClass="";
             if($currentPage == "purchase.php"
-                or $currentPage == "puchaseDetail.php"
+                or $currentPage == "purchaseDetail.php"
             ){
                 $gestionAchatClass = "active ";
             }
