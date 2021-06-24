@@ -3,7 +3,21 @@ require_once('../app/classLoad.php');
 session_start();
 
 if (isset($_SESSION['userstock'])) {
+    $purchaseActionController = new PurchaseActionController('purchase');
+    $saleActionController = new SaleActionController('sale');
+
+    // Legacy calls
     $usersManager = new UserManager(PDOFactory::getMysqlConnection());
+    $productManager = new ProduitManager(PDOFactory::getMysqlConnection());
+    $caisseManager = new CaisseManager(PDOFactory::getMysqlConnection());
+
+    // objs and vars
+    $minimumStockProducts = $productManager->getMinimumStockProducts();
+    $soldeWeek = $caisseManager->getSoldeWeekByType('Entree') - $caisseManager->getSoldeWeekByType('Sortie');
+    $purchaseNumberWeek = $purchaseActionController->getPurchaseNumberPerWeek();
+    $saleNumberWeek = $saleActionController->getSaleNumberPerWeek();
+
+    $breadcrumb = new Breadcrumb([]);
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
@@ -21,8 +35,10 @@ if (isset($_SESSION['userstock'])) {
             <div class="page-content">
                 <div class="container-fluid">
                     <div class="row-fluid">
+                        <?= $breadcrumb->getBreadcrumb() ?>
+                    </div>
+                    <div class="row-fluid">
                         <div class="span12">
-                            <h4 class="breadcrumb"><i class="icon-dashboard"></i> Accueil</h4>
                             <div class="tiles">
                                 <a href="factures.php">
                                 <div class="tile bg-dark-cyan">
@@ -117,7 +133,7 @@ if (isset($_SESSION['userstock'])) {
                                     </div>
                                 </div>
                                 </a>
-                                <a href="status.php">
+                                <a href="caisse-group.php">
                                 <div class="tile bg-grey">
                                     <div class="corner"></div>
                                     <div class="tile-body">
@@ -125,7 +141,7 @@ if (isset($_SESSION['userstock'])) {
                                     </div>
                                     <div class="tile-object">
                                         <div class="name">
-                                            Charges
+                                            Caisse
                                         </div>
                                     </div>
                                 </div>
@@ -196,7 +212,7 @@ if (isset($_SESSION['userstock'])) {
                                     <i class="icon-shopping-cart"></i>
                                 </div>
                                 <div class="details">
-                                    <div class="number">+<?= 5 ?>%</div>
+                                    <div class="number">+<?= $purchaseNumberWeek ?></div>
                                     <div class="desc">Achats</div>
                                 </div>
                             </div>
@@ -208,7 +224,7 @@ if (isset($_SESSION['userstock'])) {
                                 </div>
                                 <div class="details">
                                     <div class="number">
-                                        +<?= 25 ?>%
+                                        +<?= $saleNumberWeek ?>
                                     </div>
                                     <div class="desc">
                                         Ventes
@@ -224,9 +240,9 @@ if (isset($_SESSION['userstock'])) {
                                 </div>
                                 <div class="details">
                                     <div class="number">
-                                        <?= 550 ?> DH
+                                        <?= Utils::numberFormatMoney($soldeWeek) ?> DH
                                     </div>
-                                    <div class="desc">Charges</div>
+                                    <div class="desc">Solde Caisse</div>
                                 </div>
                             </div>
                             </a>
@@ -266,111 +282,34 @@ if (isset($_SESSION['userstock'])) {
                                         <div class="tab-pane active" id="tab_1_1">
                                             <div class="scroller" data-height="290px" data-always-visible="1" data-rail-visible1="1">
                                                 <ul class="feeds">
-                                                    <li>
-                                                        <div class="col1">
-                                                            <div class="cont">
-                                                                <div class="cont-col1">
-                                                                    <div class="label label-important">
-                                                                        <i class="icon-bell"></i>
+                                                    <?php
+                                                    foreach ($minimumStockProducts as $product) {
+                                                    ?>
+                                                        <li>
+                                                            <div class="col1">
+                                                                <div class="cont">
+                                                                    <div class="cont-col1">
+                                                                        <div class="label label-important">
+                                                                            <i class="icon-bell"></i>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="cont-col2">
-                                                                    <div class="desc">
-                                                                        <strong>Bagit 2.5</strong> : Quté en Stock <a><strong>20</strong></a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col2">
-                                                            <div class="date">
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <hr>
-                                                    <li>
-                                                        <div class="col1">
-                                                            <div class="cont">
-                                                                <div class="cont-col1">
-                                                                    <div class="label label-important">
-                                                                        <i class="icon-bell"></i>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="cont-col2">
-                                                                    <div class="desc">
-                                                                        <strong>Bagit 4</strong> : Quté en Stock <a><strong>33</strong></a>
+                                                                    <div class="cont-col2">
+                                                                        <div class="desc">
+                                                                            <strong><?= $product->code() ?></strong> :
+                                                                            Quté en Stock <a><strong><?= $product->quantite() ?></strong></a>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col2">
-                                                            <div class="date">
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <hr>
-                                                    <li>
-                                                        <div class="col1">
-                                                            <div class="cont">
-                                                                <div class="cont-col1">
-                                                                    <div class="label label-important">
-                                                                        <i class="icon-bell"></i>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="cont-col2">
-                                                                    <div class="desc">
-                                                                        <strong>Berclus BR</strong> : Quté en Stock <a><strong>33</strong></a>
-                                                                    </div>
+                                                            <div class="col2">
+                                                                <div class="date">
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col2">
-                                                            <div class="date">
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <hr>
-                                                    <li>
-                                                        <div class="col1">
-                                                            <div class="cont">
-                                                                <div class="cont-col1">
-                                                                    <div class="label label-important">
-                                                                        <i class="icon-bell"></i>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="cont-col2">
-                                                                    <div class="desc">
-                                                                        <strong>COR 40 X 2.5</strong> : Quté en Stock <a><strong>40</strong></a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col2">
-                                                            <div class="date">
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <hr>
-                                                    <li>
-                                                        <div class="col1">
-                                                            <div class="cont">
-                                                                <div class="cont-col1">
-                                                                    <div class="label label-important">
-                                                                        <i class="icon-bell"></i>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="cont-col2">
-                                                                    <div class="desc">
-                                                                        <strong>COR 40 X 2.8</strong> : Quté en Stock <a><strong>0</strong></a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col2">
-                                                            <div class="date">
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <hr>
+                                                        </li>
+                                                        <hr>
+                                                    <?php
+                                                    }
+                                                    ?>
                                                 </ul>
                                             </div>
                                         </div>

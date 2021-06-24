@@ -111,6 +111,7 @@
             if($currentPage=="stock.php"
             or $currentPage=="stock-update-produit.php"
             or $currentPage=="stock-delete-produit.php"
+            or $currentPage=="warehouse.php"
             ){
                 $gestionStockClass = "active ";
             }
@@ -178,16 +179,17 @@
             $_SESSION['userstock']->profil() == "manager" ||
             $_SESSION['userstock']->profil() == "consultant"
             ) {
-            $gestionChargesClass="";
-            if($currentPage=="projet-list.php"
-            ){
+            $gestionChargesClass = "";
+            if($currentPage == "caisse-group.php"
+                or $currentPage == "caisse-mois-annee.php"
+            ) {
                 $gestionChargesClass = "active ";
             }
         ?>
         <li class="<?= $gestionChargesClass ?>" >
-            <a href="projets.php">
+            <a href="caisse-group.php">
             <i class="icon-money"></i>
-            <span class="title">Charges</span>
+            <span class="title">La Caisse</span>
             </a>
         </li>
         <?php

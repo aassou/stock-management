@@ -139,4 +139,20 @@ class PurchaseManager {
 
 		return $data['last_id'] ?? 0;
 	}
+
+    /**
+     * @return mixed
+     */
+    public function getPurchaseNumberPerWeek(){
+        $query = $this->_db->query('
+            SELECT COUNT(id) AS purchaseNumber 
+            FROM t_purchase 
+            WHERE operationDate BETWEEN SUBDATE(CURDATE(),7) AND CURDATE()
+        ');
+        $data = $query->fetch(PDO::FETCH_ASSOC);
+        $query->closeCursor();
+
+        return $data['purchaseNumber'];
+    }
 }
+

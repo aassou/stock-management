@@ -15,7 +15,7 @@ if ( isset($_SESSION['userstock']) ) {
         [
             [
                 'class' => 'icon-shopping-cart',
-                'link' => 'purchaseDetail.php',
+                'link' => 'purchase.php',
                 'title' => 'Achats'
             ],
             [

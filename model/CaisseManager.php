@@ -218,4 +218,21 @@ class CaisseManager{
         return $data['total'];
     }
 
+    /**
+     * @return mixed
+     */
+    public function getSoldeWeekByType($type){
+        $query = $this->_db->prepare('
+            SELECT SUM(montant) AS soldeWeek 
+            FROM t_caisse 
+            WHERE type=:type 
+            AND dateOperation BETWEEN SUBDATE(CURDATE(),7) AND CURDATE()
+        ');
+        $query->bindValue(':type', $type);
+        $query->execute();
+        $data = $query->fetch(PDO::FETCH_ASSOC);
+        $query->closeCursor();
+
+        return $data['soldeWeek'];
+    }
 }

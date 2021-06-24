@@ -4,12 +4,23 @@ include('config.php');
 session_start();
 
 if (isset($_SESSION['userstock'])) {
-    //Class Managers
+    // Legacy Calls
     $categorieManager = new CategorieManager(PDOFactory::getMysqlConnection());
     $produitManager = new ProduitManager(PDOFactory::getMysqlConnection());
-    //objs and vars
+
+    // objs and vars
     $categories = $categorieManager->getCategories();
     $produits = $produitManager->getProduits();
+
+    $breadcrumb = new Breadcrumb(
+        [
+            [
+                'class' => 'icon-barcode',
+                'link' => 'produits.php',
+                'title' => '<strong>Produits</strong>'
+            ]
+        ]
+    );
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
@@ -28,25 +39,7 @@ if (isset($_SESSION['userstock'])) {
         <div class="page-content">
             <div class="container-fluid">
                 <div class="row-fluid">
-                    <div class="span12">
-                        <ul class="breadcrumb">
-                            <li>
-                                <i class="icon-dashboard"></i>
-                                <a href="dashboard.php">Accueil</a> 
-                                <i class="icon-angle-right"></i>
-                            </li>
-                            <li>
-                                <i class="icon-wrench"></i>
-                                <a href="configuration.php">Paramètrages</a>
-                                <i class="icon-angle-right"></i>
-                            </li>
-                            <li>
-                                <i class="icon-barcode"></i>
-                                <a>Produits</a>
-                            </li>
-                        </ul>
-                        <!-- END PAGE TITLE & BREADCRUMB-->
-                    </div>
+                    <?= $breadcrumb->getBreadcrumb() ?>
                 </div>
                 <!-- END PAGE HEADER-->
                 <!-- BEGIN PAGE CONTENT-->

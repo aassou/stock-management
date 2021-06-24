@@ -25,4 +25,10 @@ class SaleActionController extends AppController {
         $this->_typeMessage = "success";
         $this->_source = $this->_validation->getTarget();
     }
+    /**
+     * @return mixed
+     */
+    public function getSaleNumberPerWeek() {
+        return $this->_manager->getSaleNumberPerWeek();
+    }
 }

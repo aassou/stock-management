@@ -83,6 +83,26 @@ class PurchaseDetailManager {
 		return new PurchaseDetail($data);
 	}
 
+    /**
+     * @param $codeSale
+     * @return array
+     */
+    public function getAllByCode($codeSale) {
+        $puchaseDetails = [];
+        $query = $this->_db->prepare('SELECT * FROM t_saledetail WHERE codeSale=:codeSale')
+        or die (print_r($this->_db->errorInfo()));
+        $query->bindValue(':codeSale', $codeSale);
+        $query->execute();
+
+        while($data = $query->fetch(PDO::FETCH_ASSOC)) {
+            $puchaseDetails[] = new SaleDetail($data);
+        }
+
+        $query->closeCursor();
+
+        return $puchaseDetails;
+    }
+
 	/**
 	 * @return array
 	 */

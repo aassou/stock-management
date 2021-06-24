@@ -90,7 +90,7 @@ class SaleDetailManager {
         $salesDetails = [];
         $query = $this->_db->prepare('SELECT * FROM t_saledetail WHERE codeSale=:codeSale')
         or die (print_r($this->_db->errorInfo()));
-        $query->bindValue(':codeSale', '60c3483c9b55720210611132548');
+        $query->bindValue(':codeSale', $codeSale);
         $query->execute();
 
         while($data = $query->fetch(PDO::FETCH_ASSOC)) {

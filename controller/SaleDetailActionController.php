@@ -7,10 +7,19 @@ require_once('../app/AppController.php');
  */
 class SaleDetailActionController extends AppController {
 
+    public function add($formInputs)
+    {
+        parent::add($formInputs);
+
+        $productManager = new ProduitManager(PDOFactory::getMysqlConnection());
+        $productManager->updateProductQuantity($formInputs['productId'], -$formInputs['quantity']);
+    }
+
     /**
      * @param $code
+     * @return mixed
      */
     public function getAllByCode($code) {
-        $this->_manager->getAllByCode($code);
+        return $this->_manager->getAllByCode($code);
     }
 }

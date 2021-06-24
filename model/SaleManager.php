@@ -138,4 +138,19 @@ class SaleManager {
 
 		return $data['last_id'] ?? 0;
 	}
+
+    /**
+     * @return mixed
+     */
+    public function getSaleNumberPerWeek(){
+        $query = $this->_db->query('
+            SELECT COUNT(id) AS saleNumber 
+            FROM t_sale 
+            WHERE operationDate BETWEEN SUBDATE(CURDATE(),7) AND CURDATE()
+        ');
+        $data = $query->fetch(PDO::FETCH_ASSOC);
+        $query->closeCursor();
+
+        return $data['saleNumber'];
+    }
 }

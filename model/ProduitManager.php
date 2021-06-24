@@ -51,10 +51,10 @@ class ProduitManager{
         quantite=:quantite, updated=:updated, updatedBy=:updatedBy
         WHERE id=:id')
         or die (print_r($this->_db->errorInfo()));
-        $query->bindValue(':id', $produit->id());
-        $query->bindValue(':quantite', $produit->quantite());
-        $query->bindValue(':updated', $produit->updated());
-        $query->bindValue(':updatedBy', $produit->updatedBy());
+        $query->bindValue(':id', $idProduit);
+        $query->bindValue(':quantite', $quantite);
+        $query->bindValue(':updated', date('Y-m-d h:i:s'));
+        $query->bindValue(':updatedBy', $_SESSION['userstock']->login());
         $query->execute();
         $query->closeCursor();
     }
@@ -153,5 +153,33 @@ class ProduitManager{
 		$id = $data['last_id'];
 		return $id;
 	}
+
+    /**
+     * @param $productId
+     * @param $quantity
+     */
+	public function updateProductQuantity($productId, $quantity) {
+	    $query = $this->_db->prepare('UPDATE t_produit SET quantite = quantite + :quantity
+            WHERE id = :productId
+        ');
+	    $query->bindValue(':productId', $productId);
+	    $query->bindValue(':quantity', $quantity);
+	    $query->execute();
+	    $query->closeCursor();
+    }
+
+    /**
+     * @return array
+     */
+    public function getMinimumStockProducts() {
+	    $products = [];
+        $query = $this->_db->query('SELECT * FROM t_produit WHERE quantite <= 10');
+
+        while ($data = $query->fetch(PDO::FETCH_ASSOC)) {
+            $products [] = new Produit($data);
+        }
+
+        return $products;
+    }
 
 }

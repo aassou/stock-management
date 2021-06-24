@@ -1,11 +1,9 @@
 <?php
-
 require('../app/classLoad.php');
 session_start();
-
 if ( isset($_SESSION['userstock']) ) {
     // create Controller
-    $warehouseActionController = new WarehouseActionController('warehouse');
+    $warehouseActionController = new AppController('warehouse');
     // Legacy calls
     $clientsManager = new ClientManager(PDOFactory::getMysqlConnection());
     $categorieManager = new CategorieManager(PDOFactory::getMysqlConnection());
@@ -23,7 +21,7 @@ if ( isset($_SESSION['userstock']) ) {
             [
                 'class' => 'icon-bar-chart',
                 'link' => 'warehouse.php',
-                'title' => '<strong>Stock</strong>'
+                'title' => 'Stock'
             ]
         ]
     );
@@ -42,11 +40,11 @@ if ( isset($_SESSION['userstock']) ) {
         $pagination = paginate('warehouse.php', '?p=', $pageNumber, $p);
         $warehouses = $warehouseActionController->getAllByLimits($begin, $warehousePerPage);
     }*/
-?>
-<!DOCTYPE html>
-<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
-<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+    ?>
+    <!DOCTYPE html>
+    <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+    <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+    <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
     <head>
         <?php include('../include/header.php') ?>
     </head>
@@ -103,40 +101,35 @@ if ( isset($_SESSION['userstock']) ) {
                         <!-- addWarehouse box end -->
                         <div class="portlet box light-grey">
                             <div class="portlet-title">
-                                <h4>Stock</h4>
+                                <h4>Liste des Warehouses</h4>
                                 <div class="tools">
                                     <a href="javascript:;" class="reload"></a>
                                 </div>
                             </div>
                             <div class="portlet-body">
+                                <div class="clearfix">
+                                    <div class="btn-group">
+                                        <a class="btn blue pull-right" href="#addWarehouse" data-toggle="modal">
+                                            <i class="icon-plus-sign"></i>&nbsp;Warehouse
+                                        </a>
+                                    </div>
+                                </div>
                                 <table class="table table-striped table-bordered table-hover" id="sample_2">
                                     <thead>
                                     <tr>
-                                        <th class="t10">Produit</th>
-                                        <th class="t10">Quantité</th>
-                                        <th class="t10">Status</th>
+                                        <th class="t10">ProductId</th>
+                                        <th class="t10">Quantity</th>
                                         <th class="t10 hidden-phone">Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <?php
                                     //if ( $warehousesNumber != 0 ) {
-                                    foreach ($warehouses as $warehouse) {
-                                        $product = $produitManager->getProduitById($warehouse->getProductId());
-
-                                        $classQuantiteMin = "btn mini";
-                                        $textQuantite = "Normal";
-
-                                        if ($warehouse->quantite() <= 10) {
-                                            $classQuantiteMin = "btn mini red";
-                                            $textQuantite = "Qté.Min";
-                                        }
-
+                                    foreach ( $warehouses as $warehouse ) {
                                         ?>
                                         <tr>
-                                            <td><?= $product->code() ?></td>
+                                            <td><?= $warehouse->getProductId() ?></td>
                                             <td><?= $warehouse->getQuantity() ?></td>
-                                            <td><a class="<?= $classQuantiteMin ?>"><?= $textQuantite ?></a></td>
                                             <td class="hidden-phone">
                                                 <a href="#updateWarehouse<?= $warehouse->getId() ?>" data-toggle="modal" data-id="<?= $warehouse->getId() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
                                                 <a href="#deleteWarehouse<?= $warehouse->getId() ?>" data-toggle="modal" data-id="<?= $warehouse->getId() ?>" class="btn mini red"><i class="icon-remove"></i></a>
@@ -219,10 +212,10 @@ if ( isset($_SESSION['userstock']) ) {
     <?php include('../include/scripts.php'); ?>
     <script>jQuery(document).ready( function(){ App.setPage("table_managed"); App.init(); } );</script>
     </body>
-</html>
-<?php
+    </html>
+    <?php
 }
 else{
-header('Location:../index.php');
+    header('Location:../index.php');
 }
 ?>

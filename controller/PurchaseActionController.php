@@ -25,5 +25,12 @@ class PurchaseActionController extends AppController {
         $this->_typeMessage = "success";
         $this->_source = $this->_validation->getTarget();
     }
-    
+
+    /**
+     * @return mixed
+     */
+    public function getPurchaseNumberPerWeek() {
+        return $this->_manager->getPurchaseNumberPerWeek();
+    }
 }
+

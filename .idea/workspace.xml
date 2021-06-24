@@ -2,12 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c44bb305-c230-445f-a5c9-eb7820bef087" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/view/warehouse-backup.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ValidationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ValidationController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/CaisseActionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/CaisseActionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/PurchaseActionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/PurchaseActionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/PurchaseDetailActionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/PurchaseDetailActionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/SaleActionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/SaleActionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/SaleDetailActionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/SaleDetailActionController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/include/sidebar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/Sale.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/Sale.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/SaleDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/SaleDetail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/purchase.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/purchase.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/CaisseManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/CaisseManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/ProduitManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/ProduitManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/PurchaseDetailManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/PurchaseDetailManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/PurchaseManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/PurchaseManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/SaleDetailManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/SaleDetailManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/SaleManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/SaleManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/caisse-group.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/caisse-group.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/caisse-mois-annee.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/caisse-mois-annee.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/dashboard.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/produits.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/produits.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/purchaseDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/purchaseDetail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/stock.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/stock.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/warehouse.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/warehouse.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,13 +43,17 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/view" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/view" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/view" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
@@ -55,7 +74,9 @@
       <workItem from="1623881837705" duration="697000" />
       <workItem from="1624216140325" duration="7134000" />
       <workItem from="1624235536820" duration="618000" />
-      <workItem from="1624439164182" duration="3649000" />
+      <workItem from="1624439164182" duration="4121000" />
+      <workItem from="1624471556475" duration="694000" />
+      <workItem from="1624534885115" duration="8581000" />
     </task>
     <servers />
   </component>
@@ -83,13 +104,17 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="785" y="476" width="406" height="153" key="NewPhpFileDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1623340717816" />
-    <state x="673" y="278" width="641" height="634" key="find.popup" timestamp="1624223856411">
+    <state x="472" y="143" width="1033" height="818" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1624540754236">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="673" y="278" width="641" height="634" key="find.popup/67.27.1853.1053@67.27.1853.1053" timestamp="1624223856411" />
-    <state x="656" y="257" width="672" height="678" key="search.everywhere.popup" timestamp="1624444984369">
+    <state x="472" y="143" width="1033" height="818" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/67.27.1853.1053@67.27.1853.1053" timestamp="1624540754236" />
+    <state x="673" y="278" width="641" height="634" key="find.popup" timestamp="1624538343108">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="656" y="257" width="672" height="678" key="search.everywhere.popup/67.27.1853.1053@67.27.1853.1053" timestamp="1624444984369" />
+    <state x="673" y="278" width="641" height="634" key="find.popup/67.27.1853.1053@67.27.1853.1053" timestamp="1624538343108" />
+    <state x="656" y="257" width="672" height="678" key="search.everywhere.popup" timestamp="1624543292880">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="656" y="257" width="672" height="678" key="search.everywhere.popup/67.27.1853.1053@67.27.1853.1053" timestamp="1624543292880" />
   </component>
 </project>
