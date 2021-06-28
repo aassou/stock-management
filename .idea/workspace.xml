@@ -1,29 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand />
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="c44bb305-c230-445f-a5c9-eb7820bef087" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/view/warehouse-backup.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/CaisseActionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/CaisseActionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/PurchaseActionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/PurchaseActionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/PurchaseDetailActionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/PurchaseDetailActionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/SaleActionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/SaleActionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/SaleDetailActionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/SaleDetailActionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/include/sidebar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/CaisseManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/CaisseManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/ProduitManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/ProduitManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/PurchaseDetailManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/PurchaseDetailManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/PurchaseManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/PurchaseManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/SaleDetailManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/SaleDetailManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/SaleManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/SaleManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/caisse-group.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/caisse-group.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/caisse-mois-annee.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/caisse-mois-annee.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/dashboard.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/produits.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/produits.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/purchaseDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/purchaseDetail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/stock.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/stock.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/warehouse.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/warehouse.php" afterDir="false" />
-    </list>
+    <list default="true" id="c44bb305-c230-445f-a5c9-eb7820bef087" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -76,12 +58,48 @@
       <workItem from="1624235536820" duration="618000" />
       <workItem from="1624439164182" duration="4121000" />
       <workItem from="1624471556475" duration="694000" />
-      <workItem from="1624534885115" duration="8581000" />
+      <workItem from="1624534885115" duration="8716000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="1">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="roots">
+                    <value>
+                      <list>
+                        <option value="$PROJECT_DIR$" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="1" value="TOOL_WINDOW" />
+      </map>
+    </option>
   </component>
   <component name="WindowStateProjectService">
     <state x="760" y="260" width="456" height="585" key="#com.intellij.ide.util.MemberChooser" timestamp="1623409837862">
