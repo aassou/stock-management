@@ -1,7 +1,7 @@
 <?php
 require_once('../app/classLoad.php');
-include('config.php');
 session_start();
+
 if (isset($_SESSION['userstock'])) {
 ?>
 <!DOCTYPE html>
@@ -22,9 +22,6 @@ if (isset($_SESSION['userstock'])) {
             <div class="container-fluid">
                 <div class="row-fluid">
                     <div class="span12">
-                        <h3 class="page-title">
-                            Paramètrages
-                        </h3>
                         <ul class="breadcrumb">
                             <li>
                                 <i class="icon-home"></i>
@@ -68,35 +65,35 @@ if (isset($_SESSION['userstock'])) {
                                 </div>
                             </div>
                             </a>
-                            <a href="clients-list.php">
-                            <div class="tile bg-dark-red">
-                                <div class="corner"></div>
-                                <div class="tile-body">
-                                    <i class="icon-group"></i>
-                                </div>
-                                <div class="tile-object">
-                                    <div class="name">
-                                        Clients
-                                    </div>
-                                </div>
-                            </div>
-                            </a>
-                            <a href="fournisseurs.php">
-                            <div class="tile bg-cyan">
-                                <div class="corner"></div>
-                                <div class="tile-body">
-                                    <i class="icon-truck"></i>
-                                </div>
-                                <div class="tile-object">
-                                    <div class="name">
-                                        Fournisseurs
-                                    </div>
-                                    <!--div class="number">
-                                        <?php //$livraisonsNumber ?>
-                                    </div-->
-                                </div>
-                            </div>
-                            </a>
+<!--                            <a href="clients-list.php">-->
+<!--                            <div class="tile bg-dark-red">-->
+<!--                                <div class="corner"></div>-->
+<!--                                <div class="tile-body">-->
+<!--                                    <i class="icon-group"></i>-->
+<!--                                </div>-->
+<!--                                <div class="tile-object">-->
+<!--                                    <div class="name">-->
+<!--                                        Clients-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            </a>-->
+<!--                            <a href="fournisseurs.php">-->
+<!--                            <div class="tile bg-cyan">-->
+<!--                                <div class="corner"></div>-->
+<!--                                <div class="tile-body">-->
+<!--                                    <i class="icon-truck"></i>-->
+<!--                                </div>-->
+<!--                                <div class="tile-object">-->
+<!--                                    <div class="name">-->
+<!--                                        Fournisseurs-->
+<!--                                    </div>-->
+<!--                                    div class="number"-->
+<!--                                        --><?php ////$livraisonsNumber ?>
+<!--                                    </div-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            </a>-->
                             <a href="users.php">
                             <div class="tile bg-green">
                                 <div class="tile-body">
@@ -112,20 +109,20 @@ if (isset($_SESSION['userstock'])) {
                                 </div>
                             </div>
                             </a>
-                            <a href="history-group.php">
-                            <div class="tile bg-grey">
-                                <div class="tile-body">
-                                    <i class="icon-calendar"></i>
-                                </div>
-                                <div class="tile-object">
-                                    <div class="name">
-                                        Historique
-                                    </div>
-                                    <div class="number">
-                                    </div>
-                                </div>
-                            </div>
-                            </a>
+<!--                            <a href="history-group.php">-->
+<!--                            <div class="tile bg-grey">-->
+<!--                                <div class="tile-body">-->
+<!--                                    <i class="icon-calendar"></i>-->
+<!--                                </div>-->
+<!--                                <div class="tile-object">-->
+<!--                                    <div class="name">-->
+<!--                                        Historique-->
+<!--                                    </div>-->
+<!--                                    <div class="number">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            </a>-->
                         </div>
                     </div>
                 </div>

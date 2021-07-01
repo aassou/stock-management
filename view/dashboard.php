@@ -40,7 +40,7 @@ if (isset($_SESSION['userstock'])) {
                     <div class="row-fluid">
                         <div class="span12">
                             <div class="tiles">
-                                <a href="factures.php">
+                                <!-- <a href="factures.php">
                                 <div class="tile bg-dark-cyan">
                                     <div class="corner"></div>
                                     <div class="tile-body">
@@ -52,7 +52,7 @@ if (isset($_SESSION['userstock'])) {
                                         </div>
                                     </div>
                                 </div>
-                                </a>
+                                </a> -->
                                 <a href="purchase.php">
                                 <div class="tile bg-blue">
                                     <div class="corner"></div>
@@ -105,7 +105,7 @@ if (isset($_SESSION['userstock'])) {
                                     </div>
                                 </div>
                                 </a>
-                                <a href="factures-clients-list.php">
+                                <!-- <a href="factures-clients-list.php">
                                 <div class="tile bg-purple">
                                     <div class="tile-body">
                                         <i class="icon-group"></i>
@@ -132,7 +132,7 @@ if (isset($_SESSION['userstock'])) {
                                         </div>
                                     </div>
                                 </div>
-                                </a>
+                                </a> -->
                                 <a href="caisse-group.php">
                                 <div class="tile bg-grey">
                                     <div class="corner"></div>

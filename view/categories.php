@@ -1,6 +1,5 @@
 <?php
 require_once('../app/classLoad.php');
-include('config.php');
 session_start();
 
 if (isset($_SESSION['userstock'])) {
@@ -25,9 +24,6 @@ if (isset($_SESSION['userstock'])) {
             <div class="container-fluid">
                 <div class="row-fluid">
                     <div class="span12">
-                        <h3 class="page-title">
-                            Gestion des catégories
-                        </h3>
                         <ul class="breadcrumb">
                             <li>
                                 <i class="icon-dashboard"></i>

@@ -1,7 +1,7 @@
 <?php
 require_once('../app/classLoad.php');
-include('config.php');
 session_start();
+
 if (isset($_SESSION['userstock'])) {
     //post processing
     $idProduit = htmlentities($_GET['idProduit']);

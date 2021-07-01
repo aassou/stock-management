@@ -5,7 +5,18 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c44bb305-c230-445f-a5c9-eb7820bef087" name="Default Changelist" comment="" />
+    <list default="true" id="c44bb305-c230-445f-a5c9-eb7820bef087" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.env.local.php" beforeDir="false" afterPath="$PROJECT_DIR$/.env.local.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/UserChangeStatusController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/UserChangeStatusController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/caisse-group.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/caisse-group.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/categories.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/categories.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/configuration.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/configuration.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/dashboard.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/produit-update.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/produit-update.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/produits.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/produits.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/users.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/users.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,6 +28,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="ProjectId" id="1rWc03bYXR4HFsG6Btr1fGi1SRO" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -24,6 +43,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/view" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -59,6 +79,7 @@
       <workItem from="1624439164182" duration="4121000" />
       <workItem from="1624471556475" duration="694000" />
       <workItem from="1624534885115" duration="8716000" />
+      <workItem from="1625149735550" duration="1244000" />
     </task>
     <servers />
   </component>
@@ -93,6 +114,11 @@
             </State>
           </value>
         </entry>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
       </map>
     </option>
     <option name="OPEN_GENERIC_TABS">
@@ -100,39 +126,6 @@
         <entry key="1" value="TOOL_WINDOW" />
       </map>
     </option>
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="760" y="260" width="456" height="585" key="#com.intellij.ide.util.MemberChooser" timestamp="1623409837862">
-      <screen x="67" y="27" width="1853" height="1053" />
-    </state>
-    <state x="760" y="260" width="456" height="585" key="#com.intellij.ide.util.MemberChooser/67.27.1853.1053@67.27.1853.1053" timestamp="1623409837862" />
-    <state x="725" y="300" width="526" height="505" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1623337410131">
-      <screen x="67" y="27" width="1853" height="1053" />
-    </state>
-    <state x="725" y="300" width="526" height="505" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1623337410131" />
-    <state x="67" y="27" width="1659" height="963" key="MergeDialog" timestamp="1623331402276">
-      <screen x="67" y="27" width="1853" height="1053" />
-    </state>
-    <state x="67" y="27" width="1659" height="963" key="MergeDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1623331402276" />
-    <state x="621" y="311" width="735" height="483" key="MultipleFileMergeDialog" timestamp="1623331402280">
-      <screen x="67" y="27" width="1853" height="1053" />
-    </state>
-    <state x="621" y="311" width="735" height="483" key="MultipleFileMergeDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1623331402280" />
-    <state x="785" y="476" width="406" height="153" key="NewPhpFileDialog" timestamp="1623340717816">
-      <screen x="67" y="27" width="1853" height="1053" />
-    </state>
-    <state x="785" y="476" width="406" height="153" key="NewPhpFileDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1623340717816" />
-    <state x="472" y="143" width="1033" height="818" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1624540754236">
-      <screen x="67" y="27" width="1853" height="1053" />
-    </state>
-    <state x="472" y="143" width="1033" height="818" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/67.27.1853.1053@67.27.1853.1053" timestamp="1624540754236" />
-    <state x="673" y="278" width="641" height="634" key="find.popup" timestamp="1624538343108">
-      <screen x="67" y="27" width="1853" height="1053" />
-    </state>
-    <state x="673" y="278" width="641" height="634" key="find.popup/67.27.1853.1053@67.27.1853.1053" timestamp="1624538343108" />
-    <state x="656" y="257" width="672" height="678" key="search.everywhere.popup" timestamp="1624543292880">
-      <screen x="67" y="27" width="1853" height="1053" />
-    </state>
-    <state x="656" y="257" width="672" height="678" key="search.everywhere.popup/67.27.1853.1053@67.27.1853.1053" timestamp="1624543292880" />
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
