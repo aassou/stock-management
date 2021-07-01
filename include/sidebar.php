@@ -4,17 +4,6 @@
 <div class="page-sidebar nav-collapse collapse">
     <ul>
         <li>
-            <form class="sidebar-search" action="controller/ClientActionController.php" method="post">
-                <div class="input-box">
-                    <a href="javascript:;" class="remove"></a>
-                    <input type="hidden" name="action" value="search">
-                    <input type="hidden" name="source" value="clients-search">
-                    <input type="text" name="clientName" placeholder="Chercher un client">
-                    <input type="button" class="submit" value="">
-                </div>
-            </form>
-        </li>
-        <li>
             <div class="sidebar-toggler hidden-phone"></div>
         </li>
         <li>
@@ -42,12 +31,12 @@
                 $gestionAchatClass = "active ";
             }
         ?>
-        <li class="<?= $gestionAchatClass; ?>" >
-            <a href="factures.php">
-            <i class="icon-file"></i>
-            <span class="title">Factures</span>
-            </a>
-        </li>
+<!--        <li class="--><?php //$gestionAchatClass ?><!--" >-->
+<!--            <a href="factures.php">-->
+<!--            <i class="icon-file"></i>-->
+<!--            <span class="title">Factures</span>-->
+<!--            </a>-->
+<!--        </li>-->
         <?php
         }
         ?>
@@ -139,12 +128,12 @@
                 $gestionClientsClass = "active ";
             }
         ?>
-        <li class="<?= $gestionClientsClass ?>" >
-            <a href="factures-clients-list.php">
-            <i class="icon-group"></i>
-            <span class="title">Clients</span>
-            </a>
-        </li>
+<!--        <li class="--><?php ////$gestionClientsClass ?><!--" >-->
+<!--            <a href="factures-clients-list.php">-->
+<!--            <i class="icon-group"></i>-->
+<!--            <span class="title">Clients</span>-->
+<!--            </a>-->
+<!--        </li>-->
         <?php
         }
         ?>
@@ -162,12 +151,12 @@
                 $gestionFournisseursClass = "active ";
             }
         ?>
-        <li class="<?= $gestionFournisseursClass ?>" >
-            <a href="projets.php">
-            <i class="icon-truck"></i>
-            <span class="title">Fournisseurs</span>
-            </a>
-        </li>
+<!--        <li class="--><?php ////$gestionFournisseursClass ?><!--" >-->
+<!--            <a href="projets.php">-->
+<!--            <i class="icon-truck"></i>-->
+<!--            <span class="title">Fournisseurs</span>-->
+<!--            </a>-->
+<!--        </li>-->
         <?php
         }
         ?>
