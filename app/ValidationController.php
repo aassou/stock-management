@@ -500,6 +500,40 @@ class ValidationController {
                     return self::NOT_VALID;
                 }
             }
+        } elseif ( $this->_source == "provider" ) {
+            $this->_target = "provider.php";
+
+            if ($action == "add") {
+                if (!empty($formInputs['name'])) {
+                    $this->_message = "<strong>Opération Valide : </strong>Fournisseur ajouté(e) avec succès.";
+
+                    return self::VALID;
+                } else {
+                    $this->_message = "<strong>Erreur Création Fournisseur: </strong>Vous devez remplir tous les champs obligatoires : <sup>*</sup> correctement.";
+
+                    return self::NOT_VALID;
+                }
+            } elseif ($action == "update") {
+                if (!empty($formInputs['name'])) {
+                    $this->_message = "<strong>Opération Valide : </strong>Fournisseur modifié(e) avec succès.";
+
+                    return self::VALID;
+                } else {
+                    $this->_message = "<strong>Erreur Création Fournisseur : </strong>Vous devez remplir tous les champs obligatoires : <sup>*</sup> correctement.";
+
+                    return self::NOT_VALID;
+                }
+            } elseif ($action == "delete") {
+                if (!empty($formInputs['id'])) {
+                    $this->_message = "<strong>Opération Valide : </strong>Fournisseur supprimé(e) avec succès.";
+
+                    return self::VALID;
+                } else {
+                    $this->_message = "<strong>Erreur suppression Fournisseur: </strong>Le champs id est inexistant.";
+
+                    return self::NOT_VALID;
+                }
+            }
         } else {
             $this->_target = $this->_source.".php";
 

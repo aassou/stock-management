@@ -84,18 +84,18 @@ class PurchaseDetailManager {
 	}
 
     /**
-     * @param $codeSale
+     * @param $codePurchase
      * @return array
      */
-    public function getAllByCode($codeSale) {
+    public function getAllByCode($codePurchase) {
         $puchaseDetails = [];
-        $query = $this->_db->prepare('SELECT * FROM t_saledetail WHERE codeSale=:codeSale')
+        $query = $this->_db->prepare('SELECT * FROM t_purchasedetail WHERE codePurchase=:codePurchase')
         or die (print_r($this->_db->errorInfo()));
-        $query->bindValue(':codeSale', $codeSale);
+        $query->bindValue(':codePurchase', $codePurchase);
         $query->execute();
 
-        while($data = $query->fetch(PDO::FETCH_ASSOC)) {
-            $puchaseDetails[] = new SaleDetail($data);
+        while ($data = $query->fetch(PDO::FETCH_ASSOC)) {
+            $puchaseDetails[] = new PurchaseDetail($data);
         }
 
         $query->closeCursor();
@@ -157,4 +157,37 @@ class PurchaseDetailManager {
 
 		return $data['last_id'] ?? 0;
 	}
+
+    /**
+     * @return mixed
+     */
+	public function getTotalAmount() {
+        $query = $this->_db->query("
+            SELECT SUM(price * quantity) AS totalAmountPurchases 
+            FROM t_purchasedetail
+        ");
+
+        $data = $query->fetch(PDO::FETCH_ASSOC);
+
+        return $data["totalAmountPurchases"];
+    }
+
+
+    /**
+     * @param $codePurchase
+     * @return mixed
+     */
+    public function getTotalAmountByCode($codePurchase) {
+        $query = $this->_db->prepare("
+            SELECT SUM(price * quantity) AS totalAmountPurchases 
+            FROM t_purchasedetail
+            WHERE codePurchase=:codePurchase
+        ");
+        $query->bindValue(':codePurchase', $codePurchase);
+        $query->execute();
+
+        $data = $query->fetch(PDO::FETCH_ASSOC);
+
+        return $data["totalAmountPurchases"];
+    }
 }

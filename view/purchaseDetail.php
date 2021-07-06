@@ -1,16 +1,23 @@
 <?php
+
 require('../app/classLoad.php');
 session_start();
-if ( isset($_SESSION['userstock']) ) {
+
+if (isset($_SESSION['userstock'])) {
     $codePurchase = htmlentities($_GET['codePurchase']);
-    //create Controller
-    $purchaseDetailActionController = new PurchaseActionController('purchaseDetail');
+
+    // Create Controller
+    $purchaseDetailActionController = new PurchaseDetailActionController('purchaseDetail');
+
     // Legacy Calls
     $productManager = new ProduitManager(PDOFactory::getMysqlConnection());
-    //get objects
-    $purchaseDetails = $purchaseDetailActionController->getAll();
+
+    // Vars and objects
+    $purchaseDetails = $purchaseDetailActionController->getAllByCode($codePurchase);
+    $totalAmountByCodePurchase = $purchaseDetailActionController->getTotalAmountByCode($codePurchase);
     $products = $productManager->getProduits();
-    //breadcurmb
+
+    // Breadcurmb
     $breadcrumb = new Breadcrumb(
         [
             [
@@ -25,6 +32,7 @@ if ( isset($_SESSION['userstock']) ) {
             ]
         ]
     );
+
     /*$purchaseDetailsNumber = $purchaseDetailActionController->getAllNumber(); 
     $p = 1;
     if ( $purchaseDetailsNumber != 0 ) {
@@ -118,26 +126,30 @@ if ( isset($_SESSION['userstock']) ) {
                             <div class="portlet box light-grey">
                                 <div class="portlet-title">
                                     <h4>Liste des Opération Achat</h4>
-                                    <div class="tools">
-                                        <a href="javascript:;" class="reload"></a>
-                                    </div>
                                 </div>
                                 <div class="portlet-body">
-                                    <div class="clearfix">
-                                        <div class="btn-group">
-                                            <a class="btn blue pull-right" href="#addPurchaseDetail" data-toggle="modal">
+                                    <div class="flex">
+                                        <div class="flex-1">
+                                            <a class="btn blue pull-left" href="#addPurchaseDetail" data-toggle="modal">
                                                 <i class="icon-plus-sign"></i>&nbsp;Opération Achat
+                                            </a>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a
+                                                class="btn black"
+                                                href="../print/PurchaseDetailPrint.php?codePurchase=<?= $codePurchase ?>"
+                                            >
+                                                <i class="icon-print"></i>&nbsp;Imprimer Facture
                                             </a>
                                         </div>
                                     </div>
                                     <table class="table table-striped table-bordered table-hover" id="sample_2">
                                         <thead>
                                             <tr>
-                                                <th class="t10">Produit</th>
-                                                <th class="t10">Quantité</th>
-                                                <th class="t10">Prix</th>
-                                                <th class="t10">Total</th>
-                                                <th class="t10">Description</th>
+                                                <th class="t30">Produit</th>
+                                                <th class="t20">Quantité</th>
+                                                <th class="t20">Prix</th>
+                                                <th class="t20">Total</th>
                                                 <th class="t10 hidden-phone">Actions</th>
                                             </tr>
                                         </thead>
@@ -148,12 +160,11 @@ if ( isset($_SESSION['userstock']) ) {
                                                 $product = $productManager->getProduitById($purchaseDetail->getProductId());
                                             ?>
                                             <tr>
-                                                <td><?= $product->code() ?></td>
-                                                <td><?= $purchaseDetail->getQuantity() ?></td>
-                                                <td><?= Utils::numberFormatMoney($purchaseDetail->getPrice()) ?></td>
-                                                <td><?= Utils::numberFormatMoney($purchaseDetail->getPrice() * $purchaseDetail->getQuantity()) ?></td>
-                                                <td><?= $purchaseDetail->getDescription() ?></td>
-                                                <td class="hidden-phone">
+                                                <td class="t30"><?= $product->code() ?></td>
+                                                <td class="t20"><?= $purchaseDetail->getQuantity() ?></td>
+                                                <td class="t30"><?= Utils::numberFormatMoney($purchaseDetail->getPrice()) ?></td>
+                                                <td class="t30"><?= Utils::numberFormatMoney($purchaseDetail->getPrice() * $purchaseDetail->getQuantity()) ?></td>
+                                                <td class="t10 hidden-phone">
                                                     <a href="#updatePurchaseDetail<?= $purchaseDetail->getId() ?>" data-toggle="modal" data-id="<?= $purchaseDetail->getId() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
                                                     <a href="#deletePurchaseDetail<?= $purchaseDetail->getId() ?>" data-toggle="modal" data-id="<?= $purchaseDetail->getId() ?>" class="btn mini red"><i class="icon-remove"></i></a>
                                                 </td>
@@ -242,6 +253,23 @@ if ( isset($_SESSION['userstock']) ) {
                                             //}//end if
                                             ?>
                                         </tbody>
+                                        <thead>
+                                            <tr>
+                                                <th class="t30"></th>
+                                                <th class="t20"></th>
+                                                <th class="t20"><strong>Total</strong></th>
+                                                <th class="t20">
+                                                    <strong>
+                                                        <a>
+                                                            <strong>
+                                                                <?= Utils::numberFormatMoney($totalAmountByCodePurchase) ?>&nbsp;DH
+                                                            </strong>
+                                                        </a>
+                                                    </strong>
+                                                </th>
+                                                <th class="t10"></th>
+                                            </tr>
+                                        </thead>
                                     </table>
                                     <?php /*if($purchaseDetailsNumber != 0){ echo $pagination; }*/ ?><br>
                                 </div>

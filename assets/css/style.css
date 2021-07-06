@@ -5061,3 +5061,10 @@ input[type="text"].input-error-text{
 .dangerous-action{
 	color: red;
 }
+.flex {
+  display: flex !important;
+}
+
+.flex-1 {
+  flex: 1;
+}

@@ -85,6 +85,21 @@ class PurchaseManager {
 		return new Purchase($data);
 	}
 
+    /**
+     * @param $code
+     * @return Purchase
+     */
+    public function getOneByCode($code) {
+        $query = $this->_db->prepare('SELECT * FROM t_purchase WHERE code=:code')
+        or die (print_r($this->_db->errorInfo()));
+        $query->bindValue(':code', $code);
+        $query->execute();
+        $data = $query->fetch(PDO::FETCH_ASSOC);
+        $query->closeCursor();
+
+        return new Purchase($data);
+    }
+
 	/**
 	 * @return array
 	 */

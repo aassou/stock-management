@@ -118,8 +118,8 @@ if (isset($_SESSION['userstock'])) {
                                         </div>
                                     </div>
                                 </div>
-                                </a>
-                                <a href="projets.php">
+                                </a-->
+                                <a href="provider.php">
                                 <div class="tile bg-green">
                                     <div class="tile-body">
                                         <i class="icon-truck"></i>
@@ -132,7 +132,7 @@ if (isset($_SESSION['userstock'])) {
                                         </div>
                                     </div>
                                 </div>
-                                </a> -->
+                                </a>
                                 <a href="caisse-group.php">
                                 <div class="tile bg-grey">
                                     <div class="corner"></div>

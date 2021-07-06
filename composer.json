@@ -1,0 +1,15 @@
+{
+    "name": "nodom/stockmanager",
+    "description": "StockManager is a Warehouse Management SaaS",
+    "type": "project",
+    "require": {
+        "spipu/html2pdf": "*",
+        "mpdf/mpdf": "*"
+    },
+    "authors": [
+        {
+            "name": "Abdelilah Aassou",
+            "email": "aassou.abdelilah@gmail.com"
+        }
+    ]
+}

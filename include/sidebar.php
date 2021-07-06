@@ -144,20 +144,19 @@
             $_SESSION['userstock']->profil() == "admin" ||
             $_SESSION['userstock']->profil() == "manager" ||
             $_SESSION['userstock']->profil() == "consultant"
-            ) {
-            $gestionFournisseursClass="";
-            if($currentPage=="projet-list.php"
-            ){
-                $gestionFournisseursClass = "active ";
+        ) {
+            $gestionStockClass="";
+            if ($currentPage == "provider.php") {
+                $gestionStockClass = "active ";
             }
-        ?>
-<!--        <li class="--><?php ////$gestionFournisseursClass ?><!--" >-->
-<!--            <a href="projets.php">-->
-<!--            <i class="icon-truck"></i>-->
-<!--            <span class="title">Fournisseurs</span>-->
-<!--            </a>-->
-<!--        </li>-->
-        <?php
+            ?>
+            <li class="<?= $gestionStockClass ?>" >
+                <a href="provider.php">
+                    <i class="icon-truck"></i>
+                    <span class="title">Fournisseurs</span>
+                </a>
+            </li>
+            <?php
         }
         ?>
         <!---------------------------- Gestion Fournisseurs End    -------------------------------------------->
