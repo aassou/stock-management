@@ -3,8 +3,10 @@ require_once('../app/classLoad.php');
 session_start();
 
 if (isset($_SESSION['userstock'])) {
+    // Controllers
     $purchaseActionController = new PurchaseActionController('purchase');
     $saleActionController = new SaleActionController('sale');
+    $clientActionController = new ClientActionController('client');
 
     // Legacy calls
     $usersManager = new UserManager(PDOFactory::getMysqlConnection());
@@ -16,6 +18,7 @@ if (isset($_SESSION['userstock'])) {
     $soldeWeek = $caisseManager->getSoldeWeekByType('Entree') - $caisseManager->getSoldeWeekByType('Sortie');
     $purchaseNumberWeek = $purchaseActionController->getPurchaseNumberPerWeek();
     $saleNumberWeek = $saleActionController->getSaleNumberPerWeek();
+    $clientNumberWeek = $clientActionController->getNumberWeek();
 
     $breadcrumb = new Breadcrumb([]);
 ?>
@@ -66,7 +69,7 @@ if (isset($_SESSION['userstock'])) {
                                     </div>
                                 </div>
                                 </a>
-                                <a href="Sale.php">
+                                <a href="sale.php">
                                 <div class="tile bg-cyan">
                                     <div class="corner"></div>
                                     <div class="tile-body">
@@ -105,33 +108,33 @@ if (isset($_SESSION['userstock'])) {
                                     </div>
                                 </div>
                                 </a>
-                                <!-- <a href="factures-clients-list.php">
-                                <div class="tile bg-purple">
-                                    <div class="tile-body">
-                                        <i class="icon-group"></i>
-                                    </div>
-                                    <div class="tile-object">
-                                        <div class="name">
-                                            Clients
-                                        </div>
-                                        <div class="number">
-                                        </div>
-                                    </div>
-                                </div>
-                                </a-->
                                 <a href="provider.php">
-                                <div class="tile bg-green">
-                                    <div class="tile-body">
-                                        <i class="icon-truck"></i>
-                                    </div>
-                                    <div class="tile-object">
-                                        <div class="name">
-                                            Fournisseurs
+                                    <div class="tile bg-green">
+                                        <div class="tile-body">
+                                            <i class="icon-truck"></i>
                                         </div>
-                                        <div class="number">
+                                        <div class="tile-object">
+                                            <div class="name">
+                                                Fournisseurs
+                                            </div>
+                                            <div class="number">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
+                                <a href="client.php">
+                                    <div class="tile bg-purple">
+                                        <div class="tile-body">
+                                            <i class="icon-group"></i>
+                                        </div>
+                                        <div class="tile-object">
+                                            <div class="name">
+                                                Clients
+                                            </div>
+                                            <div class="number">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </a>
                                 <a href="caisse-group.php">
                                 <div class="tile bg-grey">
@@ -204,7 +207,7 @@ if (isset($_SESSION['userstock'])) {
                     <!-- END DASHBOARD STATS -->
                     <!-- BEGIN DASHBOARD FEEDS -->
                     <!-- ------------------------------------------------------ -->
-                    <h4 class="breadcrumb"><i class="icon-table"></i> Bilans et Statistiques De La Semaine</h4>
+                    <h4 class="breadcrumb"><i class="icon-table"></i> Bilans et statistiques de la semaine</h4>
                     <div class="row-fluid">
                         <div class="span3 responsive" data-tablet="span3" data-desktop="span3">
                             <div class="dashboard-stat blue">
@@ -253,7 +256,7 @@ if (isset($_SESSION['userstock'])) {
                                     <i class="icon-group"></i>
                                 </div>
                                 <div class="details">
-                                    <div class="number">+<?= 12 ?></div>
+                                    <div class="number">+<?= $clientNumberWeek ?></div>
                                     <div class="desc">Clients</div>
                                 </div>
                             </div>

@@ -21,19 +21,19 @@ class SaleManager {
 	/**
 	 * @param Sale Sale
 	 */
-	public function add(Sale $Sale) {
+	public function add(Sale $sale) {
     	$query = $this->_db->prepare('INSERT INTO t_sale (
 		operationDate, number, label, description, clientId, code, created, createdBy)
 		VALUES (:operationDate, :number, :label, :description, :clientId, :code, :created, :createdBy)')
 		or die (print_r($this->_db->errorInfo()));
-		$query->bindValue(':operationDate', $Sale->getOperationDate());
-		$query->bindValue(':number', $Sale->getNumber());
-		$query->bindValue(':label', $Sale->getLabel());
-		$query->bindValue(':description', $Sale->getDescription());
-		$query->bindValue(':clientId', $Sale->getClientId());
-        $query->bindValue(':code', $Sale->getCode());
-		$query->bindValue(':created', $Sale->getCreated());
-		$query->bindValue(':createdBy', $Sale->getCreatedBy());
+		$query->bindValue(':operationDate', $sale->getOperationDate());
+		$query->bindValue(':number', $sale->getNumber());
+		$query->bindValue(':label', $sale->getLabel());
+		$query->bindValue(':description', $sale->getDescription());
+		$query->bindValue(':clientId', $sale->getClientId());
+        $query->bindValue(':code', $sale->getCode());
+		$query->bindValue(':created', $sale->getCreated());
+		$query->bindValue(':createdBy', $sale->getCreatedBy());
 		$query->execute();
 		$query->closeCursor();
 	}
@@ -41,19 +41,19 @@ class SaleManager {
 	/**
 	 * @param Sale Sale
 	 */
-	public function update(Sale $Sale) {
+	public function update(Sale $sale) {
     	$query = $this->_db->prepare('UPDATE t_sale SET 
 		operationDate=:operationDate, number=:number, label=:label, description=:description, clientId=:clientId, updated=:updated, updatedBy=:updatedBy
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
-		$query->bindValue(':id', $Sale->getId());
-		$query->bindValue(':operationDate', $Sale->getOperationDate());
-		$query->bindValue(':number', $Sale->getNumber());
-		$query->bindValue(':label', $Sale->getLabel());
-		$query->bindValue(':description', $Sale->getDescription());
-		$query->bindValue(':clientId', $Sale->getClientId());
-		$query->bindValue(':updated', $Sale->getUpdated());
-		$query->bindValue(':updatedBy', $Sale->getUpdatedBy());
+		$query->bindValue(':id', $sale->getId());
+		$query->bindValue(':operationDate', $sale->getOperationDate());
+		$query->bindValue(':number', $sale->getNumber());
+		$query->bindValue(':label', $sale->getLabel());
+		$query->bindValue(':description', $sale->getDescription());
+		$query->bindValue(':clientId', $sale->getClientId());
+		$query->bindValue(':updated', $sale->getUpdated());
+		$query->bindValue(':updatedBy', $sale->getUpdatedBy());
 		$query->execute();
 		$query->closeCursor();
 	}
@@ -84,20 +84,35 @@ class SaleManager {
 		return new Sale($data);
 	}
 
+    /**
+     * @param $code
+     * @return Sale
+     */
+    public function getOneByCode($code) {
+        $query = $this->_db->prepare('SELECT * FROM t_sale WHERE code=:code')
+        or die (print_r($this->_db->errorInfo()));
+        $query->bindValue(':code', $code);
+        $query->execute();
+        $data = $query->fetch(PDO::FETCH_ASSOC);
+        $query->closeCursor();
+
+        return new Sale($data);
+    }
+
 	/**
 	 * @return array
 	 */
 	public function getAll() {
-		$Sales = array();
+		$sales = array();
 		$query = $this->_db->query('SELECT * FROM t_sale ORDER BY id ASC');
 
 		while ($data = $query->fetch(PDO::FETCH_ASSOC)) {
-			$Sales[] = new Sale($data);
+			$sales[] = new Sale($data);
 		}
 
 		$query->closeCursor();
 
-		return $Sales;
+		return $sales;
 	}
 
 	/**
@@ -106,17 +121,17 @@ class SaleManager {
 	 * @return array
 	 */
 	public function getAllByLimits($begin, $end) {
-    	$Sales = array();
+    	$sales = array();
 		$query = $this->_db->query('SELECT * FROM t_sale ORDER BY id DESC LIMIT $begin, $end');
 
 		while ($data = $query->fetch(PDO::FETCH_ASSOC)) {
-			$Sales[] = new Sale($data);
+			$sales[] = new Sale($data);
 
 		}
 
 		$query->closeCursor();
 
-		return $Sales;
+		return $sales;
 	}
 
 	/**

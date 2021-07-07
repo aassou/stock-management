@@ -172,7 +172,6 @@ class PurchaseDetailManager {
         return $data["totalAmountPurchases"];
     }
 
-
     /**
      * @param $codePurchase
      * @return mixed

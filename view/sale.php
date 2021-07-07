@@ -3,11 +3,15 @@ require('../app/classLoad.php');
 session_start();
 
 if (isset($_SESSION['userstock'])) {
-    //create Controller
-    $SaleActionController = new SaleActionController('Sale');
-    //get objects
-    $Sales = $SaleActionController->getAll();
-    //breadcurmb
+    // Create Controller
+    $saleActionController = new SaleActionController('Sale');
+    $clientActionController = new ClientActionController('client');
+
+    // Vars and objects
+    $sales = $saleActionController->getAll();
+    $clients = $clientActionController->getAll();
+
+    // Breadcurmb
     $breadcrumb = new Breadcrumb(
         [
             [
@@ -17,11 +21,12 @@ if (isset($_SESSION['userstock'])) {
             ]
         ]
     );
-    /*$SalesNumber = $SaleActionController->getAllNumber(); 
+
+    /*$salesNumber = $saleActionController->getAllNumber(); 
     $p = 1;
-    if ( $SalesNumber != 0 ) {
+    if ( $salesNumber != 0 ) {
         $SalePerPage = 20;
-        $pageNumber = ceil($SalesNumber/$SalePerPage);
+        $pageNumber = ceil($salesNumber/$SalePerPage);
         if(isset($_GET['p']) and ($_GET['p']>0 and $_GET['p']<=$pageNumber)){
             $p = $_GET['p'];
         }
@@ -29,8 +34,8 @@ if (isset($_SESSION['userstock'])) {
             $p = 1;
         }
         $begin = ($p - 1) * $SalePerPage;
-        $pagination = paginate('Sale.php', '?p=', $pageNumber, $p);
-        $Sales = $SaleActionController->getAllByLimits($begin, $SalePerPage);
+        $pagination = paginate('sale.php', '?p=', $pageNumber, $p);
+        $sales = $saleActionController->getAllByLimits($begin, $SalePerPage);
     }*/ 
 ?>
 <!DOCTYPE html>
@@ -74,15 +79,21 @@ if (isset($_SESSION['userstock'])) {
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">Numéro Opération</label>
+                                            <label class="control-label">Client</label>
                                             <div class="controls">
-                                                <input required="required" type="text" name="number" class="m-wrap span12" />
+                                                <select required="required" class="m-wrap span12" name="clientId">
+                                                    <?php foreach ($clients as $client) { ?>
+                                                        <option value="<?= $client->getId() ?>">
+                                                            <?= $client->getName() ?>
+                                                        </option>
+                                                    <?php } ?>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">Client</label>
+                                            <label class="control-label">Numéro Opération</label>
                                             <div class="controls">
-                                                <input required="required" type="text" name="label" class="m-wrap span12" />
+                                                <input required="required" type="text" name="number" class="m-wrap span12" />
                                             </div>
                                         </div>
                                         <div class="control-group">
@@ -91,12 +102,6 @@ if (isset($_SESSION['userstock'])) {
                                                 <input required="required" type="text" name="description" class="m-wrap span12" />
                                             </div>
                                         </div>
-<!--                                        <div class="control-group">-->
-<!--                                            <label class="control-label">ClientId</label>-->
-<!--                                            <div class="controls">-->
-<!--                                                <input required="required" type="text" name="clientId" />-->
-<!--                                            </div>-->
-<!--                                        </div>-->
                                     </div>
                                     <div class="modal-footer">
                                         <div class="control-group">
@@ -134,27 +139,31 @@ if (isset($_SESSION['userstock'])) {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php
-                                            foreach ($Sales as $Sale) {
-                                            ?>
+                                        <?php
+                                        foreach ($sales as $sale) {
+                                            $currentClient = $clientActionController->getOneById($sale->getClientId());
+                                        ?>
                                             <tr>
-                                                <td><?= date('d/m/Y', strtotime($Sale->getOperationDate())) ?></td>
-                                                <td><?= $Sale->getNumber() ?></td>
-                                                <td><?= $Sale->getLabel() ?></td>
-                                                <td><?= $Sale->getDescription() ?></td>
+                                                <td><?= date('d/m/Y', strtotime($sale->getOperationDate())) ?></td>
+                                                <td><?= $sale->getNumber() ?></td>
+                                                <td><?= $currentClient->getName() ?></td>
+                                                <td><?= $sale->getDescription() ?></td>
                                                 <td class="hidden-phone">
-                                                    <a href="SaleDetail.php?codeSale=<?= $Sale->getCode() ?>" class="btn mini blue" title="Voir Détail Vente">
+                                                    <a href="saleDetail.php?codeSale=<?= $sale->getCode() ?>" class="btn mini blue" title="Voir Détail Vente">
                                                         <i class="icon-eye-open"></i>
                                                     </a>
-                                                    <a href="#updateSale<?= $Sale->getId() ?>" data-toggle="modal" data-id="<?= $Sale->getId() ?>" class="btn mini green" title="Modifier Vente">
+                                                    <a href="../print/SaleDetailPrint.php?codeSale=<?= $sale->getCode() ?>" class="btn mini black" title="Imprimer Facture">
+                                                        <i class="icon-print"></i>
+                                                    </a>
+                                                    <a href="#updateSale<?= $sale->getId() ?>" data-toggle="modal" data-id="<?= $sale->getId() ?>" class="btn mini green" title="Modifier Vente">
                                                         <i class="icon-refresh"></i>
                                                     </a>
-                                                    <a href="#deleteSale<?= $Sale->getId() ?>" data-toggle="modal" data-id="<?= $Sale->getId() ?>" class="btn mini red" title="Supprimer Vente">
+                                                    <a href="#deleteSale<?= $sale->getId() ?>" data-toggle="modal" data-id="<?= $sale->getId() ?>" class="btn mini red" title="Supprimer Vente">
                                                         <i class="icon-remove"></i>
                                                     </a>
                                                 </td>
                                             </tr>
-                                            <div id="updateSale<?= $Sale->getId() ?>" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
+                                            <div id="updateSale<?= $sale->getId() ?>" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                                                     <h3>Modifier Info Vente</h3>
@@ -164,38 +173,37 @@ if (isset($_SESSION['userstock'])) {
                                                         <div class="control-group">
                                                             <label class="control-label">Date Opération</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="operationDate"  value="<?= $Sale->getOperationDate() ?>" />
+                                                                <input required="required" type="text" name="operationDate"  value="<?= $sale->getOperationDate() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">Number</label>
+                                                            <label class="control-label">Client</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="number"  value="<?= $Sale->getNumber() ?>" />
+                                                                <select required="required" class="m-wrap span12" name="clientId">
+                                                                    <option value="<?= $currentClient->getId() ?>"><?= $currentClient->getName() ?></option>
+                                                                    <?php foreach ($clients as $client) { ?>
+                                                                        <option value="<?= $client->getId() ?>"><?= $client->getName() ?></option>
+                                                                    <?php } ?>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">Label</label>
+                                                            <label class="control-label">Référence</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="label"  value="<?= $Sale->getLabel() ?>" />
+                                                                <input required="required" type="text" name="number"  value="<?= $sale->getNumber() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
                                                             <label class="control-label">Description</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="description"  value="<?= $Sale->getDescription() ?>" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="control-group">
-                                                            <label class="control-label">ClientId</label>
-                                                            <div class="controls">
-                                                                <input required="required" type="text" name="clientId"  value="<?= $Sale->getClientId() ?>" />
+                                                                <input required="required" type="text" name="description"  value="<?= $sale->getDescription() ?>" />
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="id" value="<?= $Sale->getId() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $sale->getId() ?>" />
                                                                 <input type="hidden" name="action" value="update" />
                                                                 <input type="hidden" name="source" value="Sale" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
@@ -205,19 +213,19 @@ if (isset($_SESSION['userstock'])) {
                                                     </div>
                                                 </form>
                                             </div>
-                                            <div id="deleteSale<?= $Sale->getId() ?>" class="modal modal-big hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
+                                            <div id="deleteSale<?= $sale->getId() ?>" class="modal modal-big hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                                                     <h3>Supprimer Vente</h3>
                                                 </div>
                                                 <form class="form-horizontal" action="../app/Dispatcher.php" method="post">
                                                     <div class="modal-body">
-                                                        <h4 class="dangerous-action">Êtes-vous sûr de vouloir supprimer cette Vente et ses détails : <?= $Sale->getNumber() ?> ? Cette action est irréversible!</h4>
+                                                        <h4 class="dangerous-action">Êtes-vous sûr de vouloir supprimer cette Vente et ses détails : <?= $sale->getNumber() ?> ? Cette action est irréversible!</h4>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="id" value="<?= $Sale->getId() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $sale->getId() ?>" />
                                                                 <input type="hidden" name="action" value="delete" />
                                                                 <input type="hidden" name="source" value="Sale" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
@@ -227,12 +235,10 @@ if (isset($_SESSION['userstock'])) {
                                                     </div>
                                                 </form>
                                             </div>
-                                            <?php 
-                                            }
-                                            ?>
+                                            <?php } ?>
                                         </tbody>
                                     </table>
-                                    <?php /*if($SalesNumber != 0){ echo $pagination; }*/ ?><br>
+                                    <br>
                                 </div>
                             </div>
                         </div>

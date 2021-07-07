@@ -7,9 +7,25 @@
   <component name="ChangeListManager">
     <list default="true" id="c44bb305-c230-445f-a5c9-eb7820bef087" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ValidationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ValidationController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/ClientActionController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/SaleDetailActionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/SaleDetailActionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/t_client.sql" beforeDir="false" afterPath="$PROJECT_DIR$/db/t_client.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/include/sidebar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/CaisseManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/CaisseManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/Client.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/ClientManager.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/PurchaseDetailManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/PurchaseDetailManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/SaleDetailManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/SaleDetailManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/SaleManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/SaleManager.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/print/PurchaseDetailPrint.php" beforeDir="false" afterPath="$PROJECT_DIR$/print/PurchaseDetailPrint.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/purchase.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/purchase.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/purchaseDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/purchaseDetail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/print/SaleDetailPrint.php" beforeDir="false" afterPath="$PROJECT_DIR$/print/SaleDetailPrint.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/print/styling.php" beforeDir="false" afterPath="$PROJECT_DIR$/print/styling.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/Sale.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/sale.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/SaleDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/saleDetail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/caisse-group.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/caisse-group.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/dashboard.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/provider.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/provider.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,22 +65,23 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/view" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/view" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/view" />
       <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/view" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -91,6 +108,7 @@
       <workItem from="1625493775643" duration="13528000" />
       <workItem from="1625557657572" duration="1198000" />
       <workItem from="1625667358260" duration="560000" />
+      <workItem from="1625668128891" duration="5067000" />
     </task>
     <servers />
   </component>

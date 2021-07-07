@@ -73,8 +73,8 @@
             $_SESSION['userstock']->profil() == "consultant"
         ) {
             $gestionAchatClass="";
-            if ($currentPage == "Sale.php"
-                or $currentPage == 'SaleDetail.php'
+            if ($currentPage == "sale.php"
+                or $currentPage == 'saleDetail.php'
             ){
                 $gestionAchatClass = "active ";
             }
@@ -121,19 +121,18 @@
             $_SESSION['userstock']->profil() == "admin" ||
             $_SESSION['userstock']->profil() == "manager" ||
             $_SESSION['userstock']->profil() == "consultant"
-            ) {
+        ) {
             $gestionClientsClass="";
-            if($currentPage=="factures-clients-list.php"
-            ){
+            if ($currentPage == "client.php") {
                 $gestionClientsClass = "active ";
             }
         ?>
-<!--        <li class="--><?php ////$gestionClientsClass ?><!--" >-->
-<!--            <a href="factures-clients-list.php">-->
-<!--            <i class="icon-group"></i>-->
-<!--            <span class="title">Clients</span>-->
-<!--            </a>-->
-<!--        </li>-->
+        <li class="<?= $gestionClientsClass ?>">
+            <a href="client.php">
+            <i class="icon-group"></i>
+            <span class="title">Clients</span>
+            </a>
+        </li>
         <?php
         }
         ?>
@@ -145,12 +144,12 @@
             $_SESSION['userstock']->profil() == "manager" ||
             $_SESSION['userstock']->profil() == "consultant"
         ) {
-            $gestionStockClass="";
+            $gestionFournisseurClass="";
             if ($currentPage == "provider.php") {
-                $gestionStockClass = "active ";
+                $gestionFournisseurClass = "active ";
             }
             ?>
-            <li class="<?= $gestionStockClass ?>" >
+            <li class="<?= $gestionFournisseurClass ?>" >
                 <a href="provider.php">
                     <i class="icon-truck"></i>
                     <span class="title">Fournisseurs</span>

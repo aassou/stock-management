@@ -1,105 +1,152 @@
 <?php
-class ClientManager{
 
-	//attributes
+/**
+ * Class ClientManager
+ */
+class ClientManager {
+
+	/**
+	 * @var PDO
+	 */
 	private $_db;
 
-	//le constructeur
-    public function __construct($db){
-        $this->_db = $db;
-    }
+	/**
+	 * ClientManager constructor.
+	 * @param $db
+	 */
+	public function __construct($db) {
+    	$this->_db = $db;
+	}
 
-	//BAISC CRUD OPERATIONS
-	public function add(Client $client){
-    	$query = $this->_db->prepare(' INSERT INTO t_client (
-		code, matricule, nom, cin, ville, telephone, created, createdBy)
-		VALUES (:code, :matricule, :nom, :cin, :ville, :telephone, :created, :createdBy)')
+	/**
+	 * @param Client client
+	 */
+	public function add(Client $client) {
+    	$query = $this->_db->prepare('INSERT INTO t_client (
+		name, address, phone, created, createdBy)
+		VALUES (:name, :address, :phone, :created, :createdBy)')
 		or die (print_r($this->_db->errorInfo()));
-		$query->bindValue(':code', $client->code());
-		$query->bindValue(':matricule', $client->matricule());
-		$query->bindValue(':nom', $client->nom());
-		$query->bindValue(':cin', $client->cin());
-		$query->bindValue(':ville', $client->ville());
-		$query->bindValue(':telephone', $client->telephone());
-		$query->bindValue(':created', $client->created());
-		$query->bindValue(':createdBy', $client->createdBy());
+		$query->bindValue(':name', $client->getName());
+		$query->bindValue(':address', $client->getAddress());
+		$query->bindValue(':phone', $client->getPhone());
+		$query->bindValue(':created', $client->getCreated());
+		$query->bindValue(':createdBy', $client->getCreatedBy());
 		$query->execute();
 		$query->closeCursor();
 	}
 
-	public function update(Client $client){
-    	$query = $this->_db->prepare(' UPDATE t_client SET 
-		code=:code, matricule=:matricule, nom=:nom, cin=:cin, ville=:ville, telephone=:telephone, updated=:updated, updatedBy=:updatedBy
+	/**
+	 * @param Client client
+	 */
+	public function update(Client $client) {
+    	$query = $this->_db->prepare('UPDATE t_client SET 
+		name=:name, address=:address, phone=:phone, updated=:updated, updatedBy=:updatedBy
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
-		$query->bindValue(':id', $client->id());
-		$query->bindValue(':code', $client->code());
-		$query->bindValue(':matricule', $client->matricule());
-		$query->bindValue(':nom', $client->nom());
-		$query->bindValue(':cin', $client->cin());
-		$query->bindValue(':ville', $client->ville());
-		$query->bindValue(':telephone', $client->telephone());
-		$query->bindValue(':updated', $client->updated());
-		$query->bindValue(':updatedBy', $client->updatedBy());
+		$query->bindValue(':id', $client->getId());
+		$query->bindValue(':name', $client->getName());
+		$query->bindValue(':address', $client->getAddress());
+		$query->bindValue(':phone', $client->getPhone());
+		$query->bindValue(':updated', $client->getUpdated());
+		$query->bindValue(':updatedBy', $client->getUpdatedBy());
 		$query->execute();
 		$query->closeCursor();
 	}
 
-	public function delete($id){
-    	$query = $this->_db->prepare(' DELETE FROM t_client
-		WHERE id=:id')
+	/**
+	 * @param $id
+	 */
+	public function delete($id) {
+		$query = $this->_db->prepare('DELETE FROM t_client WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $id);
 		$query->execute();
 		$query->closeCursor();
 	}
 
-	public function getClientById($id){
-    	$query = $this->_db->prepare(' SELECT * FROM t_client
-		WHERE id=:id')
+	/**
+	 * @param $id
+	 * @return Client
+	 */
+	public function getOneById($id) {
+    	$query = $this->_db->prepare('SELECT * FROM t_client WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $id);
 		$query->execute();		
 		$data = $query->fetch(PDO::FETCH_ASSOC);
 		$query->closeCursor();
+
 		return new Client($data);
 	}
 
-	public function getClients(){
+	/**
+	 * @return array
+	 */
+	public function getAll() {
 		$clients = array();
-		$query = $this->_db->query('SELECT * FROM t_client
-		ORDER BY id DESC');
-		while($data = $query->fetch(PDO::FETCH_ASSOC)){
+		$query = $this->_db->query('SELECT * FROM t_client ORDER BY id ASC');
+
+		while ($data = $query->fetch(PDO::FETCH_ASSOC)) {
 			$clients[] = new Client($data);
 		}
+
 		$query->closeCursor();
+
 		return $clients;
 	}
 
-	public function getClientsByLimits($begin, $end){
-		$clients = array();
-		$query = $this->_db->query('SELECT * FROM t_client
-		ORDER BY id DESC LIMIT '.$begin.', '.$end);
-		while($data = $query->fetch(PDO::FETCH_ASSOC)){
+	/**
+	 * @param $begin
+	 * @param $end
+	 * @return array
+	 */
+	public function getAllByLimits($begin, $end) {
+    	$clients = array();
+		$query = $this->_db->query('SELECT * FROM t_client ORDER BY id DESC LIMIT $begin, $end');
+
+		while ($data = $query->fetch(PDO::FETCH_ASSOC)) {
 			$clients[] = new Client($data);
+
 		}
+
 		$query->closeCursor();
+
 		return $clients;
 	}
 
-	public function getLastId(){
-    	$query = $this->_db->query(' SELECT id AS last_id FROM t_client
-		ORDER BY id DESC LIMIT 0, 1');
+	/**
+	 * @return mixed
+	 */
+	public function getAllNumber() {
+    	$query = $this->_db->query('SELECT COUNT(*) AS clientsNumber FROM t_client');
+    	$data = $query->fetch(PDO::FETCH_ASSOC);
+    
+		return $data['clientsNumber'];
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getLastId() {
+    	$query = $this->_db->query(' SELECT id AS last_id FROM t_client ORDER BY id DESC LIMIT 0, 1');
 		$data = $query->fetch(PDO::FETCH_ASSOC);
-		$id = $data['last_id'];
-		return $id;
+
+		return $data['last_id'] ?? 0;
 	}
 
-    public function getClientsNumber(){
-        $query = $this->_db->query('SELECT COUNT(*) AS clientsNumber FROM t_client');
+    /**
+     * @return mixed
+     */
+    public function getNumberWeek(){
+        $query = $this->_db->query("
+            SELECT COUNT(*) AS numberWeek 
+            FROM t_client
+            WHERE created BETWEEN SUBDATE(CURDATE(),7) AND CURDATE()
+        ");
+
         $data = $query->fetch(PDO::FETCH_ASSOC);
         $query->closeCursor();
-        return $data['clientsNumber'];
-    }
 
+        return $data['numberWeek'];
+    }
 }

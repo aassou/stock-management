@@ -156,4 +156,22 @@ class SaleDetailManager {
 
 		return $data['last_id'] ?? 0;
 	}
+
+    /**
+     * @param $codeSale
+     * @return mixed
+     */
+    public function getTotalAmountByCode($codeSale) {
+        $query = $this->_db->prepare("
+            SELECT SUM(price * quantity) AS totalAmountPurchases 
+            FROM t_saledetail
+            WHERE codeSale=:codeSale
+        ");
+        $query->bindValue(':codeSale', $codeSale);
+        $query->execute();
+
+        $data = $query->fetch(PDO::FETCH_ASSOC);
+
+        return $data["totalAmountPurchases"];
+    }
 }

@@ -199,66 +199,41 @@ class ValidationController {
                 }    
             }
             //Action changePassword Ends
-        }
-        //User Object Test Validation Ends
-        //Client Object Test Validation Begins
-        elseif ( $this->_source == "client" ){
-            $manager = ucfirst($this->_source).'Manager';
-            $this->_manager = new $manager(PDOFactory::getMysqlConnection());
-            if($action == "add") {
-                $codeClient = "";
-                $client = "";
-                //if the client exists in the database, we load its information from db,
-                //and send them to the next url : automobile-add-part-2
-                if( !empty($formInputs['idClient']) ){
-                    $idClient = htmlentities($formInputs['idClient']);
-                    $client = $this->_manager->getOneById($idClient);
-                    $generatedCode = $client->generatedCode();
-                    $this->_message = "<strong>Opération Valide : </strong>Client Récuperé avec succès.";
-                    $this->_target = "automobile-add-part-2.php?generatedCode=".$generatedCode;
-                    return 2;
+        } elseif ( $this->_source == "client" ) {
+            $this->_target = "client.php";
+
+            if ($action == "add") {
+                if (!empty($formInputs['name'])) {
+                    $this->_message = "<strong>Opération Valide : </strong>Client ajouté(e) avec succès.";
+
+                    return self::VALID;
+                } else {
+                    $this->_message = "<strong>Erreur Création Client: </strong>Vous devez remplir tous les champs obligatoires : <sup>*</sup> correctement.";
+
+                    return self::NOT_VALID;
                 }
-                //if we don't get any customer information from the clients-add.php page, 
-                //then there is one of two cases to treat
-                else if ( empty($formInputs['idClient']) ) {
-                    //Case 1 :  if we try to force the creation of an existing customer
-                    //we get an error message indicating that we do have a customer with that name 
-                    if( !empty($formInputs['codeClient'])
-                        and !empty($formInputs['typeClient']) 
-                        and !empty($formInputs['nom'])
-                        and !empty($formInputs['cin'])
-                        and !empty($formInputs['civilite'])
-                        and !empty($formInputs['dateNaissance'])
-                        and !empty($formInputs['adresse'])
-                        and !empty($formInputs['activite'])
-                        and !empty($formInputs['tel1'])
-                        and !empty($formInputs['permis'])
-                        and !empty($formInputs['datePermis'])
-                        and filter_var($formInputs['codeClient'], FILTER_VALIDATE_INT)
-                     ){
-                        $codeClient = htmlentities($formInputs['codeClient']);
-                        if( $this->_manager->exist($codeClient) ){
-                            $this->_message = "<strong>Erreur Création Client : </strong>Un client existe déjà avec ce code : <strong>".$codeClient."</strong>.";
-                            $this->_target = "automobile-add-part-1.php";
-                            return self::NOT_VALID;
-                        }
-                        //Case 2 :  The customer doesn't exist, so we add it to our database, 
-                        //and then send its generated code to the next url   
-                        else{
-                            $this->_message = "<strong>Opération Valide : </strong>Client Ajouté avec succès.";
-                            $this->_target = "automobile-add-part-2.php?generatedCode=".$generatedCode;
-                            return self::VALID;
-                        }
-                    }
-                    //This is a simple form validation, the field Nom should not be empty
-                    else{
-                        $this->_message = "<strong>Erreur Création Client : </strong>Vous devez remplir tous les champs obligatoires : <sup>*</sup>.";
-                        $this->_target = "automobile-add-part-1.php";
-                        return self::NOT_VALID;
-                    }   
+            } elseif ($action == "update") {
+                if (!empty($formInputs['name'])) {
+                    $this->_message = "<strong>Opération Valide : </strong>Client modifié(e) avec succès.";
+
+                    return self::VALID;
+                } else {
+                    $this->_message = "<strong>Erreur Création Client : </strong>Vous devez remplir tous les champs obligatoires : <sup>*</sup> correctement.";
+
+                    return self::NOT_VALID;
+                }
+            } elseif ($action == "delete") {
+                if (!empty($formInputs['id'])) {
+                    $this->_message = "<strong>Opération Valide : </strong>Client supprimé(e) avec succès.";
+
+                    return self::VALID;
+                } else {
+                    $this->_message = "<strong>Erreur suppression Client: </strong>Le champs id est inexistant.";
+
+                    return self::NOT_VALID;
                 }
             }
-        }  elseif ( $this->_source == "businessPlanCost" ) {
+        } elseif ( $this->_source == "businessPlanCost" ) {
             $projectId = $formInputs['idProjet'];
             $this->_target = "businessPlan.php?projectId=$projectId";
 
@@ -345,17 +320,17 @@ class ValidationController {
                 }
             }
         } elseif ( $this->_source == "Sale" ) {
-            $this->_target = "Sale.php";
+            $this->_target = "sale.php";
 
             if($action == "add") {
                 if (!empty($formInputs['number'])) {
                     $this->_message = "<strong>Opération Valide : </strong>Vente ajouté(e) avec succès.";
-                    $this->_target = "SaleDetail.php?codeSale=" . $formInputs['code'];
+                    $this->_target = "saleDetail.php?codeSale=" . $formInputs['code'];
 
                     return self::VALID;
                 } else {
                     $this->_message = "<strong>Erreur Création Vente : </strong>Vous devez remplir tous les champs obligatoires : <sup>*</sup> correctement.";
-                    $this->_target = "Sale.php";
+                    $this->_target = "sale.php";
 
                     return self::NOT_VALID;
                 }
@@ -382,7 +357,7 @@ class ValidationController {
             }
         } elseif ( $this->_source == "SaleDetail" ) {
             $codeSale = $formInputs['codeSale'];
-            $this->_target = "SaleDetail.php?codeSale=$codeSale";
+            $this->_target = "saleDetail.php?codeSale=$codeSale";
 
             if($action == "add") {
                 if (!empty($formInputs['codeSale']) and

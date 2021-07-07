@@ -7,6 +7,7 @@ if (isset($_SESSION['userstock'])) {
     // Legacy calls
     $caisseManager = new CaisseManager(PDOFactory::getMysqlConnection());
     $caisses =$caisseManager->getCaissesGroupByMonth();
+
     $totalCaisse =
     $caisseManager->getTotalCaisseByType('Entree') - $caisseManager->getTotalCaisseByType('Sortie');
     $totalEntrees = $caisseManager->getTotalCaisseByType('Entree');
@@ -25,25 +26,7 @@ if (isset($_SESSION['userstock'])) {
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
     <head>
-        <meta charset="utf-8" />
-        <title>ImmoERP - Management Application</title>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-        <meta content="" name="description" />
-        <meta content="" name="author" />
-        <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="../assets/css/metro.css" rel="stylesheet" />
-        <link href="../assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
-        <link href="../assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-        <link href="../assets/css/style.css" rel="stylesheet" />
-        <link href="../assets/css/style_responsive.css" rel="stylesheet" />
-        <link href="../assets/css/style_default.css" rel="stylesheet" id="style_color" />
-        <link href="../assets/fancybox/source/jquery.fancybox.css" rel="stylesheet" />
-        <link rel="stylesheet" type="text/css" href="../assets/uniform/css/uniform.default.css" />
-        <link rel="stylesheet" type="text/css" href="../assets/chosen-bootstrap/chosen/chosen.css" />
-        <link rel="stylesheet" type="text/css" href="../assets/bootstrap-datepicker/css/datepicker.css" />
-        <link rel="stylesheet" href="../assets/data-tables/DT_bootstrap.css" />
-        <link rel="stylesheet" type="text/css" href="../assets/uniform/css/uniform.default.css" />
-        <link rel="shortcut icon" href="../favicon.ico" />
+        <?php include('../include/header.php') ?>
     </head>
     <body class="fixed-top">
         <div class="header navbar navbar-inverse navbar-fixed-top">
@@ -245,7 +228,6 @@ if (isset($_SESSION['userstock'])) {
                                                 $debit = $caisseManager->getTotalCaissesByMonthYearByType($mois, $annee, 'Sortie');
                                                 $solde = $credit - $debit;
                                                 ?>
-                                                <!--td><?= $caisse->type() ?></td-->
                                                 <td>
                                                     <a class="btn mini" href="caisse-mois-annee.php?mois=<?= $mois ?>&annee=<?= $annee ?>">
                                                         <strong><?= date('m/Y', strtotime($caisse->dateOperation())) ?></strong>
@@ -266,7 +248,7 @@ if (isset($_SESSION['userstock'])) {
                                             ?>
                                         </tbody>
                                     </table>
-                                    </div><
+                                    </div>
                                 </div>
                                </div>
                             </div>

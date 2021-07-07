@@ -68,7 +68,7 @@ if (isset($_SESSION['userstock'])) {
                                 </div>
                                 <form class="form-horizontal" action="../app/Dispatcher.php" method="post">
                                     <div class="modal-body">
-                                    <div class="control-group">
+                                        <div class="control-group">
                                             <label class="control-label">Nom</label>
                                             <div class="controls">
                                                 <input class="m-wrap span12" required="required" type="text" name="name" />
@@ -86,7 +86,6 @@ if (isset($_SESSION['userstock'])) {
                                                 <input class="m-wrap span12" type="text" name="phone" />
                                             </div>
                                         </div>
-                                             
                                     </div>
                                     <div class="modal-footer">
                                         <div class="control-group">

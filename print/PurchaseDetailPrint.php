@@ -95,7 +95,7 @@ if (isset($_SESSION['userstock'])) {
             'margin_footer' => 10
         ]);
         $mpdf->SetProtection(array('print'));
-        $mpdf->SetTitle(sprintf("Facture %s", date('d-m-Y')));
+        $mpdf->SetTitle(sprintf("Bon de livraison %s", date('d-m-Y')));
         $mpdf->SetAuthor("Acme Trading Co.");
         $mpdf->SetWatermarkText("Paid");
         $mpdf->showWatermarkText = false;

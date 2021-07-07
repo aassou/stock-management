@@ -22,4 +22,12 @@ class SaleDetailActionController extends AppController {
     public function getAllByCode($code) {
         return $this->_manager->getAllByCode($code);
     }
+
+    /**
+     * @param $codeSale
+     * @return mixed
+     */
+    public function getTotalAmountByCode($codeSale) {
+        return $this->_manager->getTotalAmountByCode($codeSale);
+    }
 }
