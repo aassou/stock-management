@@ -33,13 +33,13 @@ if (isset($_SESSION['userstock'])) {
         <?php include'styling.php' ?>
     </head>
     <body>
-        <h1 class="text-align-center">Facture</h1>
+        <h1 class="text-align-center">Bon de livraison</h1>
         <p class="text-align-center">
             <span class="bold">Fournisseur</span>:
             <?= $provider->getName() ?>
         </p>
         <p class="text-align-center">
-            <span class="bold">Date Facture</span>:
+            <span class="bold">Date</span>:
             <?= date('d/m/Y', strtotime($purchase->getOperationDate())) ?>
         </p>
         <p class="text-align-center">

@@ -151,7 +151,7 @@ if (isset($_SESSION['userstock'])) {
                                                     <a href="purchaseDetail.php?codePurchase=<?= $purchase->getCode() ?>" class="btn mini blue" title="Voir Détail Achat">
                                                         <i class="icon-eye-open"></i>
                                                     </a>
-                                                    <a href="../print/PurchaseDetailPrint.php?codePurchase=<?= $purchase->getCode() ?>" class="btn mini black" title="Imprimer Facture">
+                                                    <a href="../print/PurchaseDetailPrint.php?codePurchase=<?= $purchase->getCode() ?>" class="btn mini black" title="Imprimer Bon de Livraison">
                                                         <i class="icon-print"></i>
                                                     </a>
                                                     <a href="#updatePurchase<?= $purchase->getId() ?>" data-toggle="modal" data-id="<?= $purchase->getId() ?>" class="btn mini green" title="Modifier Achat">

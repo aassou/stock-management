@@ -6,31 +6,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c44bb305-c230-445f-a5c9-eb7820bef087" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/print/styling.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/print/testPrint.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/stock.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/stock.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ValidationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ValidationController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/PurchaseDetailActionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/PurchaseDetailActionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/include/sidebar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/PurchaseDetailManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/PurchaseDetailManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/PurchaseManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/PurchaseManager.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/print/PurchaseDetailPrint.php" beforeDir="false" afterPath="$PROJECT_DIR$/print/PurchaseDetailPrint.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/caisse-group.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/caisse-group.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/dashboard.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/purchase.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/purchase.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/purchaseDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/purchaseDetail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/warehouse-backup.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/warehouse-backup.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings">
+  <component name="ComposerSettings" doNotAsk="true">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
@@ -104,6 +90,7 @@
       <workItem from="1625149735550" duration="3972000" />
       <workItem from="1625493775643" duration="13528000" />
       <workItem from="1625557657572" duration="1198000" />
+      <workItem from="1625667358260" duration="560000" />
     </task>
     <servers />
   </component>

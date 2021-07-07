@@ -139,7 +139,7 @@ if (isset($_SESSION['userstock'])) {
                                                 class="btn black"
                                                 href="../print/PurchaseDetailPrint.php?codePurchase=<?= $codePurchase ?>"
                                             >
-                                                <i class="icon-print"></i>&nbsp;Imprimer Facture
+                                                <i class="icon-print"></i>&nbsp;Imprimer Bon de livraison
                                             </a>
                                         </div>
                                     </div>
