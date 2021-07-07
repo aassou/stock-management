@@ -6,26 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c44bb305-c230-445f-a5c9-eb7820bef087" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ValidationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ValidationController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/ClientActionController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/SaleDetailActionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/SaleDetailActionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/t_client.sql" beforeDir="false" afterPath="$PROJECT_DIR$/db/t_client.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/include/sidebar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/CaisseManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/CaisseManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/Client.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/ClientManager.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/PurchaseDetailManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/PurchaseDetailManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/SaleDetailManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/SaleDetailManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/SaleManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/SaleManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/print/PurchaseDetailPrint.php" beforeDir="false" afterPath="$PROJECT_DIR$/print/PurchaseDetailPrint.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/print/SaleDetailPrint.php" beforeDir="false" afterPath="$PROJECT_DIR$/print/SaleDetailPrint.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/print/styling.php" beforeDir="false" afterPath="$PROJECT_DIR$/print/styling.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/Sale.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/sale.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/SaleDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/saleDetail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/caisse-group.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/caisse-group.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/dashboard.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/provider.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/provider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +89,7 @@
       <workItem from="1625493775643" duration="13528000" />
       <workItem from="1625557657572" duration="1198000" />
       <workItem from="1625667358260" duration="560000" />
-      <workItem from="1625668128891" duration="5067000" />
+      <workItem from="1625668128891" duration="5322000" />
     </task>
     <servers />
   </component>
